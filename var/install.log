@@ -1,0 +1,39 @@
+[Thu, 06 Mar 2014 21:02:35 +0400] (N); Creating database scheme
+[Thu, 06 Mar 2014 21:02:40 +0400] (N); Importing data
+[Thu, 06 Mar 2014 21:02:40 +0400] (N); Creating demo
+[Thu, 06 Mar 2014 21:02:41 +0400] (N); Installing additional language en
+[Thu, 06 Mar 2014 21:02:42 +0400] (N); Installing additional language en
+[Thu, 06 Mar 2014 21:02:45 +0400] (N); access_restrictions add-on installed
+[Thu, 06 Mar 2014 21:02:46 +0400] (N); attachments add-on installed
+[Thu, 06 Mar 2014 21:02:46 +0400] (N); banners add-on installed
+[Thu, 06 Mar 2014 21:02:46 +0400] (N); barcode add-on installed
+[Thu, 06 Mar 2014 21:02:46 +0400] (N); bestsellers add-on installed
+[Thu, 06 Mar 2014 21:02:46 +0400] (N); buy_together add-on installed
+[Thu, 06 Mar 2014 21:02:46 +0400] (N); catalog_mode add-on installed
+[Thu, 06 Mar 2014 21:02:46 +0400] (N); customers_also_bought add-on installed
+[Thu, 06 Mar 2014 21:02:46 +0400] (N); data_feeds add-on installed
+[Thu, 06 Mar 2014 21:02:47 +0400] (N); discussion add-on installed
+[Thu, 06 Mar 2014 21:02:47 +0400] (N); form_builder add-on installed
+[Thu, 06 Mar 2014 21:02:47 +0400] (N); gift_certificates add-on installed
+[Thu, 06 Mar 2014 21:02:47 +0400] (N); google_analytics add-on installed
+[Thu, 06 Mar 2014 21:02:47 +0400] (N); google_sitemap add-on installed
+[Thu, 06 Mar 2014 21:02:47 +0400] (N); hidpi add-on installed
+[Thu, 06 Mar 2014 21:02:47 +0400] (N); hybrid_auth add-on installed
+[Thu, 06 Mar 2014 21:02:47 +0400] (N); image_zoom add-on installed
+[Thu, 06 Mar 2014 21:02:48 +0400] (N); janrain add-on installed
+[Thu, 06 Mar 2014 21:02:48 +0400] (N); my_changes add-on installed
+[Thu, 06 Mar 2014 21:02:48 +0400] (N); news_and_emails add-on installed
+[Thu, 06 Mar 2014 21:02:48 +0400] (N); polls add-on installed
+[Thu, 06 Mar 2014 21:02:48 +0400] (N); price_list add-on installed
+[Thu, 06 Mar 2014 21:02:48 +0400] (N); required_products add-on installed
+[Thu, 06 Mar 2014 21:02:49 +0400] (N); reward_points add-on installed
+[Thu, 06 Mar 2014 21:02:49 +0400] (N); rma add-on installed
+[Thu, 06 Mar 2014 21:02:49 +0400] (N); rss_feed add-on installed
+[Thu, 06 Mar 2014 21:02:49 +0400] (N); seo add-on installed
+[Thu, 06 Mar 2014 21:02:49 +0400] (N); social_buttons add-on installed
+[Thu, 06 Mar 2014 21:02:50 +0400] (N); store_locator add-on installed
+[Thu, 06 Mar 2014 21:02:50 +0400] (N); tags add-on installed
+[Thu, 06 Mar 2014 21:02:50 +0400] (N); twigmo add-on installed
+[Thu, 06 Mar 2014 21:02:50 +0400] (N); vendor_data_premoderation add-on installed
+[Thu, 06 Mar 2014 21:02:50 +0400] (N); watermarks add-on installed
+[Thu, 06 Mar 2014 21:02:50 +0400] (N); wishlist add-on installed

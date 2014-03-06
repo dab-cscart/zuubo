@@ -1,0 +1,473 @@
+# Translation of Multi-Vendor in Norwegian
+# This file is distributed under the same license as the Multi-Vendor package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2014-01-27 12:53:47+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: GlotPress/0.1\n"
+"Language: no\n"
+"Pack-Name: Norsk\n"
+"Lang-Code: no\n"
+"Country-Code: NO\n"
+"Project-Id-Version: Multi-Vendor\n"
+
+#. Add vendor
+msgctxt "Languages"
+msgid "add_vendor"
+msgstr ""
+
+#. All vendors
+msgctxt "Languages"
+msgid "all_vendors"
+msgstr ""
+
+#. Apply for a vendor account
+msgctxt "Languages"
+msgid "apply_for_vendor_account"
+msgstr ""
+
+#. Sales period
+msgctxt "Languages"
+msgid "sales_period"
+msgstr ""
+
+#. Sales period total
+msgctxt "Languages"
+msgid "sales_period_total"
+msgstr ""
+
+#. Add vendors
+msgctxt "Languages"
+msgid "add_companies"
+msgstr ""
+
+#. Add vendors and close
+msgctxt "Languages"
+msgid "add_companies_and_close"
+msgstr ""
+
+#. New vendor
+msgctxt "Languages"
+msgid "new_vendor"
+msgstr ""
+
+#. Notify vendor
+msgctxt "Languages"
+msgid "notify_vendor"
+msgstr ""
+
+#. Notify vendors by e-mail
+msgctxt "Languages"
+msgid "notify_vendors_by_email"
+msgstr ""
+
+#. Manage payouts
+msgctxt "Languages"
+msgid "privileges.manage_payouts"
+msgstr ""
+
+#. Manage vendors
+msgctxt "Languages"
+msgid "privileges.manage_vendors"
+msgstr ""
+
+#. View payouts
+msgctxt "Languages"
+msgid "privileges.view_payouts"
+msgstr ""
+
+#. View vendors
+msgctxt "Languages"
+msgid "privileges.view_vendors"
+msgstr ""
+
+#. Vendors
+msgctxt "Languages"
+msgid "privilege_sections.vendors"
+msgstr ""
+
+#. Available for vendor
+msgctxt "Languages"
+msgid "available_for_vendor"
+msgstr ""
+
+#. Balance carried forward
+msgctxt "Languages"
+msgid "balance_carried_forward"
+msgstr ""
+
+#. Vendors
+msgctxt "Languages"
+msgid "block_vendors"
+msgstr ""
+
+msgctxt "Languages"
+msgid "block_vendors_description"
+msgstr ""
+
+#. Charge to vendor account
+msgctxt "Languages"
+msgid "charge_to_vendor_account"
+msgstr ""
+
+#. Vendors
+msgctxt "Languages"
+msgid "companies"
+msgstr ""
+
+#. Create administrator account
+msgctxt "Languages"
+msgid "create_administrator_account"
+msgstr ""
+
+#. Displayed vendors
+msgctxt "Languages"
+msgid "displayed_vendors"
+msgstr ""
+
+#. Editing vendor
+msgctxt "Languages"
+msgid "editing_vendor"
+msgstr ""
+
+#. Administrator account was not created. The email address belongs to another
+#. user. You can add the administrator for this vendor manually.
+msgctxt "Languages"
+msgid "error_admin_not_created_email_already_used"
+msgstr ""
+
+#. Administrator account was not created. The user name belongs to another
+#. user. You should change the administrator account's name.
+msgctxt "Languages"
+msgid "error_admin_not_created_name_already_used"
+msgstr ""
+
+#. The vendor with e-mail you have chosen already exists, please try another.
+msgctxt "Languages"
+msgid "error_vendor_exists"
+msgstr ""
+
+#. Expenditure
+msgctxt "Languages"
+msgid "expenditure"
+msgstr ""
+
+#. Income
+msgctxt "Languages"
+msgid "income"
+msgstr ""
+
+#. Manage vendors
+msgctxt "Languages"
+msgid "manage_vendors"
+msgstr ""
+
+#. New administrator account has been successfully created.
+msgctxt "Languages"
+msgid "new_administrator_account_created"
+msgstr ""
+
+#. Error while adding the request.
+msgctxt "Languages"
+msgid "text_error_adding_request"
+msgstr ""
+
+#. New payment was created
+msgctxt "Languages"
+msgid "text_new_payment_was_created"
+msgstr ""
+
+#. You have vendors that require your approval. Please <a href="[link]">follow
+#. this link</a> to review these vendors.
+msgctxt "Languages"
+msgid "text_not_approved_vendors"
+msgstr ""
+
+#. Full access to all features during the 30-day trial period, starting from
+#. the time of activation.<br /><br />After the 30-day trial period is over,
+#. this mode will become unavailable.<br /><br />
+msgctxt "Languages"
+msgid "text_store_mode_trial"
+msgstr ""
+
+#. Your request was successfully added. You will receive the email with the
+#. answer later.
+msgctxt "Languages"
+msgid "text_successful_request"
+msgstr ""
+
+#. Total amount due
+msgctxt "Languages"
+msgid "total_amount_due"
+msgstr ""
+
+#. Total sales period payout
+msgctxt "Languages"
+msgid "total_period_payout"
+msgstr ""
+
+#. Total unpaid balance
+msgctxt "Languages"
+msgid "total_unpaid_balance"
+msgstr ""
+
+#. If payment surcharge is taken from vendors, taxes are not calculated
+msgctxt "Languages"
+msgid "tt_views_payments_update_taxes"
+msgstr ""
+
+#. Unable to delete this vendor account because there are orders containing the
+#. products of this vendor in the store database. To delete the account, please
+#. delete all such orders first.
+msgctxt "Languages"
+msgid "unable_delete_vendor_orders_exists"
+msgstr ""
+
+#. Vendor
+msgctxt "Languages"
+msgid "vendor"
+msgstr ""
+
+#. Vendors
+msgctxt "Languages"
+msgid "vendors"
+msgstr ""
+
+#. Sorted list of vendor accounts registered in the store.
+msgctxt "Languages"
+msgid "vendors_menu_description"
+msgstr ""
+
+#. Account balance
+msgctxt "Languages"
+msgid "vendor_account_balance"
+msgstr ""
+
+#. New vendor account application
+msgctxt "Languages"
+msgid "vendor_approval_pending"
+msgstr ""
+
+#. Vendor commission
+msgctxt "Languages"
+msgid "vendor_commission"
+msgstr ""
+
+#. Display product vendor
+msgctxt "SettingsOptions"
+msgid "display_vendor"
+msgstr ""
+
+#. If enabled a customers will not be able see payment surcharge and it will
+#. not be applied to order total
+msgctxt "SettingsTooltips"
+msgid "include_payment_surcharge"
+msgstr ""
+
+#. Search by vendor
+msgctxt "Languages"
+msgid "search_by_vendor"
+msgstr ""
+
+#. Sort by alphabetical: A to Z
+msgctxt "Languages"
+msgid "sort_by_company_asc"
+msgstr ""
+
+#. Sort by alphabetical: Z to A
+msgctxt "Languages"
+msgid "sort_by_company_desc"
+msgstr ""
+
+#. Your profile has been changed and once the changes are approved, the
+#. information about your company will appear in the storefront.
+msgctxt "Languages"
+msgid "text_company_status_active_to_pending"
+msgstr ""
+
+#. Your request for vendor [company] was approved.
+msgctxt "Languages"
+msgid "text_company_status_new_to_active"
+msgstr ""
+
+#. New administrator was created. You can access to the administrator area:
+#. [link] by using the following credentials:<br />Login: [login]<br
+#. />Password: [password]
+msgctxt "Languages"
+msgid "text_company_status_new_to_active_administrator_created"
+msgstr ""
+
+#. Type of your account [login] changed to administrator. You may login into
+#. the administrator area: [link]
+msgctxt "Languages"
+msgid "text_company_status_new_to_active_administrator_updated"
+msgstr ""
+
+#. Your request for vendor was approved.
+msgctxt "Languages"
+msgid "text_company_status_new_to_active_subj"
+msgstr ""
+
+#. Your request for vendor [company] was rejected.
+msgctxt "Languages"
+msgid "text_company_status_new_to_disable"
+msgstr ""
+
+#. Your request for vendor was rejected.
+msgctxt "Languages"
+msgid "text_company_status_new_to_disable_subj"
+msgstr ""
+
+#. Congratulations, your application for getting a vendor account has been
+#. approved. Once we review you accont information, we will publish it on our
+#. website.
+msgctxt "Languages"
+msgid "text_company_status_new_to_pending"
+msgstr ""
+
+#. Your company is waiting for approval.
+msgctxt "Languages"
+msgid "text_company_status_pending_subj"
+msgstr ""
+
+#. Your profile changes for vendor [company] were approved.
+msgctxt "Languages"
+msgid "text_company_status_pending_to_active"
+msgstr ""
+
+#. Vendor name
+msgctxt "Languages"
+msgid "vendor_name"
+msgstr ""
+
+#. Vendor pages
+msgctxt "Languages"
+msgid "vendor_pages"
+msgstr ""
+
+#. Vendor panel
+msgctxt "Languages"
+msgid "vendor_panel"
+msgstr ""
+
+#. View vendor orders
+msgctxt "Languages"
+msgid "view_vendor_orders"
+msgstr ""
+
+#. View vendor products
+msgctxt "Languages"
+msgid "view_vendor_products"
+msgstr ""
+
+#. View vendor users
+msgctxt "Languages"
+msgid "view_vendor_users"
+msgstr ""
+
+#. You can edit the account details now.
+msgctxt "Languages"
+msgid "you_can_edit_account_details"
+msgstr ""
+
+#. Vendors
+msgctxt "SettingsSections"
+msgid "Vendors"
+msgstr ""
+
+#. Vendors per page
+msgctxt "SettingsOptions"
+msgid "vendors_per_page"
+msgstr ""
+
+#. Allow users to apply for vendor account
+msgctxt "SettingsOptions"
+msgid "apply_for_vendor"
+msgstr ""
+
+#. Automatically create the administrator account for the new approved vendor.
+#. (If the "Allow users to apply for vendor account" setting is enabled)
+msgctxt "SettingsOptions"
+msgid "create_vendor_administrator_account"
+msgstr ""
+
+#. Apply for a vendor account form
+msgctxt "SettingsOptions"
+msgid "use_for_apply_for_vendor_account"
+msgstr ""
+
+#. Include shipping cost in vendors commission
+msgctxt "SettingsOptions"
+msgid "include_shipping"
+msgstr ""
+
+#. Take payment surcharge from vendors
+msgctxt "SettingsOptions"
+msgid "include_payment_surcharge"
+msgstr ""
+
+#. Commissions
+msgctxt "SettingsOptions"
+msgid "commissions_header"
+msgstr ""
+
+#. Vendor's administrator
+msgctxt "Languages"
+msgid "vendor_administrator"
+msgstr ""
+
+#. Vendor's administrators
+msgctxt "Languages"
+msgid "vendor_administrators"
+msgstr ""
+
+#. List of vendor's administrators, registered users with a vendor account.
+msgctxt "Languages"
+msgid "vendor_administrators_menu_description"
+msgstr ""
+
+#. Hello,<br/><br/>You have a new vendor candidate in your store. This vendor
+#. account is pending until you approve it. Follow <a>this URL to view the
+#. account details</a>.
+msgctxt "Languages"
+msgid "vendor_candidate_notification"
+msgstr ""
+
+#. Go to Vendor panel
+msgctxt "Languages"
+msgid "demo_panel.go_vendor_panel"
+msgstr ""
+
+#. Income and expenditure statistics (total, per vendor, per period).
+msgctxt "Languages"
+msgid "vendor_account_balance_menu_description"
+msgstr ""
+
+#. Add vendor's administrator
+msgctxt "Languages"
+msgid "add_vendor_administrator"
+msgstr ""
+
+#. Merge vendor
+msgctxt "Languages"
+msgid "merge_vendor"
+msgstr ""
+
+#. Select a new owner of this company's profile data:
+msgctxt "Languages"
+msgid "select_new_owner_company"
+msgstr ""
+
+#. Merging two company accounts will remove [company_name] from the database,
+#. and all the profile data (products, orders, shipping methods, users,
+#. promotions, etc.) will be transferred to this company's account
+msgctxt "Languages"
+msgid "warning_merging_companies"
+msgstr ""
+
+#. Vendor ID
+msgctxt "Languages"
+msgid "vendor_id"
+msgstr ""

@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<addon scheme="2.0">
+    <id>vendor_data_premoderation</id>
+    <name>Vendor data premoderation</name>
+    <description>Lets you pre-moderate vendors activity</description>
+    <version>1.0</version>
+    <priority>1000</priority>
+    <position>45</position>
+    <status>active</status>
+    <default_language>en</default_language>
+    <auto_install>MULTIVENDOR</auto_install>
+    <settings>
+        <sections>
+            <section id="general">
+                <name>General</name>
+                <items>
+                    <item id="products_prior_approval">
+                        <name>Products require prior approval</name>
+                        <type>selectbox</type>
+                        <default_value>none</default_value>
+                        <variants>
+                            <item id="none">
+                                <name>None</name>
+                                <translations>
+                                    <item lang="ru">Ни один</item>
+                                    <item lang="zh">不需要</item>
+                                </translations>
+                            </item>
+                            <item id="custom">
+                                <name>Custom</name>
+                                <translations>
+                                    <item lang="ru">Выборочно</item>
+                                    <item lang="zh">海关</item>
+                                </translations>
+                            </item>
+                            <item id="all">
+                                <name>All vendors</name>
+                                <translations>
+                                    <item lang="ru">Все продавцы</item>
+                                    <item lang="zh">所有供货商</item>
+                                </translations>
+                            </item>
+                        </variants>
+                        <tooltip>"None" - this option is disabled for all vendors; "Custom" - the option is enabled on a vendor details page (the Add-ons tab); "All vendors" - the option is enabled for all vendors.</tooltip>
+                        <translations>
+                            <item lang="ru">Товары требуют предварительного утверждения</item>
+                            <item lang="ru" for="tooltip">"Ничего" - данная настройка отключена для всех продавцов; "Выборочно" - настройка влючается на странице редактирования продавца (во вкладке Модули); "Все продавцы" - настройка включена для всех продавцов.</item>
+                            <item lang="zh">产品需要事先核准</item>
+                            <item lang="zh" for="tooltip">"不需要" - 此选项已对所有供货商禁用; "海关" - 此选项在供货商资料页面启用(插件选项卡); "所有供货商" - 此选项对所有供货商启用.</item>
+                        </translations>
+                    </item>
+                    <item id="products_updates_approval">
+                        <name>Approve product info updates</name>
+                        <type>selectbox</type>
+                        <default_value>none</default_value>
+                        <variants>
+                            <item id="none">
+                                <name>None</name>
+                                <translations>
+                                    <item lang="ru">Ни один</item>
+                                    <item lang="zh">不需要</item>
+                                </translations>
+                            </item>
+                            <item id="custom">
+                                <name>Custom</name>
+                                <translations>
+                                    <item lang="ru">Выборочно</item>
+                                    <item lang="zh">海关</item>
+                                </translations>
+                            </item>
+                            <item id="all">
+                                <name>All vendors</name>
+                                <translations>
+                                    <item lang="ru">Все продавцы</item>
+                                    <item lang="zh">所有供货商</item>
+                                </translations>
+                            </item>
+                        </variants>
+                        <tooltip>"None" - this option is disabled for all vendors; "Custom" - the option is enabled on a vendor details page (the Add-ons tab); "All vendors" - the option is enabled for all vendors.</tooltip>
+                        <translations>
+                            <item lang="ru">Утверждать изменения в информации о товарах</item>
+                            <item lang="ru" for="tooltip">"Ничего" - данная настройка отключена для всех продавцов; "Выборочно" - настройка влючается на странице редактирования продавца (во вкладке Модули); "Все продавцы" - настройка включена для всех продавцов.</item>
+                            <item lang="zh">核准产品信息更新</item>
+                            <item lang="zh" for="tooltip">"不需要" - 此选项已对所有供货商禁用; "海关" - 此选项在供货商资料页面启用(插件选项卡); "所有供货商" - 此选项对所有供货商启用.</item>
+                        </translations>
+                    </item>
+                    <item id="vendor_profile_updates_approval">
+                        <name>Approve vendor profile updates</name>
+                        <type>selectbox</type>
+                        <default_value>none</default_value>
+                        <variants>
+                            <item id="none">
+                                <name>None</name>
+                                <translations>
+                                    <item lang="ru">Ни один</item>
+                                    <item lang="zh">不需要</item>
+                                </translations>
+                            </item>
+                            <item id="custom">
+                                <name>Custom</name>
+                                <translations>
+                                    <item lang="ru">Выборочно</item>
+                                    <item lang="zh">海关</item>
+                                </translations>
+                            </item>
+                            <item id="all">
+                                <name>All vendors</name>
+                                <translations>
+                                    <item lang="ru">Все продавцы</item>
+                                    <item lang="zh">所有供货商</item>
+                                </translations>
+                            </item>
+                        </variants>
+                        <tooltip>"None" - this option is disabled for all vendors; "Custom" - the option is enabled on a vendor details page (the Add-ons tab); "All vendors" - the option is enabled for all vendors.</tooltip>
+                        <translations>
+                            <item lang="ru">Утверждать изменения в учётных записях продавцов</item>
+                            <item lang="ru" for="tooltip">"Ничего" - данная настройка отключена для всех продавцов; "Выборочно" - настройка влючается на странице редактирования продавца (во вкладке Модули); "Все продавцы" - настройка включена для всех продавцов.</item>
+                            <item lang="zh">核准供货商资料更新</item>
+                            <item lang="zh" for="tooltip">"不需要" - 此选项已对所有供货商禁用; "海关" - 此选项在供货商资料页面启用(插件选项卡); "所有供货商" - 此选项对所有供货商启用.</item>
+                        </translations>
+                    </item>
+                </items>
+            </section>
+        </sections>
+    </settings>
+    <language_variables>
+        <item id="product_approval_menu_description" lang="en">Manage individual products or group of products supplied by the store vendors.</item>
+        <item id="product_approval_menu_description" lang="ru">Управление отдельными товарами или группой товаров, поставляемых компанией.</item>
+        <item id="product_approval_menu_description" lang="zh">管理由商店供应商提供的单个产品或组.</item>
+        <item id="product_approval_menu_description" lang="it">Gestione singoli prodotti o gruppi di prodotti forniti dai venditori del negozio.</item>
+        <item id="product_approval_menu_description" lang="el">Διαχείριση ατομικώνμεμονομένων προϊόντων ή ομάδες προϊόντων που παρέχονται απο τους προμηθευτές του καταστήματος.</item>
+        <item id="product_approval_menu_description" lang="bg">Редактиране на отделни продукти или продуктови групи, които са били добавени от вендори.</item>
+
+        <item lang="en" id="vendor_data_premoderation">Vendor data premoderation</item>
+        <item lang="en" id="product_approval">Product approval</item>
+        <item lang="en" id="notify_vendor_by_email">Notify vendor by e-mail</item>
+        <item lang="en" id="product_approval_status_approved">Your product [product] has been approved by the store administration and added to the product catalog. Now shoppers can order this product in the store.</item>
+        <item lang="en" id="product_approval_status_disapproved">Your product [product] has been disapproved by the store administration</item>
+        <item lang="en" id="products_approval_status_approved">Thank you for submitting new products. The following products have been approved by the store administration and added to the product catalog</item>
+        <item lang="en" id="text_shoppers_can_order_products">Now shoppers can order these products in the store.</item>
+        <item lang="en" id="products_approval_status_disapproved">Thank you for submitting new products. The following products have been disapproved by the store administration</item>
+        <item lang="en" id="approve_selected">Approve selected</item>
+        <item lang="en" id="disapprove_selected">Disapprove selected</item>
+        <item lang="en" id="pre_moderation">Products require prior approval</item>
+        <item lang="en" id="pre_moderation_edit">Approve product info updates</item>
+        <item lang="en" id="pre_moderation_edit_vendors">Approve vendor profile updates</item>
+        <item lang="en" id="text_not_approved_products"><![CDATA[You have products that require your approval. Please <a href="[link]">follow this link</a> to review these products.]]></item>
+        <item lang="en" id="products_approval_status_changed">Your product(s) have been [status]</item>
+        <item lang="en" id="approval">Approval</item>
+        <item lang="en" id="text_vendor_profile_changes_notice">Are you sure that you want to update the profile? Information about your company will not be available in the customer area until the administrator approves it.</item>
+        <item lang="en" id="privileges.manage_product_premoderation">Approve vendor products</item>
+        <item lang="ru" id="approval">Утверждение</item>
+        <item lang="ru" id="approve_selected">Утвердить выбранные</item>
+        <item lang="ru" id="disapprove_selected">Отколнить выбранные</item>
+        <item lang="ru" id="notify_vendor_by_email">Уведомлять продавца по электронной почте</item>
+        <item lang="ru" id="pre_moderation">Товары требуют предварительного подтверждения</item>
+        <item lang="ru" id="pre_moderation_edit">Подтверждать изменения информации о товарах</item>
+        <item lang="ru" id="pre_moderation_edit_vendors">Подтверждать изменения информации в учетной записи продавца</item>
+        <item lang="ru" id="products_approval_status_approved">Спасибо за добавление новых товаров. Следующие товары были утверждены администратором магазина и добавлены в каталог товаров</item>
+        <item lang="ru" id="products_approval_status_changed">Ваш(и) товар(ы) получили статус [status]</item>
+        <item lang="ru" id="products_approval_status_disapproved">Спасибо за добавление новых товаров. Следующие товары были отклонены администратором магазина</item>
+        <item lang="ru" id="product_approval">Утверждение товаров</item>
+        <item lang="ru" id="product_approval_status_approved">Ваш товар [product] был утвержден администратором магазина и добавлен в каталог товаров. Теперь покупатели могут заказать данный товар в магазине.</item>
+        <item lang="ru" id="product_approval_status_disapproved">Ваш товар [product] был отклонен администратором магазина</item>
+        <item lang="ru" id="text_not_approved_products"><![CDATA[У Вас есть товары, которые требуют утверждения. Посмотреть их список можно по <a href="[link]">этой сслыке</a>.]]></item>
+        <item lang="ru" id="text_shoppers_can_order_products">Теперь покупатели могут заказывать эти товары в магазине.</item>
+        <item lang="ru" id="text_vendor_profile_changes_notice">Вы уверены, что хотите обновить Вашу учетную запись? Информация о Вашей компании не будет отображаться в витрине магазина до тех пор, пока администратор не подтвердит её.</item>
+        <item lang="ru" id="vendor_data_premoderation">Премодерация данных продавца</item>
+        <item lang="ru" id="privileges.manage_product_premoderation">Утверждение товаров, добавляемых продавцами</item>
+
+        <item lang="zh" id="vendor_data_premoderation">供货商资料预先管理</item>
+        <item lang="zh" id="product_approval">产品审核</item>
+        <item lang="zh" id="notify_vendor_by_email">邮件通知供货商</item>
+        <item lang="zh" id="product_approval_status_approved">您的产品[product]已由商店管理员核准并添加到了产品目录中.现在购买者可以在商店中订购此产品.</item>
+        <item lang="zh" id="product_approval_status_disapproved">您的产品[product]已由商店管理员驳回</item>
+        <item lang="zh" id="products_approval_status_approved">谢谢提交新的产品. 以下产品已由商店管理员核准并添加到了产品目录中</item>
+        <item lang="zh" id="text_shoppers_can_order_products">现在购买者可以在商店中订购此产品.</item>
+        <item lang="zh" id="products_approval_status_disapproved">谢谢提交新的产品. 以下产品已由商店管理员驳回</item>
+        <item lang="zh" id="approve_selected">核准选择的</item>
+        <item lang="zh" id="disapprove_selected">驳回选择的</item>
+        <item lang="zh" id="pre_moderation">产品需要事先核准</item>
+        <item lang="zh" id="pre_moderation_edit">核准产品信息更新</item>
+        <item lang="zh" id="pre_moderation_edit_vendors">核准供货商资料更新</item>
+        <item lang="zh" id="text_not_approved_products">您有产品需求您核准.请点击[以下这个链接]查看这些产品.</item>
+        <item lang="zh" id="products_approval_status_changed">您的产品已被[status]</item>
+        <item lang="zh" id="approval">核准</item>
+        <item lang="zh" id="text_vendor_profile_changes_notice">您确定要更新资料吗? 在管理员核准前您的公司信息将不会在前台显示.</item>
+    </language_variables>
+    <queries>
+        <item>ALTER TABLE ?:products ADD `approved` char(1) NOT NULL DEFAULT 'Y' AFTER `company_id`</item>
+        <item for="uninstall">ALTER TABLE ?:products DROP `approved`</item>
+        <item>ALTER TABLE ?:companies ADD `pre_moderation` char(1) NOT NULL DEFAULT 'N'</item>
+        <item for="uninstall">ALTER TABLE ?:companies DROP `pre_moderation`</item>
+        <item>ALTER TABLE ?:companies ADD `pre_moderation_edit` char(1) NOT NULL DEFAULT 'N'</item>
+        <item for="uninstall">ALTER TABLE ?:companies DROP `pre_moderation_edit`</item>
+        <item>ALTER TABLE ?:companies ADD `pre_moderation_edit_vendors` char(1) NOT NULL DEFAULT 'N'</item>
+        <item for="uninstall">ALTER TABLE ?:companies DROP `pre_moderation_edit_vendors`</item>
+        <item editions="PROFESSIONAL,MULTIVENDOR,ULTIMATE">REPLACE INTO  ?:privileges (privilege, is_default, section_id) VALUES ('manage_product_premoderation', 'Y', 'vendors');</item>
+        <item for="uninstall" editions="PROFESSIONAL,MULTIVENDOR,ULTIMATE">DELETE FROM ?:privileges WHERE privilege = 'manage_product_premoderation'</item>
+    </queries>
+    <translations>
+        <item for="name" lang="ru">Предварительная модерация данных продавцов</item>
+        <item for="description" lang="ru">Позволяет предварительно модерировать данные, добавленные продавцом</item>
+
+        <item for="name" lang="zh">供货商资料预先管理</item>
+        <item for="description" lang="zh">让您提前审查供货商的活动</item>
+    </translations>
+</addon>

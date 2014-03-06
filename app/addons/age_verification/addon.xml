@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<addon scheme="2.0">
+    <id>age_verification</id>
+    <name>Age verification</name>
+    <description>Toggles age restriction rules for products and categories</description>
+    <version>1.0</version>
+    <priority>2900</priority>
+    <position>0</position>
+    <status>active</status>
+    <default_language>en</default_language>
+    <translations>
+        <item for="name" lang="fr">Vérification de l'âge</item>
+        <item for="name" lang="da">Aldersverifikation</item>
+        <item for="name" lang="el">Επαλήθευση ηλικίας</item>
+        <item for="name" lang="it">Verifica età</item>
+        <item for="name" lang="ro">Verificare vârstei</item>
+        <item for="name" lang="ru">Ограничение по возрасту</item>
+        <item for="name" lang="sl">Preverjanje starosti</item>
+        <item for="name" lang="zh">年龄核实</item>
+        <item for="description" lang="ru">Позволяет устанавливать возрастное ограничение на товары и категории</item>
+        <item for="description" lang="zh">切换年龄限制规则的产品和分类</item>
+    </translations>
+    <language_variables>
+        <item id="age_verification" lang="en">Age verification</item>
+        <item id="age_verification" lang="ru">Проверка возраста</item>
+        <item id="age_verification" lang="zh">年龄验证</item>
+        <item id="age_verification" lang="it">Verifica età</item>
+        <item id="age_verification" lang="el">Επαλήθευση ηλικίας</item>
+        <item id="age_verification" lang="bg">Проверка на възрастта</item>
+        <item id="age_verification" lang="ro">Verificarea vârstei</item>
+        <item id="age_verification" lang="sl">Preverjanje starosti</item>
+        <item id="age_verification" lang="da">Alders bekræftelse</item>
+        <item id="age_verification" lang="fr">Vérification de l'âge</item>
+        <item id="age_verification" lang="no">Verifisering av alder</item>
+
+        <item id="product_need_age_verification" lang="en">You should verify your age to view this product.</item>
+        <item id="product_need_age_verification" lang="ru">Для просмотра этого товара вы должны подтвердить ваш возвраст.</item>
+        <item id="product_need_age_verification" lang="zh">您应该验证您的年龄才可以查看此产品.</item>
+        <item id="product_need_age_verification" lang="it">Verifica la tua età per visualizzare il prodotto.</item>
+        <item id="product_need_age_verification" lang="el">Θα πρέπει να πιστοποιήσετε την ηλικία σας για να δείτε αυτό το προϊόν.</item>
+        <item id="product_need_age_verification" lang="bg">За да видите този продукт трябва да потвърдите вашата възраст.</item>
+        <item id="product_need_age_verification" lang="ro">Trebuie să specificați vârsta pentru a vizualiza acest produs.</item>
+        <item id="product_need_age_verification" lang="sl">Preveriti morate vašo starost, da si lahko ogledate ta izdelek.</item>
+        <item id="product_need_age_verification" lang="da">Du skal bekræfte din alder for at se dette produkt.</item>
+        <item id="product_need_age_verification" lang="fr">Vous devez vérifier votre âge pour visualiser ce produit.</item>
+        <item id="product_need_age_verification" lang="no">Du bør verifisere alderen din for å se dette produktet.</item>
+
+        <item id="your_age" lang="en">Your age</item>
+        <item id="your_age" lang="ru">Ваш возраст</item>
+        <item id="your_age" lang="zh">您的年龄</item>
+        <item id="your_age" lang="it">La tua età</item>
+        <item id="your_age" lang="el">Η ηλικία σας</item>
+        <item id="your_age" lang="bg">Вашата възраст</item>
+        <item id="your_age" lang="ro">Vârsta dvs.</item>
+        <item id="your_age" lang="sl">Vaša starost</item>
+        <item id="your_age" lang="da">Din alder</item>
+        <item id="your_age" lang="fr">Votre age</item>
+        <item id="your_age" lang="no">Din alder</item>
+
+        <item id="verify" lang="en">Verify</item>
+        <item id="verify" lang="ru">Подтвердить</item>
+        <item id="verify" lang="zh">验证</item>
+        <item id="verify" lang="it">Verifica</item>
+        <item id="verify" lang="el">Επαλήθευση</item>
+        <item id="verify" lang="bg">Потвърдете</item>
+        <item id="verify" lang="ro">Verificați</item>
+        <item id="verify" lang="sl">Potrdi</item>
+        <item id="verify" lang="da">Bekræfte</item>
+        <item id="verify" lang="fr">Vérifier</item>
+        <item id="verify" lang="es">Verificar</item>
+        <item id="verify" lang="no">Bekreft</item>
+
+        <item id="birthday" lang="en">Birthday</item>
+        <item id="birthday" lang="ru">День рождения</item>
+        <item id="birthday" lang="zh">生日</item>
+        <item id="birthday" lang="it">Giorno di nascita</item>
+        <item id="birthday" lang="el">Γενέθλια</item>
+        <item id="birthday" lang="bg">Рожден ден</item>
+        <item id="birthday" lang="ro">Zi de naștere</item>
+        <item id="birthday" lang="sl">Datum rojstva</item>
+        <item id="birthday" lang="da">fødselsdag</item>
+        <item id="birthday" lang="fr">Anniversaire</item>
+        <item id="birthday" lang="no">Fødselsdag</item>
+
+        <item lang="en" id="age_limit">Age limit</item>
+        <item lang="en" id="years">years</item>
+        <item lang="en" id="age_warning_message">Warning message</item>
+
+        <item lang="bg" id="age_limit">Възрастова граница</item>
+        <item lang="bg" id="years">Години</item>
+        <item lang="bg" id="age_warning_message">Предупредително съобщение</item>
+
+        <item lang="da" id="age_limit">Alders grænse</item>
+        <item lang="da" id="years">År</item>
+        <item lang="da" id="age_warning_message">Advarselsmeddelelse</item>
+
+        <item lang="el" id="age_limit">Όριο ηλικίας</item>
+        <item lang="el" id="years">χρόνια</item>
+        <item lang="el" id="age_warning_message">Προειδοποιητικό μήνυμα</item>
+
+        <item lang="fr" id="age_limit">Limite d'âge</item>
+        <item lang="fr" id="years">ans</item>
+        <item lang="fr" id="age_warning_message">Message d'avertissement</item>
+
+        <item lang="it" id="age_limit">Limite di età</item>
+        <item lang="it" id="years">Anni</item>
+        <item lang="it" id="age_warning_message">Messaggio di avviso</item>
+
+        <item lang="no" id="age_limit">Aldersgrense</item>
+        <item lang="no" id="years">år</item>
+        <item lang="no" id="age_warning_message">Advarsel</item>
+
+        <item lang="ro" id="age_limit">Limită de vârstă</item>
+        <item lang="ro" id="years">ani</item>
+        <item lang="ro" id="age_warning_message">Mesaj de avertizare</item>
+
+        <item lang="ru" id="age_limit">Возрастное ограничение</item>
+        <item lang="ru" id="years">лет</item>
+        <item lang="ru" id="age_warning_message">Предупреждение</item>
+
+        <item lang="sl" id="age_limit">Starostna omejitev</item>
+        <item lang="sl" id="years">leta</item>
+        <item lang="sl" id="age_warning_message">Opozorilno sporočilo</item>
+
+        <item lang="zh" id="age_limit">年龄显示</item>
+        <item lang="zh" id="years">岁</item>
+        <item lang="zh" id="age_warning_message">警告消息</item>
+    </language_variables>
+</addon>

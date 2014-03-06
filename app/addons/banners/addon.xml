@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<addon scheme="2.0">
+    <id>banners</id>
+    <name>Banners management</name>
+    <description>Allows you to create text and visual banners</description>
+    <version>1.0</version>
+    <priority>2800</priority>
+    <position>100</position>
+    <status>active</status>
+    <dependencies/>
+    <default_language>en</default_language>
+    <auto_install>MULTIVENDOR,ULTIMATE</auto_install>
+    <settings edition_type="ROOT">
+        <sections>
+            <section id="general">
+                <name>General</name>
+                <items>
+                    <item id="banner_multilang">
+                        <name>Enable multi-language Images/URLs </name>
+                        <type>checkbox</type>
+                        <default_value>Y</default_value>
+                        <translations>
+                            <item lang="ru">Включить мультиязычность для рисунков/URL</item>
+                        </translations>
+                    </item>
+                </items>
+            </section>
+        </sections>
+    </settings>
+    <translations>
+        <item for="name" lang="de">Werbeverwaltung</item>
+        <item for="name" lang="es">Gestor de anuncios</item>
+        <item for="name" lang="fr">Gestion de bannières</item>
+        <item for="name" lang="it">Gestione banner</item>
+        <item for="name" lang="nl">Advertentiebeheer</item>
+        <item for="name" lang="da">Bannere forvaltning</item>
+        <item for="name" lang="el">Διαχείρηση των banners</item>
+        <item for="name" lang="ro">Gestionare bannere</item>
+        <item for="name" lang="ru">Управление баннерами</item>
+        <item for="name" lang="sl">Upravljanje z oglasnimi pasicami</item>
+        <item for="name" lang="zh">横幅管理</item>
+        <item for="description" lang="ru">Позволяет создавать текстовые и графические баннеры</item>
+        <item for="description" lang="zh">允许您创建文本和形象的横幅</item>
+    </translations>
+    <queries>
+        <item for="demo" type='file'>database/demo.sql</item>
+        <item for="demo" type='file' editions="ULTIMATE">database/demo_ultimate.sql</item>
+        <item for="demo" type='file' lang="en" table="banner_descriptions">database/demo_banners_en.sql</item>
+        <item for="demo" type='file' lang="ru" table="banner_descriptions">database/demo_banners_ru.sql</item>
+        <item>DROP TABLE IF EXISTS ?:banners;</item>
+        <item>DROP TABLE IF EXISTS ?:banner_descriptions;</item>
+        <item>DROP TABLE IF EXISTS ?:banner_images;</item>
+        <item>
+            CREATE TABLE `?:banners` (
+                `banner_id` mediumint(8) unsigned NOT NULL auto_increment,
+                `status` char(1) NOT NULL default 'A',
+                `type` char(1) NOT NULL default 'G',
+                `target` char(1) NOT NULL default 'B',
+                `localization` varchar(255) NOT NULL default '',
+                `timestamp` int(11) unsigned NOT NULL default '0',
+                `position` smallint(5) unsigned NOT NULL default '0',
+                PRIMARY KEY  (`banner_id`),
+                KEY `localization` (`localization`),
+                KEY `status` (`status`)
+            ) Engine=MyISAM DEFAULT CHARSET UTF8;
+        </item>
+        <item>
+            CREATE TABLE `?:banner_descriptions` (
+                `banner_id` mediumint(8) unsigned NOT NULL default 0,
+                `banner` varchar(255) NOT NULL default '',
+                `url` varchar(255) NOT NULL default '',
+                `description` mediumtext NOT NULL,
+                `lang_code` char(2) NOT NULL default '',
+                PRIMARY KEY  (`banner_id`,`lang_code`)
+            ) Engine=MyISAM DEFAULT CHARSET UTF8;
+        </item>
+        <item>
+            CREATE TABLE `?:banner_images` (
+            `banner_image_id` mediumint(8) unsigned NOT NULL auto_increment,
+            `banner_id` mediumint(8) unsigned NOT NULL default 0,
+            `lang_code` char(2) NOT NULL default '',
+            PRIMARY KEY  (`banner_image_id`),
+            UNIQUE KEY  `banner` (`banner_id`,`lang_code`)
+            ) Engine=MyISAM DEFAULT CHARSET UTF8;
+        </item>
+        <item editions="ULTIMATE">
+            ALTER TABLE `?:banners`
+            ADD COLUMN `company_id` int(11) unsigned NOT NULL DEFAULT '0',
+            ADD KEY `company_id` (`company_id`);
+        </item>
+        <item editions="PROFESSIONAL,MULTIVENDOR,ULTIMATE">REPLACE INTO ?:privileges (privilege, is_default, section_id) VALUES ('view_banners', 'Y', 'design');</item>
+        <item editions="PROFESSIONAL,MULTIVENDOR,ULTIMATE">REPLACE INTO ?:privileges (privilege, is_default, section_id) VALUES ('manage_banners', 'Y', 'design');</item>
+        <item editions="PROFESSIONAL,MULTIVENDOR,ULTIMATE">REPLACE INTO ?:usergroup_privileges (usergroup_id, privilege) VALUES ('4', 'view_banners');</item>
+        <item editions="PROFESSIONAL,MULTIVENDOR,ULTIMATE">REPLACE INTO ?:usergroup_privileges (usergroup_id, privilege) VALUES ('4', 'manage_banners');</item>
+        <item for="uninstall">DROP TABLE IF EXISTS ?:banners;</item>
+        <item for="uninstall">DROP TABLE IF EXISTS ?:banner_descriptions;</item>
+        <item for="uninstall">DROP TABLE IF EXISTS ?:banner_images;</item>
+        <item for="uninstall" editions="PROFESSIONAL,MULTIVENDOR,ULTIMATE">DELETE FROM ?:privileges WHERE privilege = 'view_banners'</item>
+        <item for="uninstall" editions="PROFESSIONAL,MULTIVENDOR,ULTIMATE">DELETE FROM ?:usergroup_privileges WHERE privilege = 'view_banners'</item>
+        <item for="uninstall" editions="PROFESSIONAL,MULTIVENDOR,ULTIMATE">DELETE FROM ?:privileges WHERE privilege = 'manage_banners'</item>
+        <item for="uninstall" editions="PROFESSIONAL,MULTIVENDOR,ULTIMATE">DELETE FROM ?:usergroup_privileges WHERE privilege = 'manage_banners'</item>
+    </queries>
+    <language_variables>
+        <item id="banners.new_banner" lang="en">New banner</item>
+        <item id="banners.new_banner" lang="ru">Новый баннер</item>
+        <item id="banners.new_banner" lang="zh">新的横幅</item>
+        <item id="banners.new_banner" lang="it">Nuovo banner</item>
+        <item id="banners.new_banner" lang="el">Νέο banner</item>
+        <item id="banners.new_banner" lang="bg">Нов банер</item>
+        <item id="banners.new_banner" lang="ro">Banner nou</item>
+        <item id="banners.new_banner" lang="sl">Nova pasica</item>
+        <item id="banners.new_banner" lang="da">ny banner</item>
+        <item id="banners.new_banner" lang="fr">Nouvelle bannière</item>
+        <item id="banners.new_banner" lang="no">Ny banner</item>
+
+        <item id="banners.editing_banner" lang="en">Editing banner</item>
+        <item id="banners.editing_banner" lang="ru">Редактирование баннера</item>
+        <item id="banners.editing_banner" lang="zh">编辑横幅</item>
+        <item id="banners.editing_banner" lang="it">Modifica banner</item>
+        <item id="banners.editing_banner" lang="el">Επεξεργασία banner</item>
+        <item id="banners.editing_banner" lang="bg">Редактиране на банер</item>
+        <item id="banners.editing_banner" lang="ro">Editare banner</item>
+        <item id="banners.editing_banner" lang="sl">Urejanje pasice</item>
+        <item id="banners.editing_banner" lang="da">redigere banner</item>
+        <item id="banners.editing_banner" lang="fr">Édition de la bannière</item>
+        <item id="banners.editing_banner" lang="no">Redigerer banner</item>
+
+        <item id="add_banner" lang="en">Add banner</item>
+        <item id="add_banner" lang="ru">Добавить баннер</item>
+        <item id="add_banner" lang="zh">添加横幅</item>
+        <item id="add_banner" lang="it">Aggiungi banner</item>
+        <item id="add_banner" lang="el">Προσθήκη banner</item>
+        <item id="add_banner" lang="bg">Добави банер</item>
+        <item id="add_banner" lang="ro">Adăugați un banner</item>
+        <item id="add_banner" lang="sl">Dodaj pasico</item>
+        <item id="add_banner" lang="da">Tilføj banner</item>
+        <item id="add_banner" lang="fr">Ajouter une bannière</item>
+        <item id="add_banner" lang="no">Legg til banner</item>
+
+        <item id="banner" lang="en">Banner</item>
+        <item id="banner" lang="ru">Баннер</item>
+        <item id="banner" lang="zh">横幅</item>
+        <item id="banner" lang="bg">Банер</item>
+        <item id="banner" lang="sl">Oglasna pasica</item>
+        <item id="banner" lang="da">banner</item>
+        <item id="banner" lang="fr">Bannière</item>
+
+        <item id="banners" lang="en">Banners</item>
+        <item id="banners" lang="ru">Баннеры</item>
+        <item id="banners" lang="zh">横幅</item>
+        <item id="banners" lang="it">Banner</item>
+        <item id="banners" lang="bg">Банери</item>
+        <item id="banners" lang="ro">Bannere</item>
+        <item id="banners" lang="sl">Oglasne pasice</item>
+        <item id="banners" lang="da">Banner</item>
+        <item id="banners" lang="fr">Bannières</item>
+        <item id="banners" lang="no">Bannere</item>
+
+        <item id="banners_menu_description" lang="en">Create graphic and text banners that can then be placed on the storefront.</item>
+        <item id="banners_menu_description" lang="ru">Создание графических и текстовых баннеров для размещения на витрине магазина.</item>
+        <item id="banners_menu_description" lang="zh">创建版画和文字横幅然后可以放置在商店的前台.</item>
+        <item id="banners_menu_description" lang="it">Crea banner che possono essere inseriti nel sito</item>
+        <item id="banners_menu_description" lang="el">Δημιουργήστε banner γραφικών ή κειμένου που μπορούν να τοποθετηθούν στην αρχική του καταστήματος.</item>
+        <item id="banners_menu_description" lang="bg">Създаване на графични и текстови банери.</item>
+
+        <item id="banner_code" lang="en">Banner code</item>
+        <item id="banner_code" lang="ru">Код баннера</item>
+        <item id="banner_code" lang="zh">横幅代码</item>
+        <item id="banner_code" lang="it">Codice banner</item>
+        <item id="banner_code" lang="el">Κωδικός banner</item>
+        <item id="banner_code" lang="bg">Банер код</item>
+        <item id="banner_code" lang="ro">Codul banner-ului</item>
+        <item id="banner_code" lang="sl">Koda oglasne pasice</item>
+        <item id="banner_code" lang="da">Banner kode</item>
+        <item id="banner_code" lang="fr">Code bannière</item>
+        <item id="banner_code" lang="es">Código de banner</item>
+        <item id="banner_code" lang="no">Bannerkode</item>
+
+        <item id="banner_code_for_some_products" lang="en">Banner code for some products</item>
+        <item id="banner_code_for_some_products" lang="ru">Код баннера для некоторого товара</item>
+        <item id="banner_code_for_some_products" lang="zh">横幅代码用于部分产品</item>
+        <item id="banner_code_for_some_products" lang="it">Codice banner per alcuni prodotti</item>
+        <item id="banner_code_for_some_products" lang="el">Κωδικός banner για κάποια προϊόντα</item>
+        <item id="banner_code_for_some_products" lang="bg">Банер код за някои продукти</item>
+        <item id="banner_code_for_some_products" lang="ro">Codul banner-ului pentru câteva din produse</item>
+        <item id="banner_code_for_some_products" lang="sl">Koda oglasne pasice za nekatere proizvode</item>
+        <item id="banner_code_for_some_products" lang="da">Banner kode for nogle produkter</item>
+        <item id="banner_code_for_some_products" lang="fr">Code bannière pour quelques produits</item>
+        <item id="banner_code_for_some_products" lang="no">Bannerkode for enkelte produkter</item>
+
+        <item id="manage_banners" lang="en">Manage banners</item>
+        <item id="manage_banners" lang="ru">Баннеры</item>
+        <item id="manage_banners" lang="zh">管理横幅</item>
+        <item id="manage_banners" lang="it">Gestione banner</item>
+        <item id="manage_banners" lang="el">Διαχείριση banners</item>
+        <item id="manage_banners" lang="bg">Управление на банери</item>
+        <item id="manage_banners" lang="ro">Gestionați banere</item>
+        <item id="manage_banners" lang="sl">Upravljaj oglasne pasice</item>
+        <item id="manage_banners" lang="da">Administrere banner</item>
+        <item id="manage_banners" lang="fr">Gestion des bannières</item>
+        <item id="manage_banners" lang="es">Gestionar banners</item>
+        <item id="manage_banners" lang="no">Administrer bannere</item>
+
+        <item lang="en" id="block_banners">Banners</item>
+        <item lang="en" id="block_banners_description">Visual and text banners</item>
+        <item lang="en" id="privileges.view_banners">View banners</item>
+        <item lang="en" id="privileges.manage_banners">Manage banners</item>
+        <item lang="ru" id="block_banners">Баннеры</item>
+        <item lang="ru" id="block_banners_description">Графические и текстовые баннеры</item>
+        <item lang="ru" id="privileges.view_banners">Просмотр баннеров</item>
+        <item lang="ru" id="privileges.manage_banners">Управление баннерами</item>
+        <item lang="zh" id="block_banners">横幅</item>
+        <item lang="zh" id="block_banners_description">形象的和文本横幅</item>
+        <item lang="en" id="add_banners">Add banners</item>
+        <item lang="en" id="add_banners_and_close">Add banners and close</item>
+        <item lang="en" id="graphic_banner">Graphic banner</item>
+        <item lang="en" id="text_banner">Text banner</item>
+        <item lang="en" id="banners_statistics">Banners statistics</item>
+        <item lang="en" id="views">Views</item>
+        <item lang="en" id="conversion">Conversion</item>
+
+        <item lang="bg" id="add_banners">Добави банер</item>
+        <item lang="bg" id="add_banners_and_close">Добави банер и затвори</item>
+        <item lang="bg" id="graphic_banner">Текстови банер</item>
+        <item lang="bg" id="text_banner">Текст банер</item>
+        <item lang="bg" id="banners_statistics">Банер статистики</item>
+        <item lang="bg" id="views">Показвания</item>
+        <item lang="bg" id="conversion">Конверсия</item>
+
+        <item lang="da" id="add_banners">Tilføj banner</item>
+        <item lang="da" id="add_banners_and_close">Tilføj banner og luk</item>
+        <item lang="da" id="graphic_banner">Grafisk banner</item>
+        <item lang="da" id="text_banner">Tekst banner</item>
+        <item lang="da" id="banners_statistics">Banner statistik</item>
+        <item lang="da" id="views">Visninger</item>
+        <item lang="da" id="conversion">omregning</item>
+
+        <item lang="de" id="graphic_banner">Grafik Banner</item>
+
+        <item lang="el" id="add_banners">Προσθήκη banners</item>
+        <item lang="el" id="add_banners_and_close">Προσθήκη banners και κλείσιμο</item>
+        <item lang="el" id="graphic_banner">Banner γραφικών</item>
+        <item lang="el" id="text_banner">Βanner κειμένου</item>
+        <item lang="el" id="banners_statistics">Στατιστικά των banners</item>
+        <item lang="el" id="views">Προβολές</item>
+        <item lang="el" id="conversion">Μετατροπή  </item>
+
+        <item lang="fr" id="add_banners">Ajouter des bannières</item>
+        <item lang="fr" id="add_banners_and_close">Ajouter les bannières et fermer</item>
+        <item lang="fr" id="graphic_banner">Bannière graphique</item>
+        <item lang="fr" id="text_banner">Bannière au format texte</item>
+        <item lang="fr" id="banners_statistics">Statistiques des bannières</item>
+        <item lang="fr" id="views">Aperçus</item>
+
+        <item lang="it" id="add_banners">Aggiungi banner</item>
+        <item lang="it" id="add_banners_and_close">Aggiungi banner e poi chiudi</item>
+        <item lang="it" id="graphic_banner">Banner grafico</item>
+        <item lang="it" id="text_banner">Testo del banner</item>
+        <item lang="it" id="banners_statistics">Statistiche banner</item>
+        <item lang="it" id="views">Visite</item>
+        <item lang="it" id="conversion">Conversione</item>
+
+        <item lang="nl" id="graphic_banner">Grafische banner</item>
+
+        <item lang="no" id="add_banners">Legg til bannere</item>
+        <item lang="no" id="add_banners_and_close">Legg til bannere og lukk</item>
+        <item lang="no" id="graphic_banner">Grafisk banner</item>
+        <item lang="no" id="text_banner">Tekst banner</item>
+        <item lang="no" id="banners_statistics">Bannerstatistikk</item>
+        <item lang="no" id="views">Visninger</item>
+        <item lang="no" id="conversion">Konvertering</item>
+
+        <item lang="ro" id="add_banners">Adăugați bannere</item>
+        <item lang="ro" id="add_banners_and_close">Adăugați bannere și închideți</item>
+        <item lang="ro" id="graphic_banner">Baner grafic</item>
+        <item lang="ro" id="text_banner">Text baner</item>
+        <item lang="ro" id="banners_statistics">Statistici Bannere</item>
+        <item lang="ro" id="views">Vizualizări</item>
+        <item lang="ro" id="conversion">Conversia</item>
+
+        <item lang="ru" id="add_banners">Добавить баннеры</item>
+        <item lang="ru" id="add_banners_and_close">Добавить баннеры и закрыть</item>
+        <item lang="ru" id="graphic_banner">Графический баннер</item>
+        <item lang="ru" id="text_banner">Текстовый баннер</item>
+        <item lang="ru" id="banners_statistics">Статистика баннеров</item>
+        <item lang="ru" id="views">Виды</item>
+        <item lang="ru" id="conversion">Переход</item>
+
+        <item lang="sl" id="add_banners">Dodaj pasice</item>
+        <item lang="sl" id="add_banners_and_close">Dodaj pasice in zapri</item>
+        <item lang="sl" id="graphic_banner">Grafična oglasna pasica</item>
+        <item lang="sl" id="text_banner">Tekstualna oglasna pasica</item>
+        <item lang="sl" id="banners_statistics">Statistika oglasnih pasic</item>
+        <item lang="sl" id="views">Ogledi</item>
+        <item lang="sl" id="conversion">Konverzija</item>
+
+        <item lang="zh" id="add_banners">添加横幅</item>
+        <item lang="zh" id="add_banners_and_close">添加横幅并关闭</item>
+        <item lang="zh" id="graphic_banner">文本横幅	</item>
+        <item lang="zh" id="text_banner">文字横幅</item>
+        <item lang="zh" id="banners_statistics">横幅统计</item>
+        <item lang="zh" id="views">查看</item>
+        <item lang="zh" id="conversion">转换</item>
+    </language_variables>
+    <functions>
+        <item for="demo">fn_banners_demo_install</item>
+    </functions>
+</addon>
