@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<addon scheme="2.0">
+	<id>spec_dev</id>
+	<name>Specific development</name>
+	<description>Simtech development</description>
+	<version>1.0</version>
+	<priority>9999999999999</priority>
+	<position>0</position>
+	<status>active</status>
+	<dependencies/>
+	<auto_install>MULTIVENDOR,ULTIMATE</auto_install>
+	<queries>
+		<item>
+		    CREATE TABLE IF NOT EXISTS `cscart_badges` (
+		    `badge_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+		    `badge` varchar(255) NOT NULL,
+		    `notify_vendor` char(1) NOT NULL DEFAULT 'Y',
+		    PRIMARY KEY (`badge_id`)
+		    ) ;
+		</item>
+		<item>
+		    CREATE TABLE IF NOT EXISTS `cscart_category_metro_cities` (
+		    `link_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+		    `metro_city_id` mediumint(8) unsigned NOT NULL,
+		    `category_id` mediumint(8) unsigned NOT NULL,
+		    PRIMARY KEY (`link_id`),
+		    KEY `metro_city_id` (`metro_city_id`,`category_id`)
+		    ) ;
+		</item>
+		<item>
+		    CREATE TABLE IF NOT EXISTS `cscart_cities` (
+		    `city_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+		    `metro_city_id` mediumint(8) unsigned NOT NULL,
+		    `city` varchar(255) NOT NULL,
+		    `status` char(1) NOT NULL DEFAULT 'A',
+		    PRIMARY KEY (`city_id`),
+		    UNIQUE KEY `city` (`city`)
+		    ) ;
+		</item>
+		<item>
+		    CREATE TABLE IF NOT EXISTS `cscart_metro_cities` (
+		    `metro_city_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+		    `state_id` mediumint(8) unsigned NOT NULL,
+		    `metro_city` varchar(255) NOT NULL,
+		    `status` char(1) NOT NULL DEFAULT 'A',
+		    PRIMARY KEY (`metro_city_id`),
+		    UNIQUE KEY `metro_city` (`metro_city`)
+		    ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+		</item>
+		<item>
+		    CREATE TABLE IF NOT EXISTS `cscart_product_cities` (
+		    `link_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+		    `city_id` mediumint(8) unsigned NOT NULL,
+		    `product_id` mediumint(8) unsigned NOT NULL,
+		    PRIMARY KEY (`link_id`),
+		    KEY `metro_city_id` (`city_id`,`product_id`)
+		    ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+		</item>
+		<item>
+		    CREATE TABLE IF NOT EXISTS `cscart_product_metro_cities` (
+		    `link_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+		    `metro_city_id` mediumint(8) unsigned NOT NULL,
+		    `product_id` mediumint(8) unsigned NOT NULL,
+		    PRIMARY KEY (`link_id`),
+		    KEY `metro_city_id` (`metro_city_id`,`product_id`)
+		    ) ;
+		</item>
+		<item>
+		    CREATE TABLE IF NOT EXISTS`cscart_vendor_badges` (
+		    `link_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+		    `badge_id` mediumint(8) unsigned NOT NULL,
+		    `vendor_id` mediumint(8) unsigned NOT NULL,
+		    PRIMARY KEY (`link_id`),
+		    UNIQUE KEY `badge_id` (`badge_id`,`vendor_id`)
+		    ) ;
+		</item>
+	</queries>
+	<language_variables>
+		<item lang="en" id="specific_development">Specific development</item>
+		<item lang="en" id="metro_cities">Metro cities</item>
+		<item lang="en" id="metro_city">Metro city</item>
+		<item lang="en" id="microsite">Microsite</item>
+		<item lang="en" id="was_this_review_helpful">Was this review helpful</item>
+		<item lang="en" id="badges_menu_description">Manage vendor badges</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
+	</language_variables>
+</addon>
