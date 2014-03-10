@@ -82,10 +82,10 @@
 		<item lang="en" id="microsite">Microsite</item>
 		<item lang="en" id="was_this_review_helpful">Was this review helpful</item>
 		<item lang="en" id="badges_menu_description">Manage vendor badges</item>
-		<item lang="en" id="badges">Badges</item>
-		<item lang="en" id="badges">Badges</item>
-		<item lang="en" id="badges">Badges</item>
-		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="select_metro_city">Select Metro City</item>
+		<item lang="en" id="new_metro_city">New Metro City</item>
+		<item lang="en" id="new_city">New city</item>
+		<item lang="en" id="badge">Badge</item>
 		<item lang="en" id="badges">Badges</item>
 		<item lang="en" id="badges">Badges</item>
 	</language_variables>

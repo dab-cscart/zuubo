@@ -18,67 +18,63 @@ if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
 /** Body **/
 
-if (empty($_REQUEST['country_code'])) {
-    $_REQUEST['country_code'] = Registry::get('settings.General.default_country');
-}
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //
-    // Create/update metro_city
+    // Create/update badge
     //
     //
     if ($mode == 'update') {
-        fn_update_metro_city($_REQUEST['metro_city_data'], $_REQUEST['metro_city_id'], DESCR_SL);
+        fn_update_badge($_REQUEST['badge_data'], $_REQUEST['badge_id'], DESCR_SL);
     }
 
-    // Updating existing metro_cities
+    // Updating existing badges
     //
     if ($mode == 'm_update') {
-        foreach ($_REQUEST['metro_cities'] as $key => $_data) {
+        foreach ($_REQUEST['badges'] as $key => $_data) {
             if (!empty($_data)) {
-                fn_update_metro_city($_data, $key, DESCR_SL);
+                fn_update_badge($_data, $key, DESCR_SL);
             }
         }
     }
 
     //
-    // Delete selected metro_cities
+    // Delete selected badges
     //
     if ($mode == 'm_delete') {
 
-        if (!empty($_REQUEST['metro_city_ids'])) {
-            foreach ($_REQUEST['metro_city_ids'] as $v) {
-                fn_delete_metro_city($v);
+        if (!empty($_REQUEST['badge_ids'])) {
+            foreach ($_REQUEST['badge_ids'] as $v) {
+                fn_delete_badge($v);
             }
         }
     }
 
-    return array(CONTROLLER_STATUS_OK, "metro_cities.manage?country_code=$_REQUEST[country_code]&state_code=$_REQUEST[state_code]");
+    return array(CONTROLLER_STATUS_OK, "badges.manage");
 }
 
 if ($mode == 'manage') {
 
     $params = $_REQUEST;
-    if (empty($params['country_code'])) {
-        $params['country_code'] = Registry::get('settings.General.default_country');
-    }
 
-    list($metro_cities, $search) = fn_get_metro_cities($params, Registry::get('settings.Appearance.admin_elements_per_page'));
+    list($badges, $search) = fn_get_badges($params, Registry::get('settings.Appearance.admin_elements_per_page'));
 
-    Registry::get('view')->assign('metro_cities', $metro_cities);
+    Registry::get('view')->assign('badges', $badges);
     Registry::get('view')->assign('search', $search);
 
-    Registry::get('view')->assign('countries', fn_get_simple_countries(false, DESCR_SL));
-    Registry::get('view')->assign('states', fn_get_all_states());
+} elseif ($mode == 'update') {
+
+    $badge = fn_get_badge_data($_REQUEST['badge_id']);
+
+    Registry::get('view')->assign('badge', $badge);
 
 } elseif ($mode == 'delete') {
 
-    if (!empty($_REQUEST['metro_city_id'])) {
-        fn_delete_metro_city($_REQUEST['metro_city_id']);
+    if (!empty($_REQUEST['badge_id'])) {
+        fn_delete_badge($_REQUEST['badge_id']);
     }
 
-    return array(CONTROLLER_STATUS_REDIRECT, "metro_cities.manage?country_code=$_REQUEST[country_code]");
+    return array(CONTROLLER_STATUS_REDIRECT, "badges.manage");
 }
 
 /** /Body **/

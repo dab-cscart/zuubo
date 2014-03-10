@@ -459,7 +459,7 @@ var Tygh = {
                     $('#on_' + id_group).toggle();
                     $('#off_' + id_group).toggle();
 
-                    if (p_elm.prop('id').indexOf('sw_') == 0) {                    
+                    if (p_elm.prop('id').indexOf('sw_') == 0) {
                         $('[data-ca-switch-id="' + id_group + '"]').toggle();
                     } else if (p_elm.prop('id').indexOf('on_') == 0) {
                         $('.cm-combination' + class_group + ':visible[id^="on_"]').click();
@@ -959,13 +959,13 @@ var Tygh = {
             if (! (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch)) {
                 $('#' + _.init_container).addClass('no-touch');
             }
-            
+
             if ((_.area == 'A') || (_.area == 'C')) {
                 if($.autoNumeric) {
                     $('.cm-numeric', context).autoNumeric("init");
                 }
-            }            
-            
+            }
+
             if ($.fn.ceTabs) {
                 $('.cm-j-tabs', context).ceTabs();
             }
@@ -1006,6 +1006,9 @@ var Tygh = {
             $('.cm-sortable', context).ceSortable();
 
             $('select.cm-country', context).ceRebuildStates();
+// [dab]
+            $('select.cm-state', context).ceRebuildMetroCities();
+// [dab]
 
             // change bootstrap dropdown behavior
             $('.dropdown-menu', context).on('click', function (e) {
@@ -1426,7 +1429,7 @@ var Tygh = {
                         elms.each(function() {
                             var self = $(this);
 
-                            // Do not process old links. 
+                            // Do not process old links.
                             if (self.data('caAction') == '' && self.data('caAction') != '0') {
                                 return true;
                             }
@@ -1668,7 +1671,7 @@ var Tygh = {
             }
 
             return false;
-        }         
+        }
     });
 
     $.fn.extend({
@@ -2109,7 +2112,7 @@ var Tygh = {
                 });
 
                 var res = container.dialog('open');
-                
+
                 var s_elm = params.scroll ? $('#' + params.scroll , container) : false;
                 if (s_elm && s_elm.length) {
                     $.scrollToElm(s_elm);
@@ -2120,20 +2123,20 @@ var Tygh = {
 
             _is_empty: function() {
                 var container = $(this);
-                
+
                 var content = $.trim(container.html());
 
                 if (content) {
                     content = content.replace(/<!--(.*?)-->/g, '');
                 }
-                
+
                 if (!$.trim(content)) {
                     return true;
                 }
-               
+
                 return false;
             },
-            
+
             _load_content: function(params) {
                 var container = $(this);
 
@@ -2364,7 +2367,7 @@ var Tygh = {
                         $.ceEvent('trigger', 'ce.dialogshow', [d]);
 
                         $('textarea.cm-wysiwyg', d).ceEditor('recover');
-                        
+
                         if (params.switch_avail) {
                             d.switchAvailability(false, false);
                         }
@@ -2379,7 +2382,7 @@ var Tygh = {
                         if (non_closable && !d.data('close')) {
                             return false;
                         }
-                        // correct stack here to prevent 
+                        // correct stack here to prevent
                         // treating dialog as opened in 'dialogclose' handlers
                         stack.pop();
                         if (params.switch_avail) {
@@ -2503,7 +2506,7 @@ var Tygh = {
                 if (!$('.object-container', dlg).length) {
                     dlg.wrapInner('<div class="object-container" />');
                 }
-                
+
                 if (dlg.length && dlg.is(':visible')) {
                     var reload = true;
                     if ('resizable' in params) {
@@ -2886,7 +2889,7 @@ var Tygh = {
                 }
             },
 
-            load: function(url, params) 
+            load: function(url, params)
             {
                 var _params, current_url;
 
@@ -2912,7 +2915,7 @@ var Tygh = {
 
                 url = fn_query_remove(url, ['result_ids']);
                 url = '!/' + url;
-                
+
                 return url;
             },
 
@@ -3139,8 +3142,8 @@ var Tygh = {
                     }
 
                     elm.tooltip(params);
-                    
-                    //hide tooltip before remove 
+
+                    //hide tooltip before remove
                     elm.on("remove", function() {
                         $(this).trigger('mouseout');
                     });
@@ -3932,6 +3935,121 @@ var Tygh = {
         }
     })($);
 
+    /* [dab]
+    *
+    * Metro cities field builder
+    *
+    */
+    (function($){
+
+        var options = {};
+        var init = false;
+
+        function _rebuildMetroCities(section, elm)
+        {
+            elm = elm || $('.cm-metro-city.cm-location-' + section).prop('id');
+            var sbox = $('#' + elm).is('select') ? $('#' + elm) : $('#' + elm + '_d');
+            var inp = $('#' + elm).is('input') ? $('#' + elm) : $('#' + elm + '_d');
+            var default_metro_city = inp.val();
+            var stt = $('.cm-state.cm-location-' + section);
+            var stt_disabled;
+            var cntr = $('.cm-country.cm-location-' + section);
+            var cntr_disabled;
+
+            if (cntr.length) {
+                cntr_disabled = cntr.prop('disabled');
+            } else {
+                cntr_disabled = sbox.prop('disabled');
+            }
+
+            if (stt.length) {
+                stt_disabled = stt.prop('disabled');
+            } else {
+                stt_disabled = sbox.prop('disabled');
+            }
+
+            var country_code = (cntr.length) ? cntr.val() : options.default_country;
+            var state_code = (stt.length) ? stt.val() : options.default_state;
+            var tag_switched = false;
+            var pkey = '';
+
+            sbox.prop('id', elm).prop('disabled', false).removeClass('hidden cm-skip-avail-switch');
+            inp.prop('id', elm + '_d').prop('disabled', true).addClass('hidden cm-skip-avail-switch');
+
+            if (!inp.hasClass('disabled')) {
+                sbox.removeClass('disabled');
+            }
+
+            if (options.metro_cities && options.metro_cities[country_code][state_code]) { // Populate selectbox with states
+                sbox.prop('length', 1);
+                for (var i = 0; i < options.metro_cities[country_code][state_code].length; i++) {
+                    sbox.append('<option value="' + options.metro_cities[country_code][state_code][i]['metro_city_id'] + '"' + (options.metro_cities[country_code][state_code][i]['metro_city_id'] == default_metro_city ? ' selected' : '') + '>' + options.metro_cities[country_code][state_code][i]['metro_city'] + '</option>');
+                }
+
+                sbox.prop('id', elm).prop('disabled', false).removeClass('cm-skip-avail-switch');
+                inp.prop('id', elm + '_d').prop('disabled', true).addClass('cm-skip-avail-switch');
+
+                if (!inp.hasClass('disabled')) {
+                    sbox.removeClass('disabled');
+                }
+
+            } else { // Disable states
+                sbox.prop('id', elm + '_d').prop('disabled', true).addClass('hidden cm-skip-avail-switch');
+                inp.prop('id', elm).prop('disabled', false).removeClass('hidden cm-skip-avail-switch');
+
+                if (!sbox.hasClass('disabled')) {
+                    inp.removeClass('disabled');
+                }
+            }
+
+            if (stt_disabled == true) {
+                sbox.prop('disabled', true);
+                inp.prop('disabled', true);
+            }
+        }
+
+        function _bind()
+        {
+            if (init == false) {
+                $(_.doc).on('change', 'select.cm-state', function() {
+                    var location_elm = $(this).prop('class').match(/cm-location-([^\s]+)/i);
+                    if (location_elm) {
+                        _rebuildMetroCities(location_elm[1], $('.cm-metro-city.cm-location-' + location_elm[1]).not(':disabled').prop('id'));
+                    }
+                });
+                init = true;
+            }
+        }
+
+        var methods = {
+            init: function() {
+                _bind();
+                $(this).trigger('change');
+            }
+        }
+
+        $.fn.ceRebuildMetroCities = function(method) {
+            var args = arguments;
+
+            return $(this).each(function(i, elm) {
+                if (methods[method]) {
+                    return methods[method].apply(this, Array.prototype.slice.call(args, 1));
+                } else if ( typeof method === 'object' || ! method ) {
+                    return methods.init.apply(this, args);
+                } else {
+                    $.error('ty.rebuildmetrocities: method ' +  method + ' does not exist');
+                }
+            });
+        };
+
+        $.ceRebuildMetroCities = function(action, params) {
+            params = params || {};
+            if (action == 'init') {
+                options = params;
+            }
+        }
+    })($);
+
    /*
     *
     * Sticky scroll
@@ -3996,7 +4114,7 @@ var Tygh = {
                     clearTimeout(timers[key]);
                     methods.close(dups, true);
                 }
-                
+
                 return true;
             }
 
@@ -4033,7 +4151,7 @@ var Tygh = {
 
             return text;
         }
-        
+
         function _pickFromDialog(event) {
             var nt = $('.cm-notification-content', $(event.target));
             if (nt.length) {
@@ -4043,7 +4161,7 @@ var Tygh = {
             }
             return true;
         }
-        
+
         function _addToDialog(notification)
         {
             var dlg = $.ceDialog('get_last');

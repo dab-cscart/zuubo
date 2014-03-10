@@ -12,12 +12,21 @@
 * "copyright.txt" FILE PROVIDED WITH THIS DISTRIBUTION PACKAGE.            *
 ****************************************************************************/
 
+use Tygh\Registry;
+
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
-define('DEVELOPMENT', true);
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	if ($mode == 'update' || $mode == 'add') {
 
-fn_register_hooks(
-	'get_company_data_post',
-	'update_company',
-	'get_category_data_post'
-);
+		$tabs = Registry::get('navigation.tabs');
+		$badges = array('badges' => array (
+			'title' => __('badges'),
+			'js' => true
+		));
+
+		$tabs = array_merge(array_slice($tabs, 0, 1), $badges, array_slice($tabs, 1));
+
+		Registry::set('navigation.tabs', $tabs);
+	}
+}
