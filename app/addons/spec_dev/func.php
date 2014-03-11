@@ -14,9 +14,83 @@
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
+function fn_spec_dev_get_product_data_post($product_data, $auth, $preview, $lang_code)
+{
+	$product_data['all_metro_cities'] = fn_get_all_category_metro_cities($product_data['main_category'], false);
+	$product_data['metro_city_ids'] = fn_get_product_metro_cities($product_data['product_id']);
+	list($product_data['all_cities'],) = fn_get_cities(array('metro_city_ids' => implode(',', $product_data['metro_city_ids'])));
+	$product_data['city_ids'] = fn_get_product_cities($product_data['product_id']);
+}
+
+function fn_get_product_cities($product_id)
+{
+    $ids = db_get_fields("SELECT city_id FROM ?:product_cities WHERE product_id = ?i", $product_id);
+    return (!empty($ids)) ? $ids : array();
+}
+
+function fn_spec_dev_update_product_post($product_data, $product_id, $lang_code, $create)
+{
+	$m_city_ids = fn_get_product_metro_cities($product_id);
+	$to_delete = array_diff($m_city_ids, $product_data['metro_city_ids']);
+	if (!empty($to_delete)) {
+		db_query("DELETE FROM ?:product_metro_cities WHERE metro_city_id IN (?n) AND product_id = ?i", $to_delete, $product_id);
+	}
+	$to_add = array_diff($product_data['metro_city_ids'], $m_city_ids);
+	if (!empty($to_add)) {
+		foreach ($to_add as $b_id) {
+			$_data = array(
+				'product_id' => $product_id,
+				'metro_city_id' => $b_id
+			);
+			db_query("REPLACE INTO ?:product_metro_cities ?e", $_data);
+		}
+	}
+	
+	$city_ids = fn_get_product_cities($product_id);
+	$to_delete = array_diff($city_ids, $product_data['city_ids']);
+	if (!empty($to_delete)) {
+		db_query("DELETE FROM ?:product_cities WHERE city_id IN (?n) AND product_id = ?i", $to_delete, $product_id);
+	}
+	$to_add = array_diff($product_data['city_ids'], $city_ids);
+	if (!empty($to_add)) {
+		foreach ($to_add as $b_id) {
+			$_data = array(
+				'product_id' => $product_id,
+				'city_id' => $b_id
+			);
+			db_query("REPLACE INTO ?:product_cities ?e", $_data);
+		}
+	}
+}
+
+function fn_spec_dev_update_category_post($category_data, $category_id, $lang_code)
+{
+	$m_city_ids = fn_get_category_metro_cities($category_id);
+	$to_delete = array_diff($m_city_ids, $category_data['metro_city_ids']);
+	if (!empty($to_delete)) {
+		db_query("DELETE FROM ?:category_metro_cities WHERE metro_city_id IN (?n) AND category_id = ?i", $to_delete, $category_id);
+	}
+	$to_add = array_diff($category_data['metro_city_ids'], $m_city_ids);
+	if (!empty($to_add)) {
+		foreach ($to_add as $b_id) {
+			$_data = array(
+				'category_id' => $category_id,
+				'metro_city_id' => $b_id
+			);
+			db_query("REPLACE INTO ?:category_metro_cities ?e", $_data);
+		}
+	}
+}
+
 function fn_get_category_metro_cities($category_id)
 {
-	return db_get_fields("SELECT metro_city_id FROM ?:category_metro_cities WHERE category_id = ?i", $category_id);
+    $ids = db_get_fields("SELECT metro_city_id FROM ?:category_metro_cities WHERE category_id = ?i", $category_id);
+    return (!empty($ids)) ? $ids : array();
+}
+
+function fn_get_product_metro_cities($product_id)
+{
+	return db_get_fields("SELECT metro_city_id FROM ?:product_metro_cities WHERE product_id = ?i", $product_id);
 }
 
 function fn_get_all_category_metro_cities($category_id, $skip_current = true)
@@ -25,16 +99,18 @@ function fn_get_all_category_metro_cities($category_id, $skip_current = true)
 	if ($skip_current) {
 		array_pop($ids);
 	}
-	list($result, ) = fn_get_metro_cities();
+	$obj_ids = array();
 	if (!empty($ids)) {
 		foreach (array_reverse($ids) as $c_id) {
 			$mc_ids = fn_get_category_metro_cities($c_id);
 			if (!empty($mc_ids)) {
-				$result = $mc_ids;
+				$obj_ids = $mc_ids;
 				break;
 			}
 		}
 	}
+	
+	list($result, ) = fn_get_metro_cities(array('item_ids' => implode(',', $obj_ids)));
 
 	return $result;
 }
@@ -50,7 +126,7 @@ function fn_spec_dev_update_company($company_data, $company_id, $lang_code, $act
 	$badge_ids = fn_get_vendor_badges($company_id);
 	$to_delete = array_diff($badge_ids, $company_data['badge_ids']);
 	if (!empty($to_delete)) {
-		db_query("DELETE FROM ?:vendor_badges WHERE badge_id IN (?n)", $to_delete);
+		db_query("DELETE FROM ?:vendor_badges WHERE badge_id IN (?n) AND vendor_id = ?i", $to_delete, $company_id);
 	}
 	$to_add = array_diff($company_data['badge_ids'], $badge_ids);
 	if (!empty($to_add)) {
@@ -175,6 +251,10 @@ function fn_get_metro_cities($params = array(), $items_per_page = 0)
         $condition .= db_quote(" AND b.code = ?s", $params['state_code']);
     }
 
+    if (!empty($params['item_ids'])) {
+        $condition .= db_quote(" AND a.metro_city_id IN (?n)", explode(',', $params['item_ids']));
+    }
+
     $join = db_quote(" LEFT JOIN ?:states as b ON b.state_id = a.state_id ");
     $limit = '';
     if (!empty($params['items_per_page'])) {
@@ -246,6 +326,14 @@ function fn_get_cities($params = array(), $items_per_page = 0)
 
     if (!empty($params['metro_city_id'])) {
         $condition .= db_quote(" AND a.metro_city_id = ?s", $params['metro_city_id']);
+    }
+
+    if (!empty($params['metro_city_ids'])) {
+        $condition .= db_quote(" AND b.metro_city_id IN (?n)", explode(',', $params['metro_city_ids']));
+    }
+
+    if (!empty($params['item_ids'])) {
+        $condition .= db_quote(" AND a.metro_city_id IN (?n)", explode(',', $params['item_ids']));
     }
 
     $join = db_quote(" LEFT JOIN ?:metro_cities as b ON b.metro_city_id = a.metro_city_id LEFT JOIN ?:states as c ON c.state_id = b.state_id ");

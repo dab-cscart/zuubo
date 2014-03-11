@@ -19,5 +19,8 @@ define('DEVELOPMENT', true);
 fn_register_hooks(
 	'get_company_data_post',
 	'update_company',
-	'get_category_data_post'
+	'get_category_data_post',
+	'update_category_post',
+	'get_product_data_post',
+	'update_product_post'
 );

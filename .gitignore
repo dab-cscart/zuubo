@@ -1,0 +1,10 @@
+config.local.php
+.htaccess
+var/cache
+var/exim
+var/files
+var/layouts
+var/snapshots
+var/twigmo
+var/upgrade
+images/*
