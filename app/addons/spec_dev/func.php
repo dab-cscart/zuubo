@@ -14,6 +14,18 @@
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
+function fn_spec_dev_user_init($_auth, $user_info, $first_init)
+{
+    fn_init_ip_location();
+}
+
+function fn_init_ip_location()
+{
+    $_ip = fn_get_ip(true);
+    $location = db_get_row("SELECT * FROM ?:ip_locations WHERE ip_address = ?s", $_ip['host']);
+    fn_set_session_data('location', $location, COOKIE_ALIVE_TIME);
+}
+
 function fn_spec_dev_get_product_data_post($product_data, $auth, $preview, $lang_code)
 {
 	$product_data['all_metro_cities'] = fn_get_all_category_metro_cities($product_data['main_category'], false);
@@ -235,6 +247,10 @@ function fn_get_metro_cities($params = array(), $items_per_page = 0)
 
     $condition = '1';
     $join = '';
+    if (AREA == 'C') {
+	$params['only_avail'] = true;
+    }
+    
     if (!empty($params['only_avail'])) {
         $condition .= db_quote(" AND a.status = ?s", 'A');
     }
@@ -308,6 +324,10 @@ function fn_get_cities($params = array(), $items_per_page = 0)
 
     $condition = '1';
     $join = '';
+    if (AREA == 'C') {
+	$params['only_avail'] = true;
+    }
+    
     if (!empty($params['only_avail'])) {
         $condition .= db_quote(" AND a.status = ?s", 'A');
     }

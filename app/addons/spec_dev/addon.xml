@@ -74,9 +74,18 @@
 		    UNIQUE KEY `badge_id` (`badge_id`,`vendor_id`)
 		    ) ;
 		</item>
+		<item>
+		    CREATE TABLE IF NOT EXISTS `cscart_ip_locations` (
+		    `ip_address` varchar(15) NOT NULL,
+		    `metro_city_id` mediumint(8) unsigned NOT NULL,
+		    `city_id` mediumint(8) unsigned NOT NULL,
+		    PRIMARY KEY (`ip_address`)
+		    ) ;
+		</item>
 	</queries>
 	<language_variables>
 		<item lang="en" id="specific_development">Specific development</item>
+		<item lang="en" id="badges">Badges</item>
 		<item lang="en" id="metro_cities">Metro cities</item>
 		<item lang="en" id="metro_city">Metro city</item>
 		<item lang="en" id="microsite">Microsite</item>
@@ -85,7 +94,13 @@
 		<item lang="en" id="select_metro_city">Select Metro City</item>
 		<item lang="en" id="new_metro_city">New Metro City</item>
 		<item lang="en" id="new_city">New city</item>
-		<item lang="en" id="badge">Badge</item>
+		<item lang="en" id="choose_location">Choose location</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
 		<item lang="en" id="badges">Badges</item>
 		<item lang="en" id="badges">Badges</item>
 	</language_variables>
