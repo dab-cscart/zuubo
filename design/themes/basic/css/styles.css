@@ -1,4 +1,30 @@
 /* Common */
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../media/fonts/roboto/roboto_regular/Roboto-Regular-webfont.eot');
+    src: url('../media/fonts/roboto/roboto_regular/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../media/fonts/roboto/roboto_regular/Roboto-Regular-webfont.woff') format('woff'),
+         url('../media/fonts/roboto/roboto_regular/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('../media/fonts/roboto/roboto_regular/Roboto-Regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url('../media/fonts/roboto/roboto_bold/Roboto-Bold-webfont.eot');
+    src: url('../media/fonts/roboto/roboto_bold/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../media/fonts/roboto/roboto_bold/Roboto-Bold-webfont.woff') format('woff'),
+         url('../media/fonts/roboto/roboto_bold/Roboto-Bold-webfont.ttf') format('truetype'),
+         url('../media/fonts/roboto/roboto_bold/Roboto-Bold-webfont.svg#robotobold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+body, div, span, li, td, input[type="text"], input[type="password"], textarea, select, .scroll-y, .ui-widget select, .ui-widget textarea, .ui-widget, .ui-dialog .ui-dialog-title, a, a:visited, a:active, .popup-title:hover > a, .popup-title.unlogged a, .popup-title.logged a, .minicart-title, ul.dropdown-multicolumns li a, a, a:visited, a:active, .tygh-footer a:link, .tygh-footer a:visited, .top-links-grid a:link, .top-links-grid a:visited, .product-filters li a.filter-item, .sidebox-body ul a.extra-link, h1 .mainbox-title, .mainbox-title span, .product-main-info h1.mainbox-title, .product-quick-view.product-main-info .quick-view-title {
+    font-family: 'Roboto', sans-serif;
+}
 input[type="text"], input[type="password"], textarea, select, .scroll-y {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -3773,3 +3799,19 @@ a.secondary-link {
     background: url('../media/images/icons/benefits_sprite.png') no-repeat -119px 6px;
 }
 /* /Block Benefits & Guarantees */
+
+/* custom styles */
+.sign-io-wrp {
+    
+}
+.top-quick-links {
+    margin: 0;
+}
+.top-links-grid a:link, .top-links-grid a:visited, .top-links-grid a > span, .top-quick-links ul li a, .top-quick-links ul li a:visited, .top-quick-links ul li a:hover, .top-quick-links ul li a:active {
+    color: #0080ff !important;
+}
+.top-links-grid ul.text-links.text-links-inline li.level-0 {
+    padding: 0 10px 0 10px;
+    border-right: 1px solid #8e8e8e;
+}
+/* /custom styles */

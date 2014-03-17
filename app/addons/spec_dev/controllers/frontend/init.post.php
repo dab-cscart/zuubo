@@ -18,5 +18,5 @@ use Tygh\Registry;
 
 $l = fn_get_session_data('location');
 if (empty($l) && (Registry::get('runtime.controller') != 'spec_dev' || (Registry::get('runtime.mode') != 'choose_location' && Registry::get('runtime.mode') != 'set_location'))) {
-    return array(CONTROLLER_STATUS_REDIRECT, "spec_dev.choose_location");
+//    return array(CONTROLLER_STATUS_REDIRECT, "spec_dev.choose_location");
 }

@@ -3,7 +3,7 @@
 {if $block.properties.show_items_in_line == 'Y'}
     {assign var="inline" value=true}
 {/if}
-
+{strip}
 {if $items}
     <ul class="text-links {if $inline}text-links-inline{/if}">
         {foreach from=$items item="menu"}
@@ -16,3 +16,4 @@
         {/foreach}
     </ul>
 {/if}
+{/strip}
