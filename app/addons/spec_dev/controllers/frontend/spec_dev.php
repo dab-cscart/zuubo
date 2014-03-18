@@ -32,14 +32,21 @@ if ($mode == 'choose_location') {
 	    list($metro_cities[$i]['cities'], ) = fn_get_cities(array('metro_city_id' => $dt['metro_city_id']));
 	}
     }
+
     Registry::get('view')->assign('metro_cities', $metro_cities);
+    Registry::get('view')->assign('return_url', $_REQUEST['return_url']);
     
 } elseif ($mode == 'set_location') {
+
     $_ip = fn_get_ip(true);
     $location = array(
 	'metro_city_id' => $_REQUEST['mc_id'],
-	'city_id' => $_REQUEST['c_id']
+	'city_id' => !empty($_REQUEST['c_id']) ? $_REQUEST['c_id'] : 0
     );
-    fn_print_die($_REQUEST);
-//    db_query("UPDATE")
+    fn_set_session_data('location', $location, COOKIE_ALIVE_TIME);
+    $location['ip_address'] = $_ip['host'];
+    db_query("REPLACE INTO ?:ip_locations ?e", $location);
+    $redirect_url = !empty($_REQUEST['return_url']) ? $_REQUEST['return_url'] : fn_url('');
+
+    return array(CONTROLLER_STATUS_REDIRECT, $redirect_url);
 }

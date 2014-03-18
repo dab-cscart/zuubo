@@ -22,7 +22,7 @@ function fn_spec_dev_user_init($_auth, $user_info, $first_init)
 function fn_init_ip_location()
 {
     $_ip = fn_get_ip(true);
-    $location = db_get_row("SELECT * FROM ?:ip_locations WHERE ip_address = ?s", $_ip['host']);
+    $location = db_get_row("SELECT metro_city_id, city_id FROM ?:ip_locations WHERE ip_address = ?s", $_ip['host']);
     fn_set_session_data('location', $location, COOKIE_ALIVE_TIME);
 }
 
