@@ -72,6 +72,27 @@ if ($mode == 'manage') {
     Registry::get('view')->assign('countries', fn_get_simple_countries(false, DESCR_SL));
     Registry::get('view')->assign('states', fn_get_all_states());
 
+} elseif ($mode == 'update') {
+
+    $metro_city = fn_get_metro_city_data($_REQUEST['metro_city_id']);
+    
+    $tabs = array (
+        'detailed' => array (
+            'title' => __('general'),
+            'js' => true
+        )
+    );
+
+    $tabs['addons'] = array (
+        'title' => __('addons'),
+        'js' => true
+    );
+    Registry::set('navigation.tabs', $tabs);
+
+    Registry::get('view')->assign('metro_city', $metro_city);
+    Registry::get('view')->assign('country_code', $metro_city['country_code']);
+    Registry::get('view')->assign('state_code', $metro_city['code']);
+    
 } elseif ($mode == 'delete') {
 
     if (!empty($_REQUEST['metro_city_id'])) {

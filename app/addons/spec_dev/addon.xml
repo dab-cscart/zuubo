@@ -7,7 +7,9 @@
 	<priority>9999999999999</priority>
 	<position>0</position>
 	<status>active</status>
-	<dependencies/>
+	<compatibility>
+	    <dependencies>seo</dependencies>
+	</compatibility>
 	<auto_install>MULTIVENDOR,ULTIMATE</auto_install>
 	<queries>
 		<item>
@@ -95,7 +97,7 @@
 		<item lang="en" id="new_metro_city">New Metro City</item>
 		<item lang="en" id="new_city">New city</item>
 		<item lang="en" id="choose_location">Choose location</item>
-		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="editing_metro_city">Editing Metro City</item>
 		<item lang="en" id="badges">Badges</item>
 		<item lang="en" id="badges">Badges</item>
 		<item lang="en" id="badges">Badges</item>

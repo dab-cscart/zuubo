@@ -43,7 +43,7 @@ if ($mode == 'choose_location') {
 	'metro_city_id' => $_REQUEST['mc_id'],
 	'city_id' => !empty($_REQUEST['c_id']) ? $_REQUEST['c_id'] : 0
     );
-    fn_set_session_data('location', $location, COOKIE_ALIVE_TIME);
+    fn_set_session_data('location', $location['metro_city_id'], COOKIE_ALIVE_TIME);
     $location['ip_address'] = $_ip['host'];
     db_query("REPLACE INTO ?:ip_locations ?e", $location);
     $redirect_url = !empty($_REQUEST['return_url']) ? $_REQUEST['return_url'] : fn_url('');

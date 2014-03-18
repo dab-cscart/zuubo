@@ -12,18 +12,66 @@
 * "copyright.txt" FILE PROVIDED WITH THIS DISTRIBUTION PACKAGE.            *
 ****************************************************************************/
 
+use Tygh\Registry;
+
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
-function fn_spec_dev_user_init($_auth, $user_info, $first_init)
+function fn_spec_dev_get_rewrite_rules(&$rewrite_rules, &$prefix, $extension, $current_path)
 {
-    fn_init_ip_location();
+//    $prefix .= '\/([^\/]+)';
+    //$rewrite_rules['!^' . $current_path . $prefix . '\/([^\/]+)!'] = 'object_name=$matches[2]';
 }
 
-function fn_init_ip_location()
+function fn_spec_dev_seo_empty_object_name($object_id, $object_type, $lang_code, &$object_name)
 {
-    $_ip = fn_get_ip(true);
-    $location = db_get_row("SELECT metro_city_id, city_id FROM ?:ip_locations WHERE ip_address = ?s", $_ip['host']);
-    fn_set_session_data('location', $location, COOKIE_ALIVE_TIME);
+    switch ($object_type) {
+	case 't':
+	    $object_name = db_get_field('SELECT metro_city FROM ?:metro_cities WHERE metro_city_id = ?i', $object_id);
+	    break;
+    }
+  
+}
+
+function fn_spec_dev_get_seo_vars(&$seo)
+{
+    $seo['t'] = array(
+	'table' => '?:metro_cities',
+	'description' => 'metro_city',
+	'dispatch' => '',
+	'item' => 'metro_city_id',
+	'condition' => '',
+	'not_shared' => '',
+	'skip_lang_condition' => true
+    );
+}
+
+function fn_get_metro_city_data($metro_city_id)
+{
+    $metro_city = db_get_row("SELECT a.*, b.country_code, b.code FROM ?:metro_cities AS a LEFT JOIN ?:states AS b ON b.state_id = a.state_id WHERE metro_city_id = ?i", $metro_city_id);
+    
+    if (empty($metro_city['seo_name']) && !empty($metro_city['metro_city_id'])) {
+        $metro_city['seo_name'] = fn_seo_get_name('t', $metro_city['metro_city_id'], '', null, CART_LANGUAGE);
+    }
+    
+    return $metro_city;
+}
+
+function fn_init_ip_location($params)
+{
+    list($avail_mc, ) = fn_get_metro_cities();
+    if (!empty($params['metro_city_id']) && !empty($avail_mc[$params['metro_city_id']])) {
+        fn_define('METRO_CITY_ID', $params['metro_city_id']);
+    } elseif (($_mc = fn_get_session_data('location')) && !empty($avail_mc[$_mc])) {
+        fn_define('METRO_CITY_ID', $_mc);
+    } else {
+	$_ip = fn_get_ip(true);
+	$location = db_get_row("SELECT metro_city_id, city_id FROM ?:ip_locations WHERE ip_address = ?s", $_ip['host']);
+	if (!empty($location['metro_city_id'])) {
+	    fn_define('METRO_CITY_ID', $location['metro_city_id']);
+	}
+    }
+    
+    fn_set_session_data('location', METRO_CITY_ID, COOKIE_ALIVE_TIME);
 }
 
 function fn_spec_dev_get_product_data_post($product_data, $auth, $preview, $lang_code)
@@ -278,7 +326,7 @@ function fn_get_metro_cities($params = array(), $items_per_page = 0)
         $limit = db_paginate($params['page'], $params['items_per_page']);
     }
 
-    $metro_cities = db_get_array("SELECT " . implode(', ', $fields) . " FROM ?:metro_cities as a $join WHERE ?p ORDER BY a.metro_city $limit", $condition);
+    $metro_cities = db_get_hash_array("SELECT " . implode(', ', $fields) . " FROM ?:metro_cities as a $join WHERE ?p ORDER BY a.metro_city $limit", 'metro_city_id', $condition);
 
 	if ($params['tree']) {
 		if (!empty($metro_cities)) {
@@ -304,8 +352,13 @@ function fn_update_metro_city($metro_city_data, $metro_city_id = 0)
         db_query("UPDATE ?:metro_cities SET ?u WHERE metro_city_id = ?i", $metro_city_data, $metro_city_id);
     }
 
-    return $metro_city_id;
+    if (Registry::get('runtime.company_id')) {
+        $metro_city_data['company_id'] = Registry::get('runtime.company_id');
+    }
 
+    fn_seo_update_object($metro_city_data, $metro_city_id, 't', CART_LANGUAGE);
+    
+    return $metro_city_id;
 }
 
 function fn_get_cities($params = array(), $items_per_page = 0)

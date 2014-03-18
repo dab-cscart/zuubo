@@ -16,7 +16,8 @@ if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
 use Tygh\Registry;
 
-$l = fn_get_session_data('location');
-if (empty($l) && (Registry::get('runtime.controller') != 'spec_dev' || (Registry::get('runtime.mode') != 'choose_location' && Registry::get('runtime.mode') != 'set_location'))) {
+fn_init_ip_location($_REQUEST);
+
+if (!defined('METRO_CITY_ID') && (Registry::get('runtime.controller') != 'spec_dev' || (Registry::get('runtime.mode') != 'choose_location' && Registry::get('runtime.mode') != 'set_location'))) {
     return array(CONTROLLER_STATUS_REDIRECT, "spec_dev.choose_location?return_url=" . urlencode(fn_query_remove(fn_url(Registry::get('config.current_url')), 'return_url')));
 }

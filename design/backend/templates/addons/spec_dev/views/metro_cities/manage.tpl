@@ -35,12 +35,13 @@
     <td>
         <input type="checkbox" name="metro_city_ids[]" value="{$metro_city.metro_city_id}" class="checkbox cm-item" /></td>
     <td>
-        <input type="text" name="metro_cities[{$metro_city.metro_city_id}][metro_city]" size="55" value="{$metro_city.metro_city}" class="input-hidden span8"/></td>
+	<a class="row-status cm-external-click" data-ca-external-click-id="{"opener_group`$metro_city.metro_city_id`"}">{$metro_city.metro_city}</a></td>
     <td class="nowrap">
         {capture name="tools_list"}
+            <li>{include file="common/popupbox.tpl" id="group`$metro_city.metro_city_id`" text=__("editing_metro_city") link_text=__("edit") act="link" href="metro_cities.update?metro_city_id=`$metro_city.metro_city_id`&search=`$search`"}</li>
             <li>{btn type="list" class="cm-confirm" text=__("delete") href="metro_cities.delete?metro_city_id=`$metro_city.metro_city_id`"}</li>
         {/capture}
-        <div class="hidden-tools">
+        <div class="hidden-tools cm-hide-with-inputs">
             {dropdown content=$smarty.capture.tools_list}
         </div>
     </td>
@@ -57,45 +58,6 @@
 {include file="common/pagination.tpl"}
 
 </form>
-
-
-    {capture name="add_new_picker"}
-
-    <form action="{""|fn_url}" method="post" name="add_metro_cities_form" class="form-horizontal form-edit">
-    <input type="hidden" name="metro_city_data[country_code]" value="{$search.country_code}" />
-    <input type="hidden" name="metro_city_data[state_code]" value="{$search.state_code}" />
-    <input type="hidden" name="country_code" value="{$search.country_code}" />
-    <input type="hidden" name="state_code" value="{$search.state_code}" />
-    <input type="hidden" name="metro_city_id" value="0" />
-
-
-	{assign var="title" value="{__("new_metro_city")} (`$search.country_code|fn_get_country_name`, `$search.state_code|fn_get_state_name:$search.country_code`)"}
-    <div class="cm-j-tabs">
-        <ul class="nav nav-tabs">
-            <li id="tab_new_metro_cities" class="cm-js active"><a>{__("general")}</a></li>
-        </ul>
-    </div>
-
-    <div class="cm-tabs-content">
-    <fieldset>
-        <div class="control-group">
-            <label class="control-label" for="elm_metro_city_name">{__("metro_city")}:</label>
-            <div class="controls">
-            <input type="text" id="elm_metro_city_name" name="metro_city_data[metro_city]" size="55" value="" />
-            </div>
-        </div>
-
-        {include file="common/select_status.tpl" input_name="metro_city_data[status]" id="elm_metro_city_status"}
-    </fieldset>
-    </div>
-
-    <div class="buttons-container">
-        {include file="buttons/save_cancel.tpl" create=true but_name="dispatch[metro_cities.update]" cancel_action="close"}
-    </div>
-
-	</form>
-
-{/capture}
 
 
 {capture name="buttons"}
@@ -115,7 +77,13 @@
 
 {if $search.country_code && $search.state_code}
 {capture name="adv_buttons"}
-    {include file="common/popupbox.tpl" id="new_metro_city" action="metro_cities.add" text=$title content=$smarty.capture.add_new_picker title=__("add_metro_city") act="general" icon="icon-plus"}
+    {if "metro_cities.update"|fn_check_view_permissions}
+        {capture name="add_new_picker"}
+            {include file="addons/spec_dev/views/metro_cities/update.tpl" metro_city=[] country_code=$search.country_code state_code=$search.state_code}
+        {/capture}
+	{assign var="title" value="{__("new_metro_city")} (`$search.country_code|fn_get_country_name`, `$search.state_code|fn_get_state_name:$search.country_code`)"}
+        {include file="common/popupbox.tpl" id="add_new_usergroups" text=$title title=$title content=$smarty.capture.add_new_picker act="general" icon="icon-plus"}
+    {/if}
 {/capture}
 {/if}
 
