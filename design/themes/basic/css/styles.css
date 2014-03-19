@@ -29,7 +29,6 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
 }
 input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
     outline: 0;
@@ -3874,7 +3873,7 @@ a.secondary-link {
     padding: 0 25px 2px 25px;
     border: 0 none;
     background: transparent none;
-    line-height: 30px;
+    font: bold 13px/30px 'Roboto', sans-serif;
 }
 .links-panel-wrapper {
     background-color: #595959;
@@ -3911,6 +3910,17 @@ a.secondary-link {
 .tygh-footer {
     background-color: #f2f2f2;
 }
+.footer-menu p {
+    padding: 0 0 11px 0;
+}
+.footer-menu ul {
+    margin: 0 0 39px 0;
+}
+.footer-menu p span {
+    color: #595959;
+    font: 18px 'Roboto', sans-serif;
+    text-transform: uppercase;
+}
 .footer-promo-text {
     text-align: center;
     background-color: #595959;
@@ -3920,5 +3930,31 @@ a.secondary-link {
 .footer-promo-text div.wysiwyg-content {
     color: #fff;
     font: bold 22px/40px 'Roboto', sans-serif;
+}
+.subscribe-block .search-but {
+    margin: 0;
+}
+.subscribe-block .search-but button {
+    padding: 0 10px 2px 10px
+}
+.subscribe.input-append {
+    padding: 0;
+    max-width: 100%;
+    margin: 7px 0 37px 0;
+}
+.subscribe-block .input-append .input-text {
+    width: 180px;
+    height: 34px;
+    border-right: 0 none;
+    margin: 0 -5px 0 0;
+}
+.buyers-grid .wysiwyg-content ul, .stay-connected-grid .wysiwyg-content ul {
+    margin: 0;
+}
+.buyers-grid .wysiwyg-content ul li, .sellers-grid ul.text-links .level-0, .contact-grid ul.text-links .level-0, .about-grid  ul.text-links .level-0, .stay-connected-grid .wysiwyg-content ul li {
+    padding: 0 0 0 15px;
+    background: url(../media/images/footer_blocks_marker.png) no-repeat 0 6px;
+    list-style-type: none;
+    margin-bottom: 12px;
 }
 /* /custom styles */
