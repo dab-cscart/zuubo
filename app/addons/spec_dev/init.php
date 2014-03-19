@@ -23,7 +23,6 @@ fn_register_hooks(
 	'update_category_post',
 	'get_product_data_post',
 	'update_product_post',
-//	'user_init',
 	'get_seo_vars',
 	'seo_empty_object_name',
 	'get_rewrite_rules'

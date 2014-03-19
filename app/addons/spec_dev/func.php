@@ -16,10 +16,20 @@ use Tygh\Registry;
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
+function fn_set_location($location)
+{
+    $_ip = fn_get_ip(true);
+    $ln = array(
+	'metro_city_id' => $location['mc_id'],
+	'city_id' => !empty($location['c_id']) ? $location['c_id'] : 0
+    );
+    $ln['ip_address'] = $_ip['host'];
+    db_query("REPLACE INTO ?:ip_locations ?e", $ln);
+}
+
 function fn_spec_dev_get_rewrite_rules(&$rewrite_rules, &$prefix, $extension, $current_path)
 {
-//    $prefix .= '\/([^\/]+)';
-    //$rewrite_rules['!^' . $current_path . $prefix . '\/([^\/]+)!'] = 'object_name=$matches[2]';
+    $prefix .= '\/([^\/]+)';
 }
 
 function fn_spec_dev_seo_empty_object_name($object_id, $object_type, $lang_code, &$object_name)
@@ -36,7 +46,7 @@ function fn_spec_dev_get_seo_vars(&$seo)
 {
     $seo['t'] = array(
 	'table' => '?:metro_cities',
-	'description' => 'metro_city',
+	'description' => 'metro_city_id',
 	'dispatch' => '',
 	'item' => 'metro_city_id',
 	'condition' => '',
@@ -56,13 +66,15 @@ function fn_get_metro_city_data($metro_city_id)
     return $metro_city;
 }
 
-function fn_init_ip_location($params)
+function fn_init_ip_location(&$params)
 {
     list($avail_mc, ) = fn_get_metro_cities();
-    if (!empty($params['metro_city_id']) && !empty($avail_mc[$params['metro_city_id']])) {
-        fn_define('METRO_CITY_ID', $params['metro_city_id']);
+    if (!empty($params['mc']) && !empty($avail_mc[$params['mc']])) {
+        fn_define('METRO_CITY_ID', $params['mc']);
+        fn_set_location(array('mc_id' => $params['mc']));
     } elseif (($_mc = fn_get_session_data('location')) && !empty($avail_mc[$_mc])) {
         fn_define('METRO_CITY_ID', $_mc);
+        fn_set_location(array('mc_id' => $_mc));
     } else {
 	$_ip = fn_get_ip(true);
 	$location = db_get_row("SELECT metro_city_id, city_id FROM ?:ip_locations WHERE ip_address = ?s", $_ip['host']);

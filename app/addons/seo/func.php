@@ -420,19 +420,20 @@ function fn_get_rewrite_rules()
     $extension = str_replace('.', '', SEO_FILENAME_EXTENSION);
 
     fn_set_hook('get_rewrite_rules', $rewrite_rules, $prefix, $extension, $current_path);
-
-    $rewrite_rules['!^' . $current_path . $prefix . '\/(.*\/)?([^\/]+)-page-([0-9]+|full_list)\.(' . $extension . ')$!'] = 'object_name=$matches[3]&page=$matches[4]&sl=$matches[1]&extension=$matches[5]';
-    $rewrite_rules['!^' . $current_path . $prefix . '\/(.*\/)?([^\/]+)\.(' . $extension . ')$!'] = 'object_name=$matches[3]&sl=$matches[1]&extension=$matches[4]';
+// [dab]
+    $rewrite_rules['!^' . $current_path . $prefix . '\/(.*\/)?([^\/]+)-page-([0-9]+|full_list)\.(' . $extension . ')$!'] = 'object_name=$matches[4]&page=$matches[5]&sl=$matches[1]&extension=$matches[6]&mc=$matches[2]';
+    $rewrite_rules['!^' . $current_path . $prefix . '\/(.*\/)?([^\/]+)\.(' . $extension . ')$!'] = 'object_name=$matches[4]&mc=$matches[2]&sl=$matches[1]&extension=$matches[5]';
 
     if (Registry::get('addons.seo.seo_language') == 'Y') {
-        $rewrite_rules['!^' . $current_path . $prefix . '\/?$!'] = '$customer_index?sl=$matches[1]';
+        $rewrite_rules['!^' . $current_path . $prefix . '\/?$!'] = '$customer_index?sl=$matches[1]&mc=$matches[2]';
     }
     if (Registry::get('addons.seo.seo_category_type') != 'file') {
-        $rewrite_rules['!^' . $current_path . $prefix . '\/(.*\/)?([^\/]+)\/page-([0-9]+|full_list)(\/)?$!'] = 'object_name=$matches[3]&page=$matches[4]&sl=$matches[1]';
+        $rewrite_rules['!^' . $current_path . $prefix . '\/(.*\/)?([^\/]+)\/page-([0-9]+|full_list)(\/)?$!'] = 'object_name=$matches[4]&page=$matches[5]&sl=$matches[1]&mc=$matches[2]';
     }
 
-    $rewrite_rules['!^' . $current_path . $prefix . '\/(.*\/)?([^\/?]+)\/?$!'] = 'object_name=$matches[3]&sl=$matches[1]';
+    $rewrite_rules['!^' . $current_path . $prefix . '\/(.*\/)?([^\/?]+)\/?$!'] = 'object_name=$matches[4]&sl=$matches[1]&mc=$matches[2]';
     $rewrite_rules['!^' . $current_path . $prefix . '/$!'] = '';
+// [dab]
 
     return $rewrite_rules;
 }
@@ -516,9 +517,8 @@ function fn_seo_get_route(&$req, &$result, &$area, &$is_allowed_url)
                         if (Registry::get('addons.seo.single_url') != 'Y' && empty($objects['sl'])) {
                             $objects['sl'] = $_seo['lang_code'];
                         }
-
+		
                         $req['sl'] = $objects['sl'];
-
                         if (fn_seo_validate_object($_seo, $url_pattern['path'], $objects) == false) {
                             $req = array(
                                 'dispatch' => '_no_page'
@@ -526,6 +526,11 @@ function fn_seo_get_route(&$req, &$result, &$area, &$is_allowed_url)
 
                             return false;
                         }
+                        // [dab]
+                        if (!empty($objects['mc'])) {
+			    $req['mc'] = db_get_field("SELECT object_id FROM ?:seo_names WHERE name = ?s ?p ?p", $objects['mc'], fn_get_seo_company_condition('?:seo_names.company_id'), $lang_cond);
+			}
+                        // [dab]
 
                         $_seo_vars = fn_get_seo_vars($_seo['type']);
                         if ($_seo['type'] == 's') {
@@ -561,6 +566,11 @@ function fn_seo_get_route(&$req, &$result, &$area, &$is_allowed_url)
                         $url_query = 'dispatch=' . $objects['dispatch'];
                         $req['dispatch'] = $objects['dispatch'];
                     }
+		    // [dab]
+		    if (!empty($objects['mc'])) {
+			$req['mc'] = db_get_row("SELECT * FROM ?:seo_names WHERE name = ?s ?p ?p", $objects['mc'], fn_get_seo_company_condition('?:seo_names.company_id'), $lang_cond);
+		    }
+		    // [dab]
                     if (!empty($objects['sl'])) {
                         $req['sl'] = $objects['sl'];
                         if (Registry::get('addons.seo.seo_language') == 'Y') {
@@ -796,6 +806,13 @@ function fn_seo_validate_object($seo, $path, $objects)
         if (!in_array($obj_sl, array_keys($avail_langs))) {
             return false;
         }
+        // [dab]
+        list($avail_mc, ) = fn_get_metro_cities();
+        $obj_mc = db_get_field("SELECT object_id FROM ?:seo_names WHERE name = ?s ?p ?p", $objects['mc'], fn_get_seo_company_condition('?:seo_names.company_id'), $lang_cond);
+        if (!in_array($obj_mc, array_keys($avail_mc))) {
+            return false;
+        }
+        // [dab]
     }
 
     $path = substr($path, strlen((defined('HTTPS') ? Registry::get('config.https_path') : Registry::get('config.http_path'))) + 1); // remove path prefix
@@ -808,6 +825,13 @@ function fn_seo_validate_object($seo, $path, $objects)
     if (Registry::get('addons.seo.seo_language') == 'Y') {
         $path = substr($path, 3); // remove language prefix
     }
+
+    // [dab]
+    if (preg_match('(' . $objects['mc'] . '\/)', $path, $matches)) {
+        // remove mc from path
+        $path = str_replace($matches[0], '', $path);
+    }
+    // [dab]
 
     $path = rtrim($path, '/'); // remove trailing slash
     // check parent objects
@@ -1232,7 +1256,6 @@ function fn_seo_get_name($object_type, $object_id = 0, $dispatch = '', $company_
     }
 
     if (empty($name)) {
-
         $where_params = array(
             'object_id' => $object_id,
             'type' => $object_type,
@@ -1406,7 +1429,9 @@ function fn_seo_url_post(&$url, &$area, &$original_url, &$prefix, &$company_id_i
     }
 
     if (!empty($parced_url['path']) && empty($parced_url['query']) && $parced_url['path'] == $index_script) {
-        $url = $current_path . (($seo_settings['seo_language'] == 'Y') ? $lang_code . '/' : '');
+    // [dab]
+        $url = $current_path . (($seo_settings['seo_language'] == 'Y') ? $lang_code . '/' : '') . fn_seo_get_name('t', fn_get_session_data('location'), '', null, $lang_code) . '/';
+    // [dab]
 
         return $url;
     }
@@ -1424,6 +1449,7 @@ function fn_seo_url_post(&$url, &$area, &$original_url, &$prefix, &$company_id_i
         'host' => !empty($parced_url['host']) ? $parced_url['host'] : '',
         'path' => $current_path . $path,
         'lang_code' => ($seo_settings['seo_language'] == 'Y') ? $lang_code . '/' : '',
+        'mc' => fn_seo_get_name('t', fn_get_session_data('location')) . '/',
         'parent_items_names' => '',
         'name' => '',
         'page' => '',
