@@ -82,8 +82,12 @@ function fn_init_ip_location(&$params)
 	    fn_define('METRO_CITY_ID', $location['metro_city_id']);
 	}
     }
-    
-    fn_set_session_data('location', METRO_CITY_ID, COOKIE_ALIVE_TIME);
+
+    if (defined('METRO_CITY_ID')) {
+    	fn_set_session_data('location', METRO_CITY_ID, COOKIE_ALIVE_TIME);
+    } else {
+    	fn_set_session_data('location', null, COOKIE_ALIVE_TIME);
+    }
 }
 
 function fn_spec_dev_get_product_data_post($product_data, $auth, $preview, $lang_code)

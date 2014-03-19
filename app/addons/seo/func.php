@@ -468,7 +468,7 @@ function fn_seo_get_route(&$req, &$result, &$area, &$is_allowed_url)
 
             return false;
         }
-
+  
         $rule_matched = false;
         $rewrite_rules = fn_get_rewrite_rules();
         foreach ($rewrite_rules as $pattern => $query) {
@@ -1428,9 +1428,11 @@ function fn_seo_url_post(&$url, &$area, &$original_url, &$prefix, &$company_id_i
         }
     }
 
+    $s_mc = fn_get_session_data('location');
+    $mc = (!empty($s_mc)) ? fn_seo_get_name('t', $s_mc, '', null, $lang_code) . '/': '';
     if (!empty($parced_url['path']) && empty($parced_url['query']) && $parced_url['path'] == $index_script) {
     // [dab]
-        $url = $current_path . (($seo_settings['seo_language'] == 'Y') ? $lang_code . '/' : '') . fn_seo_get_name('t', fn_get_session_data('location'), '', null, $lang_code) . '/';
+        $url = $current_path . (($seo_settings['seo_language'] == 'Y') ? $lang_code . '/' : '') . $mc;
     // [dab]
 
         return $url;
@@ -1449,7 +1451,7 @@ function fn_seo_url_post(&$url, &$area, &$original_url, &$prefix, &$company_id_i
         'host' => !empty($parced_url['host']) ? $parced_url['host'] : '',
         'path' => $current_path . $path,
         'lang_code' => ($seo_settings['seo_language'] == 'Y') ? $lang_code . '/' : '',
-        'mc' => fn_seo_get_name('t', fn_get_session_data('location')) . '/',
+        'mc' => $mc,
         'parent_items_names' => '',
         'name' => '',
         'page' => '',
@@ -1561,6 +1563,7 @@ function fn_seo_url_post(&$url, &$area, &$original_url, &$prefix, &$company_id_i
                         $link_parts['name'] = $name;
                         fn_seo_parced_query_unset($parced_query);
                     } else {
+
                         // for non-rewritten links
                         $link_parts['path'] .= $index_script;
                         $link_parts['lang_code'] = '';

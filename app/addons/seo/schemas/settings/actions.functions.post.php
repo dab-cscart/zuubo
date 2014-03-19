@@ -21,7 +21,7 @@ use Tygh\Registry;
 function fn_settings_actions_addons_seo(&$new_value, $old_value)
 {
     if ($new_value == 'A') {
-        Http::get(Registry::get('config.http_location') . '/catalog.html?version');
+        Http::get(Registry::get('config.http_location') . '/?version');
         $headers = Http::getHeaders();
 
         if (strpos($headers, '200 OK') === false) {
