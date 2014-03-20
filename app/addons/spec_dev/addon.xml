@@ -84,6 +84,12 @@
 		    PRIMARY KEY (`ip_address`)
 		    ) ;
 		</item>
+		<item>
+		    REPLACE INTO cscart_static_data (`param_id`, `param`, `param_2`, `param_3`, `param_4`, `param_5`, `section`, `status`, `position`, `parent_id`, `id_path`, `localization`, `company_id`) VALUES ('500', 'spec_dev.change_location', 'spec_dev.change_location', '', '', '1', 'A', 'A', '0', '0', '500', '', NULL);
+		</item>
+		<item>
+		    REPLACE INTO cscart_static_data_descriptions (`param_id`, `lang_code`, `descr`) VALUES ('500', 'en', 'Change location');
+		</item>
 	</queries>
 	<language_variables>
 		<item lang="en" id="specific_development">Specific development</item>
@@ -98,7 +104,7 @@
 		<item lang="en" id="new_city">New city</item>
 		<item lang="en" id="choose_location">Choose location</item>
 		<item lang="en" id="editing_metro_city">Editing Metro City</item>
-		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="search_in_cities">Search in cities of [metro_city]</item>
 		<item lang="en" id="badges">Badges</item>
 		<item lang="en" id="badges">Badges</item>
 		<item lang="en" id="badges">Badges</item>

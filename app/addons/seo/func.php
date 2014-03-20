@@ -526,6 +526,7 @@ function fn_seo_get_route(&$req, &$result, &$area, &$is_allowed_url)
 
                             return false;
                         }
+
                         // [dab]
                         if (!empty($objects['mc'])) {
 			    $req['mc'] = db_get_field("SELECT object_id FROM ?:seo_names WHERE name = ?s ?p ?p", $objects['mc'], fn_get_seo_company_condition('?:seo_names.company_id'), $lang_cond);
@@ -568,7 +569,7 @@ function fn_seo_get_route(&$req, &$result, &$area, &$is_allowed_url)
                     }
 		    // [dab]
 		    if (!empty($objects['mc'])) {
-			$req['mc'] = db_get_row("SELECT * FROM ?:seo_names WHERE name = ?s ?p ?p", $objects['mc'], fn_get_seo_company_condition('?:seo_names.company_id'), $lang_cond);
+			$req['mc'] = db_get_field("SELECT object_id FROM ?:seo_names WHERE name = ?s ?p ?p", $objects['mc'], fn_get_seo_company_condition('?:seo_names.company_id'), $lang_cond);
 		    }
 		    // [dab]
                     if (!empty($objects['sl'])) {
@@ -807,11 +808,14 @@ function fn_seo_validate_object($seo, $path, $objects)
             return false;
         }
         // [dab]
-        list($avail_mc, ) = fn_get_metro_cities();
-        $obj_mc = db_get_field("SELECT object_id FROM ?:seo_names WHERE name = ?s ?p ?p", $objects['mc'], fn_get_seo_company_condition('?:seo_names.company_id'), $lang_cond);
-        if (!in_array($obj_mc, array_keys($avail_mc))) {
-            return false;
-        }
+        if (empty($objects['mc'])) {
+// 	    list($avail_mc, ) = fn_get_metro_cities();
+// 	    $obj_mc = db_get_field("SELECT object_id FROM ?:seo_names WHERE name = ?s ?p ?p", $objects['mc'], fn_get_seo_company_condition('?:seo_names.company_id'), $lang_cond);
+// 	    if (!in_array($obj_mc, array_keys($avail_mc))) {
+// 		return false;
+// 	    }
+	    return false;
+	}
         // [dab]
     }
 
@@ -827,7 +831,7 @@ function fn_seo_validate_object($seo, $path, $objects)
     }
 
     // [dab]
-    if (preg_match('(' . $objects['mc'] . '\/)', $path, $matches)) {
+    if (!empty($objects['mc']) && preg_match('(' . $objects['mc'] . '\/)', $path, $matches)) {
         // remove mc from path
         $path = str_replace($matches[0], '', $path);
     }
@@ -1432,9 +1436,9 @@ function fn_seo_url_post(&$url, &$area, &$original_url, &$prefix, &$company_id_i
     $mc = (!empty($s_mc)) ? fn_seo_get_name('t', $s_mc, '', null, $lang_code) . '/': '';
     if (!empty($parced_url['path']) && empty($parced_url['query']) && $parced_url['path'] == $index_script) {
     // [dab]
-        $url = $current_path . (($seo_settings['seo_language'] == 'Y') ? $lang_code . '/' : '') . $mc;
+        $url = $current_path . (($seo_settings['seo_language'] == 'Y') ? $lang_code . '/' : '') . (($mc == '') ? 'ALL/' : $mc);
     // [dab]
-
+//fn_print_r('1', $url);
         return $url;
     }
 
@@ -1451,7 +1455,7 @@ function fn_seo_url_post(&$url, &$area, &$original_url, &$prefix, &$company_id_i
         'host' => !empty($parced_url['host']) ? $parced_url['host'] : '',
         'path' => $current_path . $path,
         'lang_code' => ($seo_settings['seo_language'] == 'Y') ? $lang_code . '/' : '',
-        'mc' => $mc,
+        'mc' => (($mc == '') ? 'ALL/' : $mc),
         'parent_items_names' => '',
         'name' => '',
         'page' => '',
@@ -1565,8 +1569,9 @@ function fn_seo_url_post(&$url, &$area, &$original_url, &$prefix, &$company_id_i
                     } else {
 
                         // for non-rewritten links
-                        $link_parts['path'] .= $index_script;
+                        $link_parts['path'] .= /*(($mc == '') ? 'ALL/' : $mc) . */$index_script;
                         $link_parts['lang_code'] = '';
+                        $link_parts['mc'] = '';
                         if (!empty($unset_lang_code)) {
                             $parced_query['sl'] = $unset_lang_code;
                         }
@@ -1587,7 +1592,7 @@ function fn_seo_url_post(&$url, &$area, &$original_url, &$prefix, &$company_id_i
     if (!empty($parced_query)) {
         $url .= '?' . http_build_query($parced_query) . $fragment;
     }
-
+//fn_print_r('2', $url);
     return $url;
 }
 

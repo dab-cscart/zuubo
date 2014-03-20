@@ -25,5 +25,9 @@ fn_register_hooks(
 	'update_product_post',
 	'get_seo_vars',
 	'seo_empty_object_name',
-	'get_rewrite_rules'
+	'get_rewrite_rules',
+	'get_categories',
+	'get_products',
+	'get_product_data',
+	'get_category_data'
 );

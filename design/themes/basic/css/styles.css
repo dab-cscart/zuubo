@@ -1165,6 +1165,7 @@ ul.text-links.text-links-inline li.level-0:hover > ul {
 
 /* Important sidebox style */
 .sidebox-important-wrapper .sidebox-title {
+    background: #595959 none;
     -webkit-border-radius: 5px 5px 0 0;
     -moz-border-radius: 5px 5px 0 0;
     border-radius: 5px 5px 0 0;
@@ -3882,6 +3883,7 @@ a.secondary-link {
     border-radius: 3px;
     padding: 5px 0;
     margin-top: 32px;
+    margin-bottom: 31px;
 }
 .top-social-links {
     float: right;
@@ -3956,5 +3958,39 @@ a.secondary-link {
     background: url(../media/images/footer_blocks_marker.png) no-repeat 0 6px;
     list-style-type: none;
     margin-bottom: 12px;
+}
+.footer-copyright {
+    background-color: #595959;
+    padding: 7px 3000px 13px 3000px;
+    margin: 0 -3000px !important;
+}
+p.bottom-copyright {
+    padding: 0;
+    margin: 0;
+}
+.tygh-footer .footer-copyright div, .tygh-footer .footer-copyright a:link, .tygh-footer .footer-copyright a:visited, p.bottom-copyright, .footer-copyright .text-links a, .footer-copyright .text-links a:hover {
+    color: #fbfbf9;
+    font-size: 12px;
+}
+.footer-copyright ul.text-links.text-links-inline li.level-0 {
+    padding: 0;
+    margin-right: 6px;
+}
+.footer-copyright ul.text-links.text-links-inline li.level-0 a {
+    margin-right: 6px;
+}
+.footer-quick-links .text-links {
+    margin-left: 15px;
+}
+.homepage-banners, .homepage-banners .owl-theme {
+    margin: 0;
+}
+.homepage-banners .owl-theme {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #f2f2f2;
+    padding: 4px;
+    
 }
 /* /custom styles */

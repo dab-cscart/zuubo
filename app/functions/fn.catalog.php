@@ -1636,7 +1636,9 @@ function fn_get_category_data($category_id = 0, $lang_code = CART_LANGUAGE, $fie
      * @param string $join        String with the complete JOIN information (JOIN type, tables and fields) for an SQL-query
      * @param string $lang_code   2-letters language code
      */
-    fn_set_hook('get_category_data', $category_id, $field_list, $join, $lang_code);
+     // [dab]
+    fn_set_hook('get_category_data', $category_id, $field_list, $join, $lang_code, $conditions);
+     // [dab]
 
     $category_data = db_get_row("SELECT $field_list FROM ?:categories LEFT JOIN ?:category_descriptions ON ?:category_descriptions.category_id = ?:categories.category_id AND ?:category_descriptions.lang_code = ?s ?p WHERE ?:categories.category_id = ?i ?p", $lang_code, $join, $category_id, $conditions);
 

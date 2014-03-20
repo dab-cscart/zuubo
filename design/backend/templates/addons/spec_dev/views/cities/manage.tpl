@@ -86,7 +86,7 @@
     <div class="cm-tabs-content">
     <fieldset>
         <div class="control-group">
-            <label class="control-label" for="elm_city_name">{__("city")}:</label>
+            <label class="control-label cm-required" for="elm_city_name">{__("city")}:</label>
             <div class="controls">
             <input type="text" id="elm_city_name" name="city_data[city]" size="55" value="" />
             </div>

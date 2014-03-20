@@ -36,11 +36,18 @@ if ($mode == 'choose_location') {
     Registry::get('view')->assign('metro_cities', $metro_cities);
     Registry::get('view')->assign('return_url', $_REQUEST['return_url']);
     
+} elseif ($mode == 'change_location') {
+
+    $_ip = fn_get_ip(true);
+    fn_set_session_data('location', null, COOKIE_ALIVE_TIME);
+    db_query("DELETE FROM ?:ip_locations WHERE ip_address = ?s", $_ip['host']);
+    
+    return array(CONTROLLER_STATUS_REDIRECT, "spec_dev.choose_location");
 } elseif ($mode == 'set_location') {
 
     fn_set_session_data('location', $_REQUEST['mc_id'], COOKIE_ALIVE_TIME);
     fn_set_location($_REQUEST);
-    $redirect_url = !empty($_REQUEST['return_url']) ? $_REQUEST['return_url'] : fn_url('');
+    $redirect_url = fn_url($_REQUEST['return_url']);
 
     return array(CONTROLLER_STATUS_REDIRECT, $redirect_url);
 }
