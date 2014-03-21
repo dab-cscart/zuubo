@@ -16,6 +16,35 @@ use Tygh\Registry;
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
+function fn_spec_dev_get_filters_products_count_query_params($values_fields, &$join, $sliders_join, $feature_ids, &$where, $sliders_where, $filter_vq, $filter_rq)
+{
+    if (AREA == 'C' && defined('METRO_CITY_ID')) {
+	$join .= db_quote(" LEFT JOIN ?:product_metro_cities ON ?:product_metro_cities.product_id = ?:products.product_id ");
+	$where .= db_quote(" AND ?:product_metro_cities.metro_city_id = ?i", METRO_CITY_ID);
+    }
+}
+
+function fn_spec_dev_get_products_before_select(&$params, $join, $condition, $u_condition, $inventory_condition, $sortings, $total, $items_per_page, $lang_code, $having)
+{
+    if (!empty($params['filter_params']['city_id'])) {
+	$params['city_ids'] = array_fill_keys($params['filter_params']['city_id'], 'Y');
+	unset($params['filter_params']['city_id']);
+    }
+}
+
+function fn_spec_dev_get_product_filter_fields(&$filters)
+{
+    $filters['C'] = array (
+	'db_field' => 'city_id',
+	'table' => 'product_cities',
+	'description' => 'city',
+	'condition_type' => 'F',
+	'range_name' => 'city',
+	'foreign_table' => 'cities',
+	'foreign_index' => 'city_id',
+    );
+}
+
 function fn_spec_dev_get_category_data($category_id, $field_list, &$join, $lang_code, &$conditions)
 {
     if (AREA == 'C' && defined('METRO_CITY_ID')) {
@@ -38,9 +67,16 @@ function fn_spec_dev_get_products($params, $fields, $sortings, $condition, $join
 	$join .= db_quote(" LEFT JOIN ?:product_metro_cities ON ?:product_metro_cities.product_id = products.product_id ");
 	$condition .= db_quote(" AND ?:product_metro_cities.metro_city_id = ?i", METRO_CITY_ID);
 	
+	$city_ids = array();
 	if (!empty($params['cities'])) {
+	    $city_ids += $params['cities'];
+	}
+	if (!empty($params['city_ids'])) {
+	    $city_ids += $params['city_ids'];
+	}
+	if (!empty($city_ids)) {
 	    $join .= db_quote(" LEFT JOIN ?:product_cities ON ?:product_cities.product_id = products.product_id ");
-	    $condition .= db_quote(" AND ?:product_cities.city_id IN (?n)", array_keys($params['cities']));
+	    $condition .= db_quote(" AND ?:product_cities.city_id IN (?n)", array_keys($city_ids));
 	}
     }
 }

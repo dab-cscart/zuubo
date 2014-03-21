@@ -29,5 +29,8 @@ fn_register_hooks(
 	'get_categories',
 	'get_products',
 	'get_product_data',
-	'get_category_data'
+	'get_category_data',
+	'get_product_filter_fields',
+	'get_products_before_select',
+	'get_filters_products_count_query_params'
 );

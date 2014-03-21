@@ -5252,6 +5252,12 @@ function fn_get_filters_products_count($params = array())
          */
         fn_set_hook('get_filters_products_count_query_params', $values_fields, $join, $sliders_join, $feature_ids, $where, $sliders_where, $filter_vq, $filter_rq);
 
+        // [dab]
+	if (AREA == 'C' && defined('METRO_CITY_ID')) {
+	    $_join .= db_quote(" LEFT JOIN ?:product_metro_cities ON ?:product_metro_cities.product_id = ?:products.product_id ");
+	}
+        // [dab]
+
         if (!empty($field_filters)) {
             // Field ranges
 
@@ -5301,7 +5307,7 @@ function fn_get_filters_products_count($params = array())
                                 );
                             }
                         }
-
+                        
                         $field_range_values[$filter_id] = db_get_row("SELECT MIN($db_field) min, MAX($db_field) max FROM ?:$field[table] ?p WHERE ?:products.status IN ('A') ?p", $fields_join . $_join, $where . $fields_where);
 
                         if (fn_is_empty($field_range_values[$filter_id])) {
@@ -5399,7 +5405,14 @@ function fn_get_filters_products_count($params = array())
                     }
                 // Fixed values (supplier etc)
                 } elseif ($field['condition_type'] == 'F') {
-                    $field_ranges_counts[$filter_id] = db_get_hash_array("SELECT COUNT(DISTINCT ?:$field[table].product_id) as products, ?:$field[foreign_table].$field[range_name] as range_name, ?:$field[foreign_table].$field[foreign_index] as range_id FROM ?:$field[table] LEFT JOIN ?:$field[foreign_table] ON ?:$field[foreign_table].$field[foreign_index] = ?:$field[table].$field[db_field] ?p WHERE ?:products.status IN ('A') ?p GROUP BY ?:$field[table].$field[db_field] ORDER BY ?:$field[foreign_table].$field[range_name] ", 'range_id', $join, $where);
+                
+                    if ($field['field_type'] == 'C') {
+                        if (strpos($join, 'JOIN ?:products ') === false) {
+                            $fields_join .= " LEFT JOIN ?:products ON ?:products.product_id = ?:$field[table].product_id";
+                        }
+                    }
+                    
+                    $field_ranges_counts[$filter_id] = db_get_hash_array("SELECT COUNT(DISTINCT ?:$field[table].product_id) as products, ?:$field[foreign_table].$field[range_name] as range_name, ?:$field[foreign_table].$field[foreign_index] as range_id FROM ?:$field[table] ?p LEFT JOIN ?:$field[foreign_table] ON ?:$field[foreign_table].$field[foreign_index] = ?:$field[table].$field[db_field] ?p WHERE ?:products.status IN ('A') ?p GROUP BY ?:$field[table].$field[db_field] ORDER BY ?:$field[foreign_table].$field[range_name] ", 'range_id', $fields_join, $join, $where);
                 }
             }
         }
