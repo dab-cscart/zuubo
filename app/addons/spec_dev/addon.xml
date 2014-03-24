@@ -99,6 +99,9 @@
 		<item>
 		    ALTER TABLE `cscart_products` ADD `points_expiration_period` MEDIUMINT( 8 ) UNSIGNED NOT NULL ;
 		</item>
+		<item>
+		    ALTER TABLE `cscart_reward_point_changes` ADD `spent` INT( 11 ) NOT NULL ;
+		</item>
 	</queries>
 	<language_variables>
 		<item lang="en" id="specific_development">Specific development</item>

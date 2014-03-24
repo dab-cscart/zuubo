@@ -22,17 +22,18 @@
             {assign var="statuses" value=$smarty.const.STATUSES_ORDER|fn_get_simple_statuses:true:true}
             {assign var="reason" value=$ul.reason|unserialize}
             {assign var="order_exist" value=$reason.order_id|fn_get_order_name}
-            {__("order")}&nbsp;{if $order_exist}<a href="{"orders.details?order_id=`$reason.order_id`"|fn_url}" class="underlined">{/if}<strong>#{$reason.order_id}</strong>{if $order_exist}</a>{/if}:&nbsp;{$statuses[$reason.from]}&nbsp;&#8212;&#8250;&nbsp;{$statuses[$reason.to]}{if $reason.text}&nbsp;({__($reason.text) nofilter}){/if}
+            {assign var="product_exist" value=$reason.product_id|fn_get_product_name}
+            {__("order")}&nbsp;{if $order_exist}<a href="{"orders.details?order_id=`$reason.order_id`"|fn_url}" class="underlined">{/if}<strong>#{$reason.order_id}</strong>{if $order_exist}</a>{/if}{if $product_exist},&nbsp;{__("product")}&nbsp;<a href="{"products.view?product_id=`$reason.product_id`"|fn_url}" class="underlined"><span>{$product_exist}</span></a>{/if}:&nbsp;{$statuses[$reason.from]}&nbsp;&#8212;&#8250;&nbsp;{$statuses[$reason.to]}{if $reason.text}&nbsp;({__($reason.text) nofilter}){/if}
         {elseif $ul.action == $smarty.const.CHANGE_DUE_USE}
             {assign var="order_exist" value=$ul.reason|fn_get_order_name}
             {__("text_points_used_in_order")}: {if $order_exist}<a href="{"orders.details?order_id=`$ul.reason`"|fn_url}">{/if}<strong>#{$ul.reason}</strong>{if $order_exist}</a>{/if}
         {elseif $ul.action == $smarty.const.CHANGE_DUE_ORDER_DELETE}
             {assign var="reason" value=$ul.reason|unserialize}
-            {__("order")} <strong>#{$reason.order_id}</strong>: {__("deleted")}
+            {__("order")} <strong>#{$reason.order_id}</strong>{if $product_exist},&nbsp;{__("product")}&nbsp;<a href="{"products.view?product_id=`$reason.product_id`"|fn_url}" class="underlined"><span>{$product_exist}</span></a>{/if}: {__("deleted")}
         {elseif $ul.action == $smarty.const.CHANGE_DUE_ORDER_PLACE}
             {assign var="reason" value=$ul.reason|unserialize}
             {assign var="order_exist" value=$reason.order_id|fn_get_order_name}
-            {__("order")} {if $order_exist}<a href="{"orders.details?order_id=`$reason.order_id`"|fn_url}" class="underlined">{/if}<strong>#{$reason.order_id}</strong>{if $order_exist}</a>{/if}: {__("placed")}
+            {__("order")} {if $order_exist}<a href="{"orders.details?order_id=`$reason.order_id`"|fn_url}" class="underlined">{/if}<strong>#{$reason.order_id}</strong>{if $order_exist}</a>{/if}{if $product_exist},&nbsp;{__("product")}&nbsp;<a href="{"products.view?product_id=`$reason.product_id`"|fn_url}" class="underlined"><span>{$product_exist}</span></a>{/if}: {__("placed")}
         {else}
             {hook name="reward_points:userlog"}
             {$ul.reason}

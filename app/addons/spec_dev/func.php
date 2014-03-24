@@ -16,6 +16,31 @@ use Tygh\Registry;
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
+function fn_get_product_reward_expiration_date($product_id)
+{
+    $expiration_period = db_get_field("SELECT points_expiration_period FROM ?:products WHERE product_id = ?i", $product_id);
+    if (empty($expiration_period)) {
+	$ids = explode('/', db_get_field("SELECT id_path FROM ?:categories LEFT JOIN ?:products_categories ON ?:products_categories.category_id = ?:categories.category_id WHERE ?:products_categories.product_id = ?i AND ?:products_categories.link_type = 'M'", $product_id));
+	$obj_ids = array();
+	if (!empty($ids)) {
+	    $exp_periods = db_get_hash_single_array("SELECT category_id, points_expiration_period FROM ?:categories WHERE category_id IN (?n)", array('category_id', 'points_expiration_period'), $ids);
+	    foreach (array_reverse($exp_periods) as $period) {
+		if ($period > 0) {
+		    $expiration_period = $period;
+		    break;
+		}
+	    }
+	}
+    }
+    if (empty($expiration_period)) {
+	$expiration_period = Registry::get('addons.reward_points.expiration_period');
+    }
+    $today = getdate(TIME);
+    $result = gmmktime(0, 0, 0, $today['mon'], $today['mday'] + $expiration_period, $today['year']);
+    
+    return $result;
+}
+
 function fn_spec_dev_get_filters_products_count_query_params($values_fields, &$join, $sliders_join, $feature_ids, &$where, $sliders_where, $filter_vq, $filter_rq)
 {
     if (AREA == 'C' && defined('METRO_CITY_ID')) {

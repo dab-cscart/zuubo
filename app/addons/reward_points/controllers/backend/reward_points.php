@@ -45,12 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($mode == 'm_delete') {
         foreach ($_REQUEST['change_ids'] as $change_id) {
-            db_query("DELETE FROM ?:reward_point_changes WHERE change_id = ?i", $change_id);
+	    // [dab]
+            db_query("DELETE FROM ?:reward_point_changes WHERE change_id = ?i AND amount = spent", $change_id);
+	    // [dab]
         }
     }
 
     if ($mode == 'cleanup_logs') {
-        db_query("DELETE FROM ?:reward_point_changes WHERE user_id = ?i", $_REQUEST['user_id']);
+    	// [dab]
+        db_query("DELETE FROM ?:reward_point_changes WHERE user_id = ?i AND amount = spent", $_REQUEST['user_id']);
+	// [dab]
     }
 
     // Add/Update wholesale prices info
@@ -100,7 +104,9 @@ if ($mode == 'manage') {
 
 } elseif ($mode == 'delete') {
     if (!empty($_REQUEST['change_id'])) {
-        db_query("DELETE FROM ?:reward_point_changes WHERE change_id = ?i", $_REQUEST['change_id']);
+	// [dab]
+        db_query("DELETE FROM ?:reward_point_changes WHERE change_id = ?i AND amount = spent", $_REQUEST['change_id']);
+	// [dab]
     }
 
     return array(CONTROLLER_STATUS_REDIRECT, "reward_points.userlog?user_id=$_REQUEST[user_id]");

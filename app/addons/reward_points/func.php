@@ -192,8 +192,13 @@ function fn_reward_points_calculate_cart_taxes_pre(&$cart, &$cart_products, &$sh
             if (isset($cart_products[$k]['points_info']['reward'])) {
                 $product_reward = $v['amount'] * (!empty($v['product_options']) ? fn_apply_options_modifiers($cart['products'][$k]['product_options'], $cart_products[$k]['points_info']['reward']['raw_amount'], POINTS_MODIFIER_TYPE) : $cart_products[$k]['points_info']['reward']['raw_amount']);
                 $cart['products'][$k]['extra']['points_info']['reward'] = round($product_reward);
+                // [dab]
+                $cart['products'][$k]['extra']['points_info']['reward_expire'] = fn_get_product_reward_expiration_date($v['product_id']);
                 $cart_reward = round($reward_coef * $product_reward);
                 $cart['points_info']['reward'] = (isset($cart['points_info']['reward']) ? $cart['points_info']['reward'] : 0) + $cart_reward;
+                $cart['points_info']['items'][$k]['reward'] = $cart_reward;
+                $cart['points_info']['items'][$k]['expire'] = $cart['products'][$k]['extra']['points_info']['reward_expire'];
+                // [dab]
             }
         }
     }
@@ -301,9 +306,6 @@ function fn_change_user_points($value, $user_id, $reason = '', $action = CHANGE_
     if (!empty($value)) {
         fn_save_user_additional_data(POINTS, fn_get_user_additional_data(POINTS, $user_id) + $value, $user_id);
 
-	if ($exp_period == 0) {
-	}
-	$today = getdate(TIME);
         $change_points = array(
             'user_id' => $user_id,
             'amount' => $value,
@@ -311,7 +313,7 @@ function fn_change_user_points($value, $user_id, $reason = '', $action = CHANGE_
             'action' => $action,
             'reason' => $reason,
             // [dab]
-            'expiration_date' => gmmktime(0, 0, 0, $today['mon'], $today['mday'] + Registry::get('addons.reward_points.expiration_period'), $today['year'])
+            'expiration_date' => $exp_period
             // [dab]
         );
 	
@@ -323,16 +325,17 @@ function fn_change_user_points($value, $user_id, $reason = '', $action = CHANGE_
 
 function fn_reward_points_place_order(&$order_id, &$fake, &$fake1, &$cart)
 {
-fn_print_die($cart['points_info']);
     if (!empty($order_id)) {
-        if (!empty($cart['points_info']['reward'])) {
+	// [dab]
+        if (!empty($cart['points_info']['items'])) {
             $order_data = array(
                 'order_id' => $order_id,
                 'type' => POINTS,
-                'data' => $cart['points_info']['reward']
+                'data' => serialize($cart['points_info']['items'])
             );
             db_query("REPLACE INTO ?:order_data ?e", $order_data);
         }
+	// [dab]
 
         if (!empty($cart['points_info']['in_use'])) {
             $order_data = array(
@@ -369,7 +372,9 @@ function fn_reward_points_get_order_info(&$order, &$additional_data)
     }
 
     if (isset($additional_data[POINTS])) {
-        $order['points_info']['reward'] = $additional_data[POINTS];
+	// [dab]
+        $order['points_info']['reward'] = unserialize($additional_data[POINTS]);
+	// [dab]
     }
     if (!empty($additional_data[POINTS_IN_USE])) {
         $order['points_info']['in_use'] = unserialize($additional_data[POINTS_IN_USE]);
@@ -394,46 +399,61 @@ function fn_reward_points_change_order_status(&$status_to, &$status_from, &$orde
 
     $points_info = (isset($order_info['points_info'])) ? $order_info['points_info'] : array();
     if (!empty($points_info)) {
-        $reason = array(
-            'order_id' => $order_info['order_id'],
-            'to' => $status_to,
-            'from' =>$status_from
-        );
-        $action = empty($place_order) ? CHANGE_DUE_ORDER : CHANGE_DUE_ORDER_PLACE;
-        if ($order_statuses[$status_to]['params']['inventory'] == 'I' && $order_statuses[$status_from]['params']['inventory'] == 'D') {
-            if (!empty($points_info['in_use']['points'])) {
-                // increase points in use
-                $log_id = fn_change_user_points($points_info['in_use']['points'], $order_info['user_id'], serialize(fn_array_merge($reason, array('text' => 'text_increase_points_in_use'))), $action);
-            }
-            if ($points_info['is_gain'] == 'Y' && !empty($points_info['reward'])) {
-                // decrease earned points
-                $log_id = fn_change_user_points( - $points_info['reward'], $order_info['user_id'], serialize($reason), $action);
-                db_query("DELETE FROM ?:order_data WHERE order_id = ?i AND type = ?s", $order_info['order_id'], ORDER_DATA_POINTS_GAIN);
-            }
-        }
+	$reason = array(
+	    'order_id' => $order_info['order_id'],
+	    'to' => $status_to,
+	    'from' =>$status_from
+	);
+	$action = empty($place_order) ? CHANGE_DUE_ORDER : CHANGE_DUE_ORDER_PLACE;
+	if ($order_statuses[$status_to]['params']['inventory'] == 'I' && $order_statuses[$status_from]['params']['inventory'] == 'D') {
+	    if (!empty($points_info['in_use']['points'])) {
+		// increase points in use
+		$log_id = fn_change_user_points($points_info['in_use']['points'], $order_info['user_id'], serialize(fn_array_merge($reason, array('text' => 'text_increase_points_in_use'))), $action);
+	    }
+	    if ($points_info['is_gain'] == 'Y' && !empty($points_info['reward'])) {
+		// decrease earned points
+		if (is_array($points_info['reward'])) {
+		    foreach ($points_info['reward'] as $_key => $r_data) {
+			$reason['product_id'] = $order_info['products'][$_key]['product_id'];
+			$log_id = fn_change_user_points( - $points_info['reward'], $order_info['user_id'], serialize($reason), $action, $r_data['expire']);
+		    }
+		} else {
+		    $log_id = fn_change_user_points( - $points_info['reward'], $order_info['user_id'], serialize($reason), $action);
+		}
+		db_query("DELETE FROM ?:order_data WHERE order_id = ?i AND type = ?s", $order_info['order_id'], ORDER_DATA_POINTS_GAIN);
+	    }
+	}
 
-        if ($order_statuses[$status_to]['params']['inventory'] == 'D' && $order_statuses[$status_from]['params']['inventory'] == 'I') {
-            if (!empty($points_info['in_use']['points'])) {
-                // decrease points in use
-                if ($points_info['in_use']['points'] > fn_get_user_additional_data(POINTS, $order_info['user_id'])) {
-                    fn_set_notification('W', __('warning'), __('text_order_status_has_not_been_changed'));
-                    $status_to = $status_from;
-                } else {
-                    $log_id = fn_change_user_points( - $points_info['in_use']['points'], $order_info['user_id'], serialize(fn_array_merge($reason, array('text' => 'text_decrease_points_in_use'))), $action);
-                }
-            }
-        }
-
-        if ($status_to == 'C' && $points_info['is_gain'] == 'N' && !empty($points_info['reward'])) {
-            // increase  rewarded points
-            $log_id = fn_change_user_points($points_info['reward'], $order_info['user_id'], serialize($reason), $action);
-            $order_data = array(
-                'order_id' => $order_info['order_id'],
-                'type' => ORDER_DATA_POINTS_GAIN,
-                'data' => 'Y'
-            );
-            db_query("REPLACE INTO ?:order_data ?e", $order_data);
-        }
+	if ($order_statuses[$status_to]['params']['inventory'] == 'D' && $order_statuses[$status_from]['params']['inventory'] == 'I') {
+	    if (!empty($points_info['in_use']['points'])) {
+		// decrease points in use
+		if ($points_info['in_use']['points'] > fn_get_user_additional_data(POINTS, $order_info['user_id'])) {
+		    fn_set_notification('W', __('warning'), __('text_order_status_has_not_been_changed'));
+		    $status_to = $status_from;
+		} else {
+		    $log_id = fn_change_user_points( - $points_info['in_use']['points'], $order_info['user_id'], serialize(fn_array_merge($reason, array('text' => 'text_decrease_points_in_use'))), $action);
+		}
+	    }
+	}
+	if ($status_to == 'C' && $points_info['is_gain'] == 'N' && !empty($points_info['reward'])) {
+	    // [dab]
+	    // increase  rewarded points
+	    if (is_array($points_info['reward'])) {
+		foreach ($points_info['reward'] as $_key => $r_data) {
+		    $reason['product_id'] = $order_info['products'][$_key]['product_id'];
+		    $log_id = fn_change_user_points($r_data['reward'], $order_info['user_id'], serialize($reason), $action, $r_data['expire']);
+		}
+	    } else {
+		$log_id = fn_change_user_points($points_info['reward'], $order_info['user_id'], serialize($reason), $action);
+	    }
+	    // [dab]
+	    $order_data = array(
+		'order_id' => $order_info['order_id'],
+		'type' => ORDER_DATA_POINTS_GAIN,
+		'data' => 'Y'
+	    );
+	    db_query("REPLACE INTO ?:order_data ?e", $order_data);
+	}
     }
 }
 

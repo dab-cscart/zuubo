@@ -87,15 +87,15 @@ ul.dropdown-vertical ul ul {
 }
 ul.dropdown-vertical a {
     display: block;
-    padding: 10px 20px 8px 10px;
+    padding: 11px 25px 12px 14px;
     position: relative;
     z-index: 530;
 }
 ul.dropdown-vertical i {
     color: #ccc;
     position: absolute;
-    right: 12px;
-    top: 11px;
+    right: 18px;
+    top: 16px;
 }
 ul.dropdown-vertical .icon-left-open {
     display: none;
