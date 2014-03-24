@@ -61,7 +61,7 @@ a, a:visited, a:active, .tygh-footer a:link, .tygh-footer a:visited, .top-links-
     font-style: @links_font_style;
     text-decoration: @links_font_decoration;
 }
-h1 .mainbox-title, .mainbox-title span, .product-main-info h1.mainbox-title, .product-quick-view.product-main-info .quick-view-title {
+.product-main-info h1.mainbox-title, .product-quick-view.product-main-info .quick-view-title {
 //    font-family: @headings_font;
     font-size: @headings_font_size;
     font-weight: @headings_font_weight;
@@ -69,7 +69,7 @@ h1 .mainbox-title, .mainbox-title span, .product-main-info h1.mainbox-title, .pr
     text-decoration: @headings_font_decoration;
 }
 
-.breadcrumbs a, .breadcrumbs i, .breadcrumbs span, .sku span {
+.sku span {
 	font-size: 100%;
 	line-height: 100%;
 }
@@ -280,15 +280,6 @@ ul.dropdown-multicolumns li:hover a {
 	}
 }
 .sidebox-title { .sidebox_header(@sidebar) }
-
-.sidebox-wrapper .sidebox-body {
-	border-color: @sidebar;
-	box-shadow: inset 0 30px 25px -20px #e5e5e5;
-}
-.sidebox-important-wrapper .sidebox-body {
-	background-color: lighten(@sidebar, 25%);
-	box-shadow: inset 0 30px 25px -20px #e5e5e5;
-}
 
 @slider: desaturate(@links, 30%);
 .ui-slider .ui-slider-range.ui-widget-header {
@@ -508,7 +499,7 @@ a.bottom-copyright {
 .no-items, .step-title-complete span.float-left, h2.step-title-complete a.title, h2.step-title-complete a.title:hover, .pb-container .icon-right-thin, .product-filters li a.filter-item.disabled, .product-filters li a.filter-item.checked.disabled, .product-cell-empty p {
 	color: lighten(@base, 30%);
 }
-input[type="text"], input[type="password"], textarea, select, .scroll-y, .account-info .user-name, .arrows-list li.delim, .b-bottom, .delim, .order-information hr, .image-captcha, form .captcha-input-text, .object-image, .button a, .button-action a, .button-big a, .button-submit-action input, .button-submit input, .button-submit-big input, .updates-wrapper, .order-products .order-product-list li, .breadcrumbs, .product-notification-body ul ul, .thumbnails-item, .csse-uploaded-images img, .csse-uploaded-images a.delete-thumb {
+input[type="text"], input[type="password"], textarea, select, .scroll-y, .account-info .user-name, .arrows-list li.delim, .b-bottom, .delim, .order-information hr, .image-captcha, form .captcha-input-text, .object-image, .button a, .button-action a, .button-big a, .button-submit-action input, .button-submit input, .button-submit-big input, .updates-wrapper, .order-products .order-product-list li, .product-notification-body ul ul, .thumbnails-item, .csse-uploaded-images img, .csse-uploaded-images a.delete-thumb {
 	border-color: lighten(@base, 30%);
 }
 
@@ -699,14 +690,6 @@ ul.text-links.text-links-inline li.level-0 > ul, .sort-dropdown, .popup-tools, .
 }
 
 .sort-dropdown, .sort-dropdown a, .views-icons .active, .views-icons > a:hover {.button_text (lighten(@secondary_button, 5%))}
-
-// Breadcrumbs
-.breadcrumbs, .breadcrumbs a, .breadcrumbs a:visited, .breadcrumbs a:active, .breadcrumbs span {
-	color: lighten(@base, 10%);
-}
-.breadcrumbs a:hover {
-	color: @links;
-}
 
 // Cascade bug classes
 .pagination-selected-page {

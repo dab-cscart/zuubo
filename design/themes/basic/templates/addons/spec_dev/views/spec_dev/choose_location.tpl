@@ -1,7 +1,7 @@
 {if $metro_cities}
 {assign var="r_url" value=$return_url|escape:url}
 {split data=$metro_cities size="4" assign="splitted_metro_cities" preverse_keys=true}
-<table class="view-all table-width">
+<table class="view-all table-width choose-location">
 {foreach from=$splitted_metro_cities item="metro_cities"}
 <tr class="valign-top">
     {foreach from=$metro_cities item="metro_city" key="index"}
@@ -28,3 +28,4 @@
 {/foreach}
 </table>
 {/if}
+{capture name="mainbox_title"}{__("choose_location")}{/capture}
