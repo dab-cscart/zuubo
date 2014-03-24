@@ -27,6 +27,11 @@
             <section id="general">
                 <name>General</name>
                 <items>
+                    <item id="expiration_period">
+                        <name>Expiration period (days)</name>
+                        <type>input</type>
+                        <default_value>30</default_value>
+                    </item>
                     <item id="point_rate">
                         <name>Points Exchange Rate (PER - the number of points equal to 1 conventional unit)</name>
                         <type>input</type>

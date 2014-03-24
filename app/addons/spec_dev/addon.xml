@@ -8,7 +8,7 @@
 	<position>0</position>
 	<status>active</status>
 	<compatibility>
-	    <dependencies>seo</dependencies>
+	    <dependencies>reward_points,seo</dependencies>
 	</compatibility>
 	<auto_install>MULTIVENDOR,ULTIMATE</auto_install>
 	<queries>
@@ -90,6 +90,15 @@
 		<item>
 		    REPLACE INTO cscart_static_data_descriptions (`param_id`, `lang_code`, `descr`) VALUES ('500', 'en', 'Change location');
 		</item>
+		<item>
+		    ALTER TABLE `cscart_reward_point_changes` ADD `expiration_date` INT( 11 ) UNSIGNED NOT NULL ;
+		</item>
+		<item>
+		    ALTER TABLE `cscart_categories` ADD `points_expiration_period` MEDIUMINT( 8 ) UNSIGNED NOT NULL ;
+		</item>
+		<item>
+		    ALTER TABLE `cscart_products` ADD `points_expiration_period` MEDIUMINT( 8 ) UNSIGNED NOT NULL ;
+		</item>
 	</queries>
 	<language_variables>
 		<item lang="en" id="specific_development">Specific development</item>
@@ -105,7 +114,7 @@
 		<item lang="en" id="choose_location">Choose location</item>
 		<item lang="en" id="editing_metro_city">Editing Metro City</item>
 		<item lang="en" id="search_in_cities">Search in cities of [metro_city]</item>
-		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="expiration_period">Expiration period (days)</item>
 		<item lang="en" id="badges">Badges</item>
 		<item lang="en" id="badges">Badges</item>
 		<item lang="en" id="badges">Badges</item>
