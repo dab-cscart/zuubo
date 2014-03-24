@@ -296,20 +296,25 @@ function fn_set_point_payment(&$cart, &$cart_products, &$auth)
     Registry::set('user_info', $user_info);
 }
 
-function fn_change_user_points($value, $user_id, $reason = '', $action = CHANGE_DUE_ADDITION)
+function fn_change_user_points($value, $user_id, $reason = '', $action = CHANGE_DUE_ADDITION, $exp_period = 0)
 {
-
     if (!empty($value)) {
         fn_save_user_additional_data(POINTS, fn_get_user_additional_data(POINTS, $user_id) + $value, $user_id);
 
+	if ($exp_period == 0) {
+	}
+	$today = getdate(TIME);
         $change_points = array(
             'user_id' => $user_id,
             'amount' => $value,
             'timestamp' => TIME,
             'action' => $action,
-            'reason' => $reason
+            'reason' => $reason,
+            // [dab]
+            'expiration_date' => gmmktime(0, 0, 0, $today['mon'], $today['mday'] + Registry::get('addons.reward_points.expiration_period'), $today['year'])
+            // [dab]
         );
-
+	
         return db_query("REPLACE INTO ?:reward_point_changes ?e", $change_points);
     }
 
@@ -318,7 +323,7 @@ function fn_change_user_points($value, $user_id, $reason = '', $action = CHANGE_
 
 function fn_reward_points_place_order(&$order_id, &$fake, &$fake1, &$cart)
 {
-
+fn_print_die($cart['points_info']);
     if (!empty($order_id)) {
         if (!empty($cart['points_info']['reward'])) {
             $order_data = array(

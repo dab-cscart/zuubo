@@ -50,4 +50,15 @@ if ($mode == 'choose_location') {
     $redirect_url = fn_url($_REQUEST['return_url']);
 
     return array(CONTROLLER_STATUS_REDIRECT, $redirect_url);
+} elseif ($mode == 'check_points') {
+    $userlog = db_get_hash_multi_array("SELECT * FROM ?:reward_point_changes", array('user_id'));
+
+    if (!empty($userlog)) {
+	foreach ($userlog as $u_id => $u_points) {
+	    $user_points = fn_get_user_additional_data(POINTS, $u_id);
+	    foreach ($u_points as $i => $log) {
+	    }
+	}
+    }
+    
 }

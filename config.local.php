@@ -41,7 +41,7 @@ ini_set('display_errors', 'On');
  * Database connection options
  */
 $config['db_host'] = 'localhost';
-$config['db_name'] = 'dab_zuubo';
+$config['db_name'] = 'zuubo';
 $config['db_user'] = 'root';
 $config['db_password'] = 'password';
 
@@ -65,11 +65,11 @@ $config['table_prefix'] = 'cscart_';
  */
 
 // Host and directory where software is installed on no-secure server
-$config['http_host'] = 'dab.u.simtech';
+$config['http_host'] = 'localhost';
 $config['http_path'] = '/zuubo';
 
 // Host and directory where software is installed on secure server
-$config['https_host'] = 'http://dab.u.simtech';
+$config['https_host'] = 'localhost';
 $config['https_path'] = '/zuubo';
 
 /*
