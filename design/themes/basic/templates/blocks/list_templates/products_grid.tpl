@@ -25,25 +25,33 @@
         {assign var="obj_id" value=$product.product_id}
         {assign var="obj_id_prefix" value="`$obj_prefix``$product.product_id`"}
         {include file="common/product_data.tpl" product=$product}
-        <td class="product-spacer">&nbsp;</td>
-        <td class="center image-border compact{if !$smarty.foreach.sprod.last && !$show_add_to_cart} border-bottom{/if}" style="width: {$cell_width}%">    
+        <td class="{if !$smarty.foreach.sprod.last && !$show_add_to_cart} border-bottom{/if}" style="width: {$cell_width}%">
             {assign var="form_open" value="form_open_`$obj_id`"}
             {$smarty.capture.$form_open nofilter}
             {hook name="products:product_multicolumns_list"}
+            <div class="product-grid-info">
+                <p class="product-name">{if $item_number == "Y"}{$cur_number}.&nbsp;{math equation="num + 1" num=$cur_number assign="cur_number"}{/if}{assign var="name" value="name_$obj_id"}{$smarty.capture.$name nofilter}</p>
+                
+                <p class="product-location">12 Service Providers<br />Near San Jose</p>
+                
+                <div class="clearfix">
+                    <div class="float-left rating">78% positive</div>
+                    <div class="price-wrap right">
+                        {assign var="old_price" value="old_price_`$obj_id`"}
+                        {if $smarty.capture.$old_price|trim}{$smarty.capture.$old_price nofilter}&nbsp;{/if}
 
-            <a href="{"products.view?product_id=`$product.product_id`"|fn_url}">{include file="common/image.tpl" obj_id=$obj_id_prefix images=$product.main_pair image_width=$settings.Thumbnails.product_lists_thumbnail_width image_height=$settings.Thumbnails.product_lists_thumbnail_height}</a>
+                        {assign var="price" value="price_`$obj_id`"}
+                        {$smarty.capture.$price nofilter}
 
-            <p>{if $item_number == "Y"}{$cur_number}.&nbsp;{math equation="num + 1" num=$cur_number assign="cur_number"}{/if}{assign var="name" value="name_$obj_id"}{$smarty.capture.$name nofilter}</p>
-        
-            <div class="price-wrap">
-                {assign var="old_price" value="old_price_`$obj_id`"}
-                {if $smarty.capture.$old_price|trim}{$smarty.capture.$old_price nofilter}&nbsp;{/if}
+                        {assign var="clean_price" value="clean_price_`$obj_id`"}
+                        {$smarty.capture.$clean_price nofilter}
+                    </div>
+                </div>
+            </div>
 
-                {assign var="price" value="price_`$obj_id`"}
-                {$smarty.capture.$price nofilter}
-
-                {assign var="clean_price" value="clean_price_`$obj_id`"}
-                {$smarty.capture.$clean_price nofilter}
+            <div class="product-grid-image">
+                <a href="{"products.view?product_id=`$product.product_id`"|fn_url}">{include file="common/image.tpl" obj_id=$obj_id_prefix images=$product.main_pair image_width=$settings.Thumbnails.product_lists_thumbnail_width image_height=$settings.Thumbnails.product_lists_thumbnail_height}</a>
+                <a href="{"products.view?product_id=`$product.product_id`"|fn_url}" class="shop-now">{__("shop_now")}</a>
             </div>
 
             {assign var="add_to_cart" value="add_to_cart_`$obj_id`"}
@@ -53,7 +61,7 @@
             {assign var="form_close" value="form_close_`$obj_id`"}
             {$smarty.capture.$form_close nofilter}
         </td>
-        <td class="product-spacer">&nbsp;</td>
+        {if !$smarty.foreach.sproducts.last}<td class="product-spacer">&nbsp;</td>{/if}
     {/if}
 {/foreach}
 </tr>

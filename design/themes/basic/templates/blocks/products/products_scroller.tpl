@@ -19,18 +19,19 @@
     <div id="scroll_list_{$block.block_id}" class="owl-carousel">
         {foreach from=$items item="product" name="for_products"}
             <div class="jscroll-item"> 
-                {assign var="obj_id" value="scr_`$block.block_id`000`$product.product_id`"}                
-                <div class="center scroll-image">
+                {assign var="obj_id" value="scr_`$block.block_id`000`$product.product_id`"}
+                <div class="product-grid-info">
+                    {strip}
+                        {include file="blocks/list_templates/simple_list.tpl" product=$product show_trunc_name=true show_old_price=true show_price=true show_add_to_cart=$_show_add_to_cart but_role="action" hide_price=$_hide_price hide_qty=true prod_scroller=true}
+                    {/strip}
+                </div>
+                <div class="scroll-image">
                     {include file="common/image.tpl" assign="object_img" images=$product.main_pair image_width=$block.properties.thumbnail_width image_height=$block.properties.thumbnail_width no_ids=true}
                     <a href="{"products.view?product_id=`$product.product_id`"|fn_url}">{$object_img nofilter}</a>
                     {if $block.properties.enable_quick_view == "Y"}
                         {include file="views/products/components/quick_view_link.tpl" quick_nav_ids=$quick_nav_ids}
                     {/if}
-                </div>
-                <div class="center compact">
-                    {strip}
-                        {include file="blocks/list_templates/simple_list.tpl" product=$product show_trunc_name=true show_price=true show_add_to_cart=$_show_add_to_cart but_role="action" hide_price=$_hide_price hide_qty=true}
-                    {/strip}
+                    <a href="{"products.view?product_id=`$product.product_id`"|fn_url}" class="shop-now">{__("shop_now")}</a>
                 </div>
             </div>              
         {/foreach}

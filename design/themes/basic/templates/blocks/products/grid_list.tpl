@@ -13,7 +13,7 @@
     obj_prefix="`$block.block_id`000" 
     item_number=$block.properties.item_number 
     no_pagination=true
-    show_name=true       
+    show_trunc_name=true       
     show_sku=true       
     show_rating=true       
     show_features=true 

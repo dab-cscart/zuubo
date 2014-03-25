@@ -40,7 +40,7 @@
                 slideSpeed: {$block.properties.speed|default:400},
                 stopOnHover: true,
                 navigation: true,
-                navigationText: ['{__("prev_page")}', '{__("next")}'],
+                navigationText: ['&nbsp;', '&nbsp;'],
                 pagination: false
             });
         }
