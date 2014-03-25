@@ -391,7 +391,7 @@ function fn_reward_points_change_order_status(&$status_to, &$status_from, &$orde
             $log_item = array(
                 'action' => CHANGE_DUE_ORDER_DELETE
             );
-            db_query("UPDATE ?:reward_point_changes SET ?u WHERE change_id = ?i", $log_item, $log_id);
+            db_query("UPDATE ?:reward_point_changes SET ?u WHERE change_id = ?i AND is_spent = 'Y'", $log_item, $log_id);
         }
 
         return true;
