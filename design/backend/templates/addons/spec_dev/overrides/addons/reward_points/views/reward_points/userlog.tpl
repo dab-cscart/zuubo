@@ -16,8 +16,8 @@
     <table class="table table-middle">
     <thead>
         <tr>
-            <th width="5%" class="left">
-                {include file="common/check_items.tpl"}</th>
+            {*<th width="5%" class="left">
+                {include file="common/check_items.tpl"}</th>*}
             <th width="15%"><a class="cm-ajax{if $search.sort_by == "timestamp"} sort-link-{$search.sort_order_rev}{/if}" href="{"`$c_url`&sort_by=timestamp&sort_order=`$search.sort_order_rev`"|fn_url}" data-ca-target-id="pagination_contents">{__("date")} {if $search.sort_by == "timestamp"}{$c_icon nofilter}{else}{$c_dummy nofilter}{/if}</a></th>
             <th width="10%"><a class="cm-ajax{if $search.sort_by == "amount"} sort-link-{$search.sort_order_rev}{/if}" href="{"`$c_url`&sort_by=amount&sort_order=`$search.sort_order_rev`"|fn_url}" data-ca-target-id="pagination_contents">{__("points")} {if $search.sort_by == "amount"}{$c_icon nofilter}{else}{$c_dummy nofilter}{/if}</a></th>
             <th width="45%">{__("reason")}</th>
@@ -28,8 +28,8 @@
     <tbody>
         {foreach from=$userlog item="ul"}
         <tr>
-            <td class="left">
-                <input type="checkbox" name="change_ids[]" value="{$ul.change_id}" class="cm-item"></td>
+            {*<td class="left">
+                <input type="checkbox" name="change_ids[]" value="{$ul.change_id}" class="cm-item"></td>*}
             <td>{$ul.timestamp|date_format:"`$settings.Appearance.date_format`, `$settings.Appearance.time_format`"}</td>
             <td>{$ul.amount}</td>
             <td>
@@ -60,9 +60,9 @@
             <td>{if $ul.expiration_date}{$ul.expiration_date|date_format:"`$settings.Appearance.date_format`, `$settings.Appearance.time_format`"}{else}-{/if}</td>
             <td class="nowrap right">
                 <div class="hidden-tools">
-                    {capture name="tools_list"}
+                    {*capture name="tools_list"}
                         <li>{btn type="delete" href="reward_points.delete?user_id=`$smarty.request.user_id`&change_id=`$ul.change_id`" class="cm-confirm"}</li>
-                    {/capture}
+                    {/capture*}
                     {dropdown content=$smarty.capture.tools_list}
                 </div>
             </td>
@@ -94,10 +94,10 @@
 
 {capture name="buttons"}
     {if $userlog}
-        {capture name="tools_list"}
+        {*capture name="tools_list"}
             <li>{btn type="delete_selected" dispatch="dispatch[reward_points.m_delete]" form="userlog_form"}</li>
             <li>{btn type="delete" text=__("cleanup_log") class="cm-submit" dispatch="dispatch[reward_points.cleanup_logs]" form="userlog_form"}</li>
-        {/capture}
+        {/capture*}
         {dropdown content=$smarty.capture.tools_list}
     {/if}
 {/capture}

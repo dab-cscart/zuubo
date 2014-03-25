@@ -46,14 +46,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($mode == 'm_delete') {
         foreach ($_REQUEST['change_ids'] as $change_id) {
 	    // [dab]
-            db_query("DELETE FROM ?:reward_point_changes WHERE change_id = ?i", $change_id);
+            db_query("DELETE FROM ?:reward_point_changes WHERE change_id = ?i AND is_spent = 'Y'", $change_id);
 	    // [dab]
         }
     }
 
     if ($mode == 'cleanup_logs') {
     	// [dab]
-        db_query("DELETE FROM ?:reward_point_changes WHERE user_id = ?i", $_REQUEST['user_id']);
+        db_query("DELETE FROM ?:reward_point_changes WHERE user_id = ?i AND is_spent = 'Y'", $_REQUEST['user_id']);
 	// [dab]
     }
 
@@ -105,7 +105,7 @@ if ($mode == 'manage') {
 } elseif ($mode == 'delete') {
     if (!empty($_REQUEST['change_id'])) {
 	// [dab]
-        db_query("DELETE FROM ?:reward_point_changes WHERE change_id = ?i", $_REQUEST['change_id']);
+        db_query("DELETE FROM ?:reward_point_changes WHERE change_id = ?i AND is_spent = 'Y'", $_REQUEST['change_id']);
 	// [dab]
     }
 

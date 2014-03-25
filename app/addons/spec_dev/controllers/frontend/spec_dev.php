@@ -51,13 +51,43 @@ if ($mode == 'choose_location') {
 
     return array(CONTROLLER_STATUS_REDIRECT, $redirect_url);
 } elseif ($mode == 'check_points') {
-    $userlog = db_get_hash_multi_array("SELECT * FROM ?:reward_point_changes", array('user_id'));
 
-    if (!empty($userlog)) {
-	foreach ($userlog as $u_id => $u_points) {
+    $gain_log = db_get_hash_multi_array("SELECT * FROM ?:reward_point_changes WHERE is_spent = 'N' AND amount > 0 and expiration_date <= ?i", array('user_id'), TIME);
+
+    if (!empty($gain_log)) {
+	foreach ($gain_log as $u_id => $u_points) {
 	    $user_points = fn_get_user_additional_data(POINTS, $u_id);
+	    $spends = db_get_hash_multi_array("SELECT timestamp, amount, ammount - allocated as points_left FROM ?:reward_point_changes WHERE amount < 0 AND user_id = ?i AND is_spent = 'N' AND ammount - allocated > 0 ORDER BY timestamp asc", array('timestamp'), $u_id);
+
 	    foreach ($u_points as $i => $log) {
+		$amount = $log['amount'];
+		if (!empty($spends)) {
+		    foreach ($spends as $timestamp => $s_points) {
+			if ($timestamp >= $u_points['timestamp'] && $timestamp <= $u_points['expiration_date']) {
+			    foreach($s_points as $i => $s_point) {
+				$amount = ($amount - $s_point['points_left'] > 0) ? $amount - $s_point['points_left'] : 0;
+				$spends[$timestamp][$i]['points_left'] = ($spends[$timestamp][$i]['points_left'] - $amount > 0) ? $spends[$timestamp][$i]['points_left'] - $amount : 0;
+// 				if ($spends[$timestamp][$i]['amount'] == 0) {
+// 				    unset($spends[$timestamp][$i]);
+// 				    db_query("UPDATE ?:reward_point_changes SET is_spent = 'Y' WHERE change_id = ?i", $s_point['change_id']);
+// 				}
+			    }
+			}
+		    }
+		}
+		if ($amount > 0) {
+		    $user_points -= $amount;
+		}
+		db_query("UPDATE ?:reward_point_changes SET is_spent = 'Y' WHERE change_id = ?i", $log['change_id']);
 	    }
+	    fn_save_user_additional_data(POINTS, $user_points, $u_id);
+	    if (!empty($spends)) {
+		foreach ($spends as $timestamp => $s_points) {
+		    foreach($s_points as $i => $s_point) {
+			db_query("UPDATE ?:reward_point_changes SET allocated = ?i WHERE change_id = ?i", $s_point['amount'] - $s_point['points_left'], $s_point['change_id']);
+		    }
+		}
+	    }	    
 	}
     }
     
