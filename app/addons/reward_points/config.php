@@ -38,3 +38,6 @@ define('CHANGE_DUE_ADDITION', 'A');
 define('CHANGE_DUE_SUBTRACT', 'S');
 define('CHANGE_DUE_ORDER_DELETE', 'D');
 define('CHANGE_DUE_ORDER_PLACE', 'P');
+// [dab]
+define('CHANGE_DUE_EXPIRATION', 'X');
+// [dab]

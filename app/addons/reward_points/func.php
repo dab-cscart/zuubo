@@ -415,7 +415,7 @@ function fn_reward_points_change_order_status(&$status_to, &$status_from, &$orde
 		if (is_array($points_info['reward'])) {
 		    foreach ($points_info['reward'] as $_key => $r_data) {
 			$reason['product_id'] = $order_info['products'][$_key]['product_id'];
-			$log_id = fn_change_user_points( - $points_info['reward'], $order_info['user_id'], serialize($reason), $action, $r_data['expire']);
+			$log_id = fn_change_user_points( - $r_data['reward'], $order_info['user_id'], serialize($reason), $action);
 		    }
 		} else {
 		    $log_id = fn_change_user_points( - $points_info['reward'], $order_info['user_id'], serialize($reason), $action);
