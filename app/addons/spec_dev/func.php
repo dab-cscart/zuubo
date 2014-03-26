@@ -16,6 +16,35 @@ use Tygh\Registry;
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
+function fn_spec_dev_get_discussion($object_id, $object_type, &$cache)
+{
+    if (!empty($cache) && AREA == 'C' && $object_type == 'M' && Registry::ifGet('addons.discussion.company_only_buyers', 'Y') == 'Y') {
+	if (empty($_SESSION['auth']['user_id'])) {
+	    $cache['disable_adding'] = true;
+	} else {
+	    $customer_companies = db_get_hash_single_array(
+		"SELECT company_id FROM ?:orders WHERE user_id = ?i AND status = 'C'",
+		array('company_id', 'company_id'), $_SESSION['auth']['user_id']
+	    );
+	    if (empty($customer_companies[$object_id])) {
+		$cache['disable_adding'] = true;
+	    }
+	}
+	$cache['customer_products'] = db_get_fields("SELECT ?:order_details.product_id FROM ?:order_details LEFT JOIN ?:orders ON ?:orders.order_id = ?:order_details.order_id WHERE ?:orders.user_id = ?i AND ?:orders.status = 'C' AND ?:orders.company_id = ?i", $_SESSION['auth']['user_id'], $object_id);
+    }
+}
+function fn_get_post_votes_stat($post_id)
+{
+    $result = array();
+    $result['positive'] = db_get_field("SELECT COUNT(vote_id) FROM ?:discussion_post_votes WHERE post_id = ?i AND value = 'Y'", $post_id);
+    $result['all'] = db_get_field("SELECT COUNT(vote_id) FROM ?:discussion_post_votes WHERE post_id = ?i", $post_id);
+    $result['negative'] = $result['all'] - $result['positive'];
+    if (!empty($result['all'])) {
+	$result['prc'] = round($result['positive'] / $result['all'] * 100, 1);
+    }
+    return $result;
+}
+
 function fn_get_product_reward_expiration_date($product_id)
 {
     $expiration_period = db_get_field("SELECT points_expiration_period FROM ?:products WHERE product_id = ?i", $product_id);

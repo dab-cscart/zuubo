@@ -25,6 +25,9 @@
         <span class="post-author">{$post.name}</span>
         <span class="post-date">{$post.timestamp|date_format:"`$settings.Appearance.date_format`, `$settings.Appearance.time_format`"}</span>
 
+        {if $post.product_id}
+	    <div>{$post.product_id|fn_get_product_name}</div>
+        {/if}
         {if $discussion.type == "R" || $discussion.type == "B" && $post.rating_value > 0}
             <div class="clearfix">
                 {include file="addons/discussion/views/discussion/components/stars.tpl" stars=$post.rating_value|fn_get_discussion_rating}
@@ -33,7 +36,7 @@
         
     
     {if $discussion.type == "C" || $discussion.type == "B"}<p class="post-message">{$post.message|escape|nl2br nofilter}</p>{/if}
-
+    {include file="addons/spec_dev/components/post_vote.tpl" post_id=$post.post_id value=$post.value}
 {/hook}
 </div>
 {/foreach}

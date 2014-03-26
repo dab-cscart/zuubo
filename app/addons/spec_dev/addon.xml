@@ -108,6 +108,25 @@
 		<item>
 		    ALTER TABLE `cscart_reward_point_changes` ADD `allocated` INT( 11 ) NOT NULL ;
 		</item>
+		<item>
+		    CREATE TABLE IF NOT EXISTS `cscart_discussion_post_votes` (
+		    `vote_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+		    `post_id` mediumint(8) unsigned NOT NULL,
+		    `ip` varchar(15) NOT NULL,
+		    `value` char(1) NOT NULL,
+		    PRIMARY KEY (`vote_id`)
+		    ) ;
+		</item>
+		<item>
+		    ALTER TABLE `cscart_discussion_posts` ADD `product_id` MEDIUMINT( 8 ) UNSIGNED NOT NULL ;
+		</item>
+		<item>
+		    ALTER TABLE `cscart_discussion_rating` ADD `time` TINYINT( 4 ) UNSIGNED NOT NULL AFTER `rating_value` ,
+		    ADD `quality` TINYINT( 4 ) UNSIGNED NOT NULL AFTER `time` ,
+		    ADD `accuracy` TINYINT( 4 ) UNSIGNED NOT NULL AFTER `quality` ,
+		    ADD `communication` TINYINT( 4 ) UNSIGNED NOT NULL AFTER `accuracy` ,
+		    ADD `professionalism` TINYINT( 4 ) UNSIGNED NOT NULL AFTER `communication` 
+		</item>
 	</queries>
 	<language_variables>
 		<item lang="en" id="specific_development">Specific development</item>
@@ -115,7 +134,7 @@
 		<item lang="en" id="metro_cities">Metro cities</item>
 		<item lang="en" id="metro_city">Metro city</item>
 		<item lang="en" id="microsite">Microsite</item>
-		<item lang="en" id="was_this_review_helpful">Was this review helpful</item>
+		<item lang="en" id="was_this_review_helpful">Was this review helpful ?</item>
 		<item lang="en" id="badges_menu_description">Manage vendor badges</item>
 		<item lang="en" id="select_metro_city">Select Metro City</item>
 		<item lang="en" id="new_metro_city">New Metro City</item>
@@ -124,10 +143,10 @@
 		<item lang="en" id="editing_metro_city">Editing Metro City</item>
 		<item lang="en" id="search_in_cities">Search in cities of [metro_city]</item>
 		<item lang="en" id="expiration_period">Expiration period (days)</item>
-		<item lang="en" id="badges">Badges</item>
-		<item lang="en" id="badges">Badges</item>
-		<item lang="en" id="badges">Badges</item>
-		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="are_positive">are positive</item>
+		<item lang="en" id="quality">Quality</item>
+		<item lang="en" id="accuracy">Accuracy</item>
+		<item lang="en" id="professionalism">Professionalism</item>
 		<item lang="en" id="badges">Badges</item>
 	</language_variables>
 </addon>

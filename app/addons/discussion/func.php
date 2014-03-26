@@ -127,6 +127,16 @@ function fn_get_discussion_posts($params, $items_per_page = 0)
         $thread_condition .= " AND ?:discussion_posts.status = 'A'";
     }
 
+    // [dab]
+    $_ip = fn_get_ip(true);
+    $fields .= ", vote_value.value";
+    $join .= db_quote(" LEFT JOIN ?:discussion_post_votes AS vote_value ON vote_value.post_id = ?:discussion_posts.post_id AND vote_value.ip = ?s ", $_ip['host']);
+
+    if (!empty($params['post_id'])) {
+        $thread_condition .= db_quote(" AND ?:discussion_posts.post_id = ?i", $params['post_id']);
+    }
+    // [dab]
+
     $limit = '';
 
     if (!empty($params['limit'])) {

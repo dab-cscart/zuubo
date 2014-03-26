@@ -12,26 +12,27 @@
 * "copyright.txt" FILE PROVIDED WITH THIS DISTRIBUTION PACKAGE.            *
 ****************************************************************************/
 
+use Tygh\Registry;
+
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
-define('DEVELOPMENT', true);
+if ($mode == 'view' || $mode == 'quick_view') {
 
-fn_register_hooks(
-	'get_company_data_post',
-	'update_company',
-	'get_category_data_post',
-	'update_category_post',
-	'get_product_data_post',
-	'update_product_post',
-	'get_seo_vars',
-	'seo_empty_object_name',
-	'get_rewrite_rules',
-	'get_categories',
-	'get_products',
-	'get_product_data',
-	'get_category_data',
-	'get_product_filter_fields',
-	'get_products_before_select',
-	'get_filters_products_count_query_params',
-	'get_discussion'
-);
+    $product = Registry::get('view')->getTemplateVars('product');
+    $product['discussion'] = fn_get_discussion($product['product_id'], "P", true, $_REQUEST);
+    Registry::get('view')->assign('product', $product);
+    
+    if (!empty($product['company_id'])) {
+        $discussion = fn_get_discussion($product['company_id'], 'M', true, $_REQUEST);
+
+        if (empty($discussion) || $discussion['type'] != 'D') {
+
+            if (!empty($discussion['thread_id'])) {
+                $thread_condition = fn_generate_thread_condition($discussion);
+                $discussion['total_posts'] = db_get_field("SELECT COUNT(*) FROM ?:discussion_posts WHERE $thread_condition AND ?:discussion_posts.status = 'A'");
+            }
+            Registry::get('view')->assign('discussion', $discussion);
+        }
+    }
+
+}

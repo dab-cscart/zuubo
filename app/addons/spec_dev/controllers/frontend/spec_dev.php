@@ -96,4 +96,21 @@ if ($mode == 'choose_location') {
 	}
     }
     exit;
+} elseif ($mode == 'rate_post') {
+    $_ip = fn_get_ip(true);
+    $exists = db_get_field("SELECT value FROM ?:discussion_post_votes WHERE post_id = ?i AND ip = ?s", $_REQUEST['post_id'], $_ip['host']);
+    if (empty($exists)) {
+	$_data = array(
+	    'post_id' => $_REQUEST['post_id'],
+	    'ip' => $_ip['host'],
+	    'value' => $_REQUEST['v']
+	);
+	db_query("REPLACE INTO ?:discussion_post_votes ?e", $_data);
+    } elseif ($exists != $_REQUEST['v']) {
+	db_query("UPDATE ?:discussion_post_votes SET value = ?s WHERE post_id = ?i AND ip = ?s", $_REQUEST['v'], $_REQUEST['post_id'], $_ip['host']);
+    }
+    Registry::get('view')->assign('value', $_REQUEST['v']);
+    Registry::get('view')->assign('post_id', $_REQUEST['post_id']);
+    Registry::get('view')->display('addons/spec_dev/components/post_vote.tpl');
+    exit;
 }
