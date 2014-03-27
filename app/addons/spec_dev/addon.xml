@@ -148,5 +148,21 @@
 		<item lang="en" id="accuracy">Accuracy</item>
 		<item lang="en" id="professionalism">Professionalism</item>
 		<item lang="en" id="savings">Savings</item>
+		<item lang="en" id="submit_vendor_review">Please rate your vendor by logging in and submitting the review on the following page(s):</item>
+		<item lang="en" id="rate_vendor">Rate your vendor</item>
+		<item lang="en" id="block_vendor_categories">Vendor categories</item>
+		<item lang="en" id="block_vendor_categories_description">for Microsite</item>
+		<item lang="en" id="vendor_categories">Vendor categories</item>
+		<item lang="en" id="block_vendor_contact">Vendor contact</item>
+		<item lang="en" id="block_vendor_contact_description">for Microsite</item>
+		<item lang="en" id="vendor_contact">Vendor contact</item>
+		<item lang="en" id="detailed_reviews">Detailed reviews</item>
+		<item lang="en" id="most_useful">Most useful</item>
+		<item lang="en" id="most_negative">Most negative</item>
+		<item lang="en" id="most_positive">Most positive</item>
+		<item lang="en" id="reviews_summary">Reviews summary</item>
+		<item lang="en" id="quality">Quality</item>
+		<item lang="en" id="quality">Quality</item>
+		<item lang="en" id="quality">Quality</item>
 	</language_variables>
 </addon>

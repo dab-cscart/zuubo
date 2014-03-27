@@ -71,7 +71,7 @@ function fn_get_discussions($params, $items_per_page)
     $fields = array (
         '?:discussion_posts.*',
         '?:discussion_messages.message',
-        '?:discussion_rating.rating_value',
+        '(?:discussion_rating.rating_value + ?:discussion_rating.time + ?:discussion_rating.accuracy + ?:discussion_rating.quality + ?:discussion_rating.communication + ?:discussion_rating.professionalism)/6 AS rating_value',
         '?:discussion.*'
     );
 
@@ -115,7 +115,7 @@ function fn_get_discussions($params, $items_per_page)
     }
 
     if (!empty($params['rating_value'])) {
-        $condition .= db_quote(" AND ?:discussion_rating.rating_value = ?i", $params['rating_value']);
+        $condition .= db_quote(" AND (?:discussion_rating.rating_value + ?:discussion_rating.time + ?:discussion_rating.accuracy + ?:discussion_rating.quality + ?:discussion_rating.communication + ?:discussion_rating.professionalism)/6 = ?i", $params['rating_value']);
     }
 
     if (!empty($params['object_type'])) {

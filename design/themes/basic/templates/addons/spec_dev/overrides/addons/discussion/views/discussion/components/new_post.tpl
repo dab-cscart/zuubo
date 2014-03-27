@@ -49,11 +49,15 @@
 <div class="control-group">
     {$rate_id = "product_`$obj_prefix``$obj_id`"}
     <label for="{$rate_id}" class="cm-required cm-multiple-radios">{__("your_product")}</label>
-    <select id="elm_{$element.element_id}" name="post_data[product_id]">
-	{foreach from=$discussion.customer_products item=product_id}
-	<option value="{$product_id}">{$product_id|fn_get_product_name}</option>
-	{/foreach}
-    </select>
+    {if $smarty.request.product_id}
+	{$smarty.request.product_id|fn_get_product_name}
+    {else}
+	<select id="elm_{$element.element_id}" name="post_data[product_id]">
+	    {foreach from=$discussion.customer_products item=product_id}
+	    <option value="{$product_id}">{$product_id|fn_get_product_name}</option>
+	    {/foreach}
+	</select>
+    {/if}
 </div>
 {/if}
 

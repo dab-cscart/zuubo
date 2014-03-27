@@ -13,8 +13,46 @@
 ****************************************************************************/
 
 use Tygh\Registry;
+use Tygh\Mailer;
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
+
+function fn_get_most_recent_posts($object_id, $object_type)
+{
+    static $cache = array();
+    
+    $_cache_key = $object_id . '_' . $object_type;
+
+    $params = array();
+    $params['limit'] = 3;
+    $params['thread_id'] = db_get_field("SELECT thread_id FROM ?:discussion WHERE object_id = ?i AND object_type = ?s ?p", $object_id, $object_type);
+    $params['avail_only'] = (AREA == 'C');
+    
+    list($cache[$_cache_key], ) = fn_get_discussion_posts($params);
+
+    return !empty($cache[$_cache_key]) ? $cache[$_cache_key] : false;
+}
+
+function fn_spec_dev_change_order_status($status_to, $status_from, $order_info, $force_notification, $order_statuses, $place_order)
+{
+    if ($status_to == 'C') {
+	$product_ids = array();
+	foreach ($order_info['products'] as $i => $product) {
+	    $product_ids[] = $product['product_id'];
+	}
+	$product_ids = array_unique($product_ids);
+	Mailer::sendMail(array(
+	    'to' => $order_info['email'],
+	    'from' => 'company_orders_department',
+	    'data' => array(
+		'order_products' => $product_ids,
+		'order_info' => $order_info,
+	    ),
+	    'tpl' => 'addons/spec_dev/rate_vendor.tpl',
+	    'company_id' => $order_info['company_id'],
+	), 'C', $order_info['lang_code']);
+    }
+}
 
 function fn_spec_dev_get_orders($params, &$fields, $sortings, $condition, $join, $group)
 {
@@ -38,6 +76,7 @@ function fn_spec_dev_get_discussion($object_id, $object_type, &$cache)
 	$cache['customer_products'] = db_get_fields("SELECT ?:order_details.product_id FROM ?:order_details LEFT JOIN ?:orders ON ?:orders.order_id = ?:order_details.order_id WHERE ?:orders.user_id = ?i AND ?:orders.status = 'C' AND ?:orders.company_id = ?i", $_SESSION['auth']['user_id'], $object_id);
     }
 }
+
 function fn_get_post_votes_stat($post_id)
 {
     $result = array();
@@ -142,6 +181,14 @@ function fn_spec_dev_get_products($params, $fields, $sortings, $condition, $join
 
 function fn_spec_dev_get_categories($params, &$join, &$condition, $fields, $group_by, $sortings, $lang_code)
 {
+    $categories = Registry::get('view')->gettemplatevars('company_categories');
+    if (!empty($categories)) {
+	$c_ids = array();
+	foreach ($categories as $i => $c_data) {
+	    $c_ids[] = $c_data['category_id'];
+	}
+	$condition .= db_quote(" AND ?:categories.category_id IN (?n)", $c_ids);
+    }
     if (AREA == 'C' && defined('METRO_CITY_ID')) {
 	$join .= db_quote(" LEFT JOIN ?:category_metro_cities ON ?:category_metro_cities.category_id = ?:categories.category_id ");
 	$condition .= db_quote(" AND ?:category_metro_cities.metro_city_id = ?i", METRO_CITY_ID);

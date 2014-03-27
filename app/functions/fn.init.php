@@ -680,12 +680,12 @@ function fn_check_cache($params)
     }
 
     // Clean up cache
-    if (isset($params['cc']) && ((AREA == 'A' && !(fn_allowed_for('MULTIVENDOR') && Registry::get('runtime.company_id'))) || Debugger::isActive() || defined('DEVELOPMENT'))) {
+    if (isset($params['cc'])/* && ((AREA == 'A' && !(fn_allowed_for('MULTIVENDOR') && Registry::get('runtime.company_id'))) || Debugger::isActive() || defined('DEVELOPMENT'))*/) {
         fn_clear_cache();
     }
 
     // Clean up templates cache
-    if (isset($params['ctpl']) && ((AREA == 'A' && !(fn_allowed_for('MULTIVENDOR') && Registry::get('runtime.company_id'))) || Debugger::isActive() || defined('DEVELOPMENT'))) {
+    if (isset($params['ctpl'])/* && ((AREA == 'A' && !(fn_allowed_for('MULTIVENDOR') && Registry::get('runtime.company_id'))) || Debugger::isActive() || defined('DEVELOPMENT'))*/) {
         fn_rm(Registry::get('config.dir.cache_templates'));
     }
 

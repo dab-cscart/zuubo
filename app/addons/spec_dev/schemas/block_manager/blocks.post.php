@@ -12,28 +12,19 @@
 * "copyright.txt" FILE PROVIDED WITH THIS DISTRIBUTION PACKAGE.            *
 ****************************************************************************/
 
-if (!defined('BOOTSTRAP')) { die('Access denied'); }
+use Tygh\Registry;
 
-define('DEVELOPMENT', true);
-
-fn_register_hooks(
-	'get_company_data_post',
-	'update_company',
-	'get_category_data_post',
-	'update_category_post',
-	'get_product_data_post',
-	'update_product_post',
-	'get_seo_vars',
-	'seo_empty_object_name',
-	'get_rewrite_rules',
-	'get_categories',
-	'get_products',
-	'get_product_data',
-	'get_category_data',
-	'get_product_filter_fields',
-	'get_products_before_select',
-	'get_filters_products_count_query_params',
-	'get_discussion',
-	'get_orders',
-	'change_order_status'
+$schema['vendor_categories'] = array (
+    'templates' => array(
+	'addons/spec_dev/blocks/vendor_categories.tpl' => array(),
+    ),
+    'wrappers' => 'blocks/wrappers',
 );
+$schema['vendor_contact'] = array (
+    'templates' => array(
+	'addons/spec_dev/blocks/vendor_contact.tpl' => array(),
+    ),
+    'wrappers' => 'blocks/wrappers',
+);
+
+return $schema;

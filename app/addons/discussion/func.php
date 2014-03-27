@@ -79,12 +79,36 @@ function fn_get_discussion($object_id, $object_type, $get_posts = false, $params
         list($cache[$_cache_key]['posts'], $cache[$_cache_key]['search']) = fn_get_discussion_posts($params, Registry::get('addons.discussion.' . $discussion_object_types[$cache[$_cache_key]['object_type']] . '_posts_per_page'));
     }
 
+    if (!empty($cache[$_cache_key]['posts'])) {
+	$neg = $cache[$_cache_key]['posts'];
+	uasort($neg, 'fn_sort_by_neg_votes');
+	$pos = $cache[$_cache_key]['posts'];
+	uasort($pos, 'fn_sort_by_pos_votes');
+	$cache[$_cache_key]['most_positive'] = array_splice($pos, 0, 3);
+	$cache[$_cache_key]['most_negative'] = array_splice($neg, 0, 3);
+    }
     $saved_post_data = fn_restore_post_data('post_data');
     if (!empty($saved_post_data)) {
         $cache[$_cache_key]['post_data'] = $saved_post_data;
     }
 
     return !empty($cache[$_cache_key]) ? $cache[$_cache_key] : false;
+}
+
+function fn_sort_by_pos_votes($a, $b)
+{
+    if ($a['pos_votes'] == $b['pos_votes']) {
+        return 0;
+    }
+    return ($a['pos_votes'] > $b['pos_votes']) ? -1 : 1;
+}
+
+function fn_sort_by_neg_votes($a, $b)
+{
+    if ($a['neg_votes'] == $b['neg_votes']) {
+        return 0;
+    }
+    return ($a['neg_votes'] > $b['neg_votes']) ? -1 : 1;
 }
 
 function fn_get_discussion_posts($params, $items_per_page = 0)
@@ -118,7 +142,7 @@ function fn_get_discussion_posts($params, $items_per_page = 0)
 
     if ($thread_data['type'] == 'R' || $thread_data['type'] == 'B') {
         $join .= " LEFT JOIN ?:discussion_rating ON ?:discussion_rating.post_id = ?:discussion_posts.post_id ";
-        $fields .= ", ?:discussion_rating.rating_value";
+        $fields .= ", (?:discussion_rating.rating_value + ?:discussion_rating.time + ?:discussion_rating.accuracy + ?:discussion_rating.quality + ?:discussion_rating.communication + ?:discussion_rating.professionalism)/6 AS rating_value";
     }
 
     $thread_condition = fn_generate_thread_condition($thread_data);
@@ -129,7 +153,7 @@ function fn_get_discussion_posts($params, $items_per_page = 0)
 
     // [dab]
     $_ip = fn_get_ip(true);
-    $fields .= ", vote_value.value";
+    $fields .= ", vote_value.value, (SELECT COUNT(*) FROM ?:discussion_post_votes AS pos_votes WHERE pos_votes.post_id = ?:discussion_posts.post_id AND pos_votes.value = 'Y') AS pos_votes, (SELECT COUNT(*) FROM ?:discussion_post_votes AS pos_votes WHERE pos_votes.post_id = ?:discussion_posts.post_id AND pos_votes.value = 'N') AS neg_votes";
     $join .= db_quote(" LEFT JOIN ?:discussion_post_votes AS vote_value ON vote_value.post_id = ?:discussion_posts.post_id AND vote_value.ip = ?s ", $_ip['host']);
 
     if (!empty($params['post_id'])) {
@@ -375,7 +399,7 @@ function fn_get_average_rating($object_id, $object_type)
         return false;
     }
 
-    return db_get_field("SELECT AVG(a.rating_value) as val FROM ?:discussion_rating as a LEFT JOIN ?:discussion_posts as b ON a.post_id = b.post_id WHERE a.thread_id = ?i AND b.status = 'A' AND a.rating_value > ?i", $discussion['thread_id'], 0);
+    return db_get_field("SELECT AVG((a.rating_value + a.time + a.quality + a.accuracy + a.communication + a.professionalism)/6) as val FROM ?:discussion_rating as a LEFT JOIN ?:discussion_posts as b ON a.post_id = b.post_id WHERE a.thread_id = ?i AND b.status = 'A' AND (a.rating_value + a.time + a.quality + a.accuracy + a.communication + a.professionalism)/6 > ?i", $discussion['thread_id'], 0);
 }
 
 function fn_get_discussion_object_data($object_id, $object_type, $lang_code = CART_LANGUAGE)
