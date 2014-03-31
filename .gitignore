@@ -7,4 +7,3 @@ var/layouts
 var/snapshots
 var/twigmo
 var/upgrade
-images/*
