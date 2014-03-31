@@ -127,6 +127,9 @@
 		    ADD `communication` TINYINT( 4 ) UNSIGNED NOT NULL AFTER `accuracy` ,
 		    ADD `professionalism` TINYINT( 4 ) UNSIGNED NOT NULL AFTER `communication` 
 		</item>
+		<item>
+		    ALTER TABLE `cscart_companies` ADD `service_since` SMALLINT( 4 ) NOT NULL ;
+		</item>
 	</queries>
 	<language_variables>
 		<item lang="en" id="specific_development">Specific development</item>
@@ -161,8 +164,21 @@
 		<item lang="en" id="most_negative">Most negative</item>
 		<item lang="en" id="most_positive">Most positive</item>
 		<item lang="en" id="reviews_summary">Reviews summary</item>
-		<item lang="en" id="quality">Quality</item>
-		<item lang="en" id="quality">Quality</item>
-		<item lang="en" id="quality">Quality</item>
+		<item lang="en" id="l_positive">positive</item>
+		<item lang="en" id="request_quote">Request a quote</item>
+		<item lang="en" id="ask_question">Ask a question</item>
+		<item lang="en" id="servicing_since">Servicing since</item>
+		<item lang="en" id="ratings">Ratings</item>
+		<item lang="en" id="star">Star</item>
+		<item lang="en" id="merchant_rating_history">Merchant rating history</item>
+		<item lang="en" id="last_90_days">Last 90 days</item>
+		<item lang="en" id="last_year">Last year</item>
+		<item lang="en" id="photos">Photos</item>
+		<item lang="en" id="r_value">Value</item>
+		<item lang="en" id="detailed_rating">Detailed rating</item>
+		<item lang="en" id="merchant_rating_distribution">Merchant rating distribution</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
+		<item lang="en" id="badges">Badges</item>
 	</language_variables>
 </addon>

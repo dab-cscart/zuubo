@@ -14,7 +14,7 @@
 </tr>
 {foreachelse}
 <tr>
-    <td colspan="3"><p class="no-items">{__("no_items")}</p></td>
+    <td colspan="4"><p class="no-items">{__("no_items")}</p></td>
 </tr>
 {/foreach}
 </table>

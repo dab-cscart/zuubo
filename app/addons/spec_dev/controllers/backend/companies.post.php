@@ -24,8 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			'title' => __('badges'),
 			'js' => true
 		));
+		$images = array('images' => array (
+			'title' => __('images'),
+			'js' => true
+		));
 
 		$tabs = array_merge(array_slice($tabs, 0, 1), $badges, array_slice($tabs, 1));
+		$tabs = array_merge(array_slice($tabs, 0, 3), $images, array_slice($tabs, 3));
 
 		Registry::set('navigation.tabs', $tabs);
 	}

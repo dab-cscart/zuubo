@@ -17,7 +17,7 @@ use Tygh\Registry;
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-	if ($mode == 'update' || $mode == 'add') {
+	if ($mode == 'update') {
 
 		$tabs = Registry::get('navigation.tabs');
 		$badges = array('location' => array (

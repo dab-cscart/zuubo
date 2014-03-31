@@ -41,35 +41,8 @@
 </form>
 
 
-    {capture name="add_new_picker"}
-
-    <form action="{""|fn_url}" method="post" name="add_badges_form" class="form-horizontal form-edit">
-    <input type="hidden" name="badge_id" value="0" />
-
-    <div class="cm-j-tabs">
-        <ul class="nav nav-tabs">
-            <li id="tab_new_badges" class="cm-js active"><a>{__("general")}</a></li>
-        </ul>
-    </div>
-
-    <div class="cm-tabs-content">
-    <fieldset>
-        <div class="control-group">
-            <label class="control-label" for="elm_badge_name">{__("badge")}:</label>
-            <div class="controls">
-            <input type="text" id="elm_badge_name" name="badge_data[badge]" size="55" value="" />
-            </div>
-        </div>
-
-    </fieldset>
-    </div>
-
-    <div class="buttons-container">
-        {include file="buttons/save_cancel.tpl" create=true but_name="dispatch[badges.update]" cancel_action="close"}
-    </div>
-
-	</form>
-
+{capture name="add_new_picker"}
+    {include file="addons/spec_dev/views/badges/update.tpl" badge=""}
 {/capture}
 
 

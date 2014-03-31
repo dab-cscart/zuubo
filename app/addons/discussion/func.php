@@ -80,7 +80,7 @@ function fn_get_discussion($object_id, $object_type, $get_posts = false, $params
     }
 
     if (!empty($cache[$_cache_key]['posts'])) {
-//  fn_print_die($cache[$_cache_key]['posts']);  
+
 	// Merchant rating history
 	$history = array(
 	    'positive' => array(
@@ -102,6 +102,7 @@ function fn_get_discussion($object_id, $object_type, $get_posts = false, $params
 		'lifetime' => 0
 	    ),
 	);
+	$total_count = array();
 	foreach ($cache[$_cache_key]['posts'] as $i => $post) {
 	    if ($post['rating_value'] > 3) {
 		fn_get_period_statistic($post, $history['positive']);
@@ -110,15 +111,79 @@ function fn_get_discussion($object_id, $object_type, $get_posts = false, $params
 	    } elseif ($post['rating_value'] <= 1) {
 		fn_get_period_statistic($post, $history['negative']);
 	    }
-	    fn_get_period_statistic($post, $cache[$_cache_key]['history']['total_count']);
+	    fn_get_period_statistic($post, $total_count);
 	}
 	foreach ($history as $state => $periods) {
 	    foreach ($periods as $period => $count) {
-		$cache[$_cache_key]['history'][$state][$period] = round($count / $cache[$_cache_key]['history']['total_count'][$period] * 100, 1);
+		$cache[$_cache_key]['history'][$state][$period] = round($count / $total_count[$period] * 100, 1);
 	    }
 	}
+	$cache[$_cache_key]['history']['total_count'] = $total_count;
 
-//	fn_print_die($history, $cache[$_cache_key]['history']);
+	// Ratings
+	$cache[$_cache_key]['ratings'] = array(
+	    '1' => array(
+		'total' => 0,
+		'percent' => 0,
+	    ),
+	    '2' => array(
+		'total' => 0,
+		'percent' => 0,
+	    ),
+	    '3' => array(
+		'total' => 0,
+		'percent' => 0,
+	    ),
+	    '4' => array(
+		'total' => 0,
+		'percent' => 0,
+	    ),
+	    '5' => array(
+		'total' => 0,
+		'percent' => 0,
+	    ),
+	);
+	foreach ($cache[$_cache_key]['posts'] as $i => $post) {
+	    $cache[$_cache_key]['ratings'][round($post['rating_value'])]['total'] ++;
+	}
+	foreach ($cache[$_cache_key]['ratings'] as $i => $dt) {
+	    $cache[$_cache_key]['ratings'][$i]['percent'] = round($dt['total'] / count($cache[$_cache_key]['posts']) * 100, 1);
+	}
+	
+	
+	// Detailed merchant rating
+	$cache[$_cache_key]['detailed_rating'] = array(
+	    'r_value' => array(
+		'total' => 0,
+		'average' => 0,
+	    ),
+	    'time' => array(
+		'total' => 0,
+		'average' => 0,
+	    ),
+	    'accuracy' => array(
+		'total' => 0,
+		'average' => 0,
+	    ),
+	    'quality' => array(
+		'total' => 0,
+		'average' => 0,
+	    ),
+	    'communication' => array(
+		'total' => 0,
+		'average' => 0,
+	    ),
+	    'professionalism' => array(
+		'total' => 0,
+		'average' => 0,
+	    ),
+	);
+	foreach ($cache[$_cache_key]['detailed_rating'] as $metric => $dt) {
+	    foreach ($cache[$_cache_key]['posts'] as $i => $post) {
+		$cache[$_cache_key]['detailed_rating'][$metric]['total'] += $post[$metric];
+	    }
+	    $cache[$_cache_key]['detailed_rating'][$metric]['average'] = round($cache[$_cache_key]['detailed_rating'][$metric]['total'] / count($cache[$_cache_key]['posts']), 1);
+	}
 	
 	// Reviews summary
 	$neg = $cache[$_cache_key]['posts'];
@@ -201,7 +266,7 @@ function fn_get_discussion_posts($params, $items_per_page = 0)
 
     if ($thread_data['type'] == 'R' || $thread_data['type'] == 'B') {
         $join .= " LEFT JOIN ?:discussion_rating ON ?:discussion_rating.post_id = ?:discussion_posts.post_id ";
-        $fields .= ", (?:discussion_rating.rating_value + ?:discussion_rating.time + ?:discussion_rating.accuracy + ?:discussion_rating.quality + ?:discussion_rating.communication + ?:discussion_rating.professionalism)/6 AS rating_value";
+        $fields .= ", ?:discussion_rating.rating_value AS r_value, ?:discussion_rating.time, ?:discussion_rating.accuracy, ?:discussion_rating.quality, ?:discussion_rating.communication, ?:discussion_rating.professionalism, (?:discussion_rating.rating_value + ?:discussion_rating.time + ?:discussion_rating.accuracy + ?:discussion_rating.quality + ?:discussion_rating.communication + ?:discussion_rating.professionalism)/6 AS rating_value";
     }
 
     $thread_condition = fn_generate_thread_condition($thread_data);
@@ -459,6 +524,21 @@ function fn_get_average_rating($object_id, $object_type)
     }
 
     return db_get_field("SELECT AVG((a.rating_value + a.time + a.quality + a.accuracy + a.communication + a.professionalism)/6) as val FROM ?:discussion_rating as a LEFT JOIN ?:discussion_posts as b ON a.post_id = b.post_id WHERE a.thread_id = ?i AND b.status = 'A' AND (a.rating_value + a.time + a.quality + a.accuracy + a.communication + a.professionalism)/6 > ?i", $discussion['thread_id'], 0);
+}
+
+function fn_get_positive_rating_percentage($object_id, $object_type)
+{
+
+    $discussion = fn_get_discussion($object_id, $object_type);
+
+    if (empty($discussion) || ($discussion['type'] != 'R' && $discussion['type'] != 'B')) {
+        return false;
+    }
+
+    $total = db_get_field("SELECT COUNT(*) FROM ?:discussion_rating as a LEFT JOIN ?:discussion_posts as b ON a.post_id = b.post_id WHERE a.thread_id = ?i AND b.status = 'A' AND (a.rating_value + a.time + a.quality + a.accuracy + a.communication + a.professionalism)/6 > ?i", $discussion['thread_id'], 0);
+    $positive = db_get_field("SELECT COUNT(*) FROM ?:discussion_rating as a LEFT JOIN ?:discussion_posts as b ON a.post_id = b.post_id WHERE a.thread_id = ?i AND b.status = 'A' AND (a.rating_value + a.time + a.quality + a.accuracy + a.communication + a.professionalism)/6 > ?i", $discussion['thread_id'], 3);
+    
+    return ($total > 0) ? round($positive / $total * 100, 1) : 0 ;
 }
 
 function fn_get_discussion_object_data($object_id, $object_type, $lang_code = CART_LANGUAGE)

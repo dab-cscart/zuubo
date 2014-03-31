@@ -17,8 +17,32 @@
 
 {if $discussion.posts}
 {if $detailed}
-    <div id="ratings">
-	<h1 class="mainbox-title"><span>{__("merchant_rating_history")}</span></h1>
+    <h1 class="mainbox-title"><span>{__("ratings")}</span></h1>
+
+    <div id="merchant_rating_distribution" style="padding-bottom: 50px;">
+	<h1>{__("merchant_rating_distribution")}</h1>
+	<div id="block_company_ratings">
+	    <div>
+	    {foreach from=$discussion.ratings item="r_data" key="star"}
+		<div>{$star}&nbsp;{__("star")}: {include file="addons/spec_dev/components/progress_bar.tpl" value_width=$r_data.percent star=$star}{$r_data.total}({$r_data.percent}%)</div>
+	    {/foreach}
+	    </div>
+	</div>
+    </div>
+    
+    <div id="detailed_rating" style="padding-bottom: 50px;">
+	<h1>{__("detailed_rating")}</h1>
+	<div id="block_company_detailed_rating" style="margin-top: 30px;">
+	    <div style="display: inline;">
+	    {foreach from=$discussion.detailed_rating item="r_data" key="metric"}
+		<div style="display: inline-block;">{__($metric)}: {include file="addons/discussion/views/discussion/components/stars.tpl" stars=$r_data.average|fn_get_discussion_rating} {$r_data.average}</div>
+	    {/foreach}
+	    </div>
+	</div>
+    </div>
+
+    <div id="merchant_rating_history" style="padding-bottom: 50px;">
+	<h1>{__("merchant_rating_history")}</h1>
 	<div id="block_company_reviews_summary">
 	    <table class="table qty-discounts">
 	    <th>
@@ -30,9 +54,8 @@
 	    {foreach from=$discussion.history item="periods" key="state"}
 		<tr>
 		    <td class="left valign">{__($state)}</td>
-		    {$periods|fn_print_r}
 		    {foreach from=$periods item="percentage" key="period"}
-			<td class="center">{$percentage}%</td>
+			<td class="center">{$percentage}{if $state != 'total_count'}%{/if}</td>
 		    {/foreach}
 		</tr>
 	    {/foreach}
@@ -40,17 +63,20 @@
 	</div>
     </div>
     
-    <div id="reviews_summary">
-	<h1 class="mainbox-title"><span>{__("most_recent")}</span></h1>
+
+    <h1 class="mainbox-title"><span>{__("reviews_summary")}</span></h1>
+    <div id="most_recent" style="padding-bottom: 50px;">
+	<h1><span>{__("most_recent")}</span></h1>
 	{$_tmp = $discussion.posts}
-	<div id="block_company_reviews_summary">
+	<div id="block_company_reviews_summary" style="margin-top: 30px;">
 	    {$most_recent = $_tmp|array_splice:0:3}
 	    {include file="addons/spec_dev/components/posts.tpl" posts=$most_recent}
 	</div>
-	
+    </div>
+    <div id="most_recent" style="padding-bottom: 50px;">
 	<div style="display: inline-block;width: 101%;">
-	    <h1 class="mainbox-title"><span>{__("most_useful")}</span></h1>
-	    <div style="display: inline-block;width: 49%;">
+	    <h1><span>{__("most_useful")}</span></h1>
+	    <div style="display: inline-block;width: 49%;margin-top: 30px;">
 		<h1>{__("positive")}</h1>
 		<div id="block_company_reviews_summary">
 		    {include file="addons/spec_dev/components/posts.tpl" posts=$discussion.most_positive}
@@ -64,7 +90,6 @@
 		</div>
 	    </div>
 	</div>
-
     </div>
 {/if}
 

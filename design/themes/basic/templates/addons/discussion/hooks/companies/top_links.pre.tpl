@@ -8,5 +8,8 @@
         {if !$discussion.disable_adding}
             <a onclick="Tygh.$('#discussion').click(); Tygh.$('#opener_new_post a').click();  Tygh.$.scrollToElm(Tygh.$('#new_post_dialog')); return false;">{__("write_review")}</a>
         {/if}
+        
+	<a onclick="return false;">{__("request_quote")}</a>
+	<a onclick="return false;">{__("ask_question")}</a>
     <!--average_rating_{$object_type}_{$object_id}--></span>
 {/if}

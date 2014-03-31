@@ -415,21 +415,26 @@ function fn_spec_dev_get_category_data_post($category_id, $field_list, $get_main
 
 function fn_spec_dev_update_company($company_data, $company_id, $lang_code, $action)
 {
-	$badge_ids = fn_get_vendor_badges($company_id);
-	$to_delete = array_diff($badge_ids, $company_data['badge_ids']);
-	if (!empty($to_delete)) {
-		db_query("DELETE FROM ?:vendor_badges WHERE badge_id IN (?n) AND vendor_id = ?i", $to_delete, $company_id);
-	}
-	$to_add = array_diff($company_data['badge_ids'], $badge_ids);
-	if (!empty($to_add)) {
-		foreach ($to_add as $b_id) {
-			$_data = array(
-				'vendor_id' => $company_id,
-				'badge_id' => $b_id
-			);
-			db_query("REPLACE INTO ?:vendor_badges ?e", $_data);
-		}
-	}
+    $badge_ids = fn_get_vendor_badges($company_id);
+    $to_delete = array_diff($badge_ids, $company_data['badge_ids']);
+    if (!empty($to_delete)) {
+	    db_query("DELETE FROM ?:vendor_badges WHERE badge_id IN (?n) AND vendor_id = ?i", $to_delete, $company_id);
+    }
+    $to_add = array_diff($company_data['badge_ids'], $badge_ids);
+    if (!empty($to_add)) {
+	    foreach ($to_add as $b_id) {
+		    $_data = array(
+			    'vendor_id' => $company_id,
+			    'badge_id' => $b_id
+		    );
+		    db_query("REPLACE INTO ?:vendor_badges ?e", $_data);
+	    }
+    }
+    
+    // Update additional images
+    fn_attach_image_pairs('company_additional', 'company', $company_id, $lang_code);
+    // Adding new additional images
+    fn_attach_image_pairs('company_add_additional', 'company', $company_id, $lang_code);
 }
 
 function fn_get_vendor_badges($company_id)
@@ -439,8 +444,23 @@ function fn_get_vendor_badges($company_id)
 
 function fn_spec_dev_get_company_data_post($company_id, $lang_code, $extra, &$company_data)
 {
+    if (AREA == 'A') {
 	list($company_data['all_badges'],) = fn_get_badges();
 	$company_data['badge_ids'] = fn_get_vendor_badges($company_id);
+    } else {
+	list($company_data['badges'], ) = fn_get_badges(array('vendor_id' => $company_id));
+	if (!empty($company_data['badges'])) {
+	    foreach ($company_data['badges'] as $i => $badge) {
+		$company_data['badges'][$i]['icon'] = fn_get_image_pairs($badge['badge_id'], 'badge', 'M', true, true);
+		if ($badge['badge_id'] == TOP_RATED_BADGE_ID) {
+		    $company_data['top_rated'] = $company_data['badges'][$i];
+		    unset($company_data['badges'][$i]);
+		}
+	    }
+	}
+    }
+    $company_data['image_pairs'] = fn_get_image_pairs($company_id, 'company', 'A', true, true, $lang_code);
+    $company_data['total_services_sold'] = db_get_field("SELECT SUM(a.amount) FROM ?:order_details AS a LEFT JOIN ?:orders AS b ON b.order_id = a.order_id WHERE b.company_id = ?i", $company_id);
 }
 
 function fn_get_badge_data($badge_id)
@@ -468,6 +488,11 @@ function fn_get_badges($params = array(), $items_per_page = 0)
 
     $condition = '1';
     $join = '';
+    if (!empty($params['vendor_id'])) {
+	$join .= db_quote(" LEFT JOIN ?:vendor_badges ON ?:vendor_badges.badge_id = a.badge_id ", $params['vendor_id']);
+        $condition .= db_quote(" AND ?:vendor_badges.vendor_id = ?i", $params['vendor_id']);
+    }
+
     if (!empty($params['only_avail'])) {
         $condition .= db_quote(" AND a.status = ?s", 'A');
     }
@@ -476,14 +501,13 @@ function fn_get_badges($params = array(), $items_per_page = 0)
         $condition .= db_quote(" AND a.badge LIKE ?l", '%' . $params['q'] . '%');
     }
 
-    $join = '';
     $limit = '';
     if (!empty($params['items_per_page'])) {
         $params['total_items'] = db_get_field("SELECT count(*) FROM ?:badges as a $join WHERE ?p", $condition);
         $limit = db_paginate($params['page'], $params['items_per_page']);
     }
 
-    $badges = db_get_array("SELECT " . implode(', ', $fields) . " FROM ?:badges as a $join WHERE ?p ORDER BY a.badge $limit", $condition);
+    $badges = db_get_hash_array("SELECT " . implode(', ', $fields) . " FROM ?:badges as a $join WHERE ?p ORDER BY a.badge $limit", 'badge_id', $condition);
 
     return array($badges, $params);
 }

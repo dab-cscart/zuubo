@@ -1,3 +1,4 @@
+{__("sort_results_by")} :
 <div class="dropdown-container">
     <span id="sw_elm_sort_fields" class="sort-dropdown cm-combination"><a>{__("sort_by_`$search.sort_by`_`$search.sort_order`")}<i class="icon-down-micro"></i></a></span>
     <ul id="elm_sort_fields" class="dropdown-content cm-popup-box hidden">
