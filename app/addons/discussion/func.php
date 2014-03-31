@@ -80,6 +80,47 @@ function fn_get_discussion($object_id, $object_type, $get_posts = false, $params
     }
 
     if (!empty($cache[$_cache_key]['posts'])) {
+//  fn_print_die($cache[$_cache_key]['posts']);  
+	// Merchant rating history
+	$history = array(
+	    'positive' => array(
+		'30' => 0,
+		'90' => 0,
+		'365' => 0,
+		'lifetime' => 0
+	    ),
+	    'neutral' => array(
+		'30' => 0,
+		'90' => 0,
+		'365' => 0,
+		'lifetime' => 0
+	    ),
+	    'negative' => array(
+		'30' => 0,
+		'90' => 0,
+		'365' => 0,
+		'lifetime' => 0
+	    ),
+	);
+	foreach ($cache[$_cache_key]['posts'] as $i => $post) {
+	    if ($post['rating_value'] > 3) {
+		fn_get_period_statistic($post, $history['positive']);
+	    } elseif ($post['rating_value'] > 1 && $post['rating_value'] <= 3) {
+		fn_get_period_statistic($post, $history['neutral']);
+	    } elseif ($post['rating_value'] <= 1) {
+		fn_get_period_statistic($post, $history['negative']);
+	    }
+	    fn_get_period_statistic($post, $cache[$_cache_key]['history']['total_count']);
+	}
+	foreach ($history as $state => $periods) {
+	    foreach ($periods as $period => $count) {
+		$cache[$_cache_key]['history'][$state][$period] = round($count / $cache[$_cache_key]['history']['total_count'][$period] * 100, 1);
+	    }
+	}
+
+//	fn_print_die($history, $cache[$_cache_key]['history']);
+	
+	// Reviews summary
 	$neg = $cache[$_cache_key]['posts'];
 	uasort($neg, 'fn_sort_by_neg_votes');
 	$pos = $cache[$_cache_key]['posts'];
@@ -93,6 +134,24 @@ function fn_get_discussion($object_id, $object_type, $get_posts = false, $params
     }
 
     return !empty($cache[$_cache_key]) ? $cache[$_cache_key] : false;
+}
+
+function fn_get_period_statistic($post, &$history)
+{
+    $today = getdate(TIME);
+    $last30 = gmmktime(0, 0, 0, $today['mon'], $today['mday'] - 30, $today['year']);
+    $last90 = gmmktime(0, 0, 0, $today['mon'], $today['mday'] - 90, $today['year']);
+    $last365 = gmmktime(0, 0, 0, $today['mon'], $today['mday'] - 365, $today['year']);
+    if ($post['timestamp'] >= $last30) {
+	$history['30']++;
+    }
+    if ($post['timestamp'] >= $last90) {
+	$history['90']++;
+    }
+    if ($post['timestamp'] >= $last365) {
+	$history['365']++;
+    }
+    $history['lifetime']++;
 }
 
 function fn_sort_by_pos_votes($a, $b)
