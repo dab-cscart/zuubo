@@ -28,6 +28,7 @@
 	{include file="addons/discussion/views/discussion/components/stars.tpl" stars=$average_rating|fn_get_discussion_rating is_link=true}
 	</div>
 	{/if*}
+	{* по нормальному стили отказываются работать, судя по всему компилятор стилей что то саботирует*}
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<div id="block_company_ratings">
 	    <div>
