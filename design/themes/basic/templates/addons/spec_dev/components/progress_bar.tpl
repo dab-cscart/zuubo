@@ -1,17 +1,19 @@
-<div id="star_bar_{$star}"></div>
+<div id="star_bar_{$star}"   style="display: inline-block;width: 200px; height: 15px;"></div>
 
+{scripts}
 <script type="text/javascript">
 //<![CDATA[
-var star = '{$star}',
-    percent = '{$value_width}';
+var star = '{$star}';
+var percent = '{$value_width}';
     
 {literal}
- $( document ).ready( function() {
+(function(_, $) {
     $("#star_bar_" + star).progressbar({
-	value: percent
+	value: parseFloat(percent),
     });
-});
+}(Tygh, Tygh.$));
 {/literal}
 
 //]]>
 </script>
+{/scripts}

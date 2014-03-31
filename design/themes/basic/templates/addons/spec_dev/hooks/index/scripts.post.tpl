@@ -1,0 +1,1 @@
+{script src="js/addons/spec_dev/jquery-ui.custom.js"}

@@ -21,6 +21,14 @@
 
     <div id="merchant_rating_distribution" style="padding-bottom: 50px;">
 	<h1>{__("merchant_rating_distribution")}</h1>
+	{*assign var="average_rating" value=$object_id|fn_get_average_rating:$object_type}
+
+	{if $average_rating}
+	<div style="display: inline-block;">
+	{include file="addons/discussion/views/discussion/components/stars.tpl" stars=$average_rating|fn_get_discussion_rating is_link=true}
+	</div>
+	{/if*}
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<div id="block_company_ratings">
 	    <div>
 	    {foreach from=$discussion.ratings item="r_data" key="star"}
@@ -66,7 +74,7 @@
 
     <h1 class="mainbox-title"><span>{__("reviews_summary")}</span></h1>
     <div id="most_recent" style="padding-bottom: 50px;">
-	<h1><span>{__("most_recent")}</span></h1>
+	<h1>{__("most_recent")}</h1>
 	{$_tmp = $discussion.posts}
 	<div id="block_company_reviews_summary" style="margin-top: 30px;">
 	    {$most_recent = $_tmp|array_splice:0:3}
@@ -75,7 +83,7 @@
     </div>
     <div id="most_recent" style="padding-bottom: 50px;">
 	<div style="display: inline-block;width: 101%;">
-	    <h1><span>{__("most_useful")}</span></h1>
+	    <h1>{__("most_useful")}</h1>
 	    <div style="display: inline-block;width: 49%;margin-top: 30px;">
 		<h1>{__("positive")}</h1>
 		<div id="block_company_reviews_summary">
