@@ -14,32 +14,9 @@
 {if $subheader}
     <h4>{$subheader}</h4>
 {/if}
-
+ytvhb
 {if $discussion.posts}
 {if $detailed}
-    <div id="ratings">
-	<h1 class="mainbox-title"><span>{__("merchant_rating_history")}</span></h1>
-	<div id="block_company_reviews_summary">
-	    <table class="table qty-discounts">
-	    <th>
-		<td>{__("this_month")}</td>
-		<td>{__("last_90_days")}</td>
-		<td>{__("last_year")}</td>
-		<td>{__("lifetime")}</td>
-	    </th>
-	    {foreach from=$discussion.history item="periods" key="state"}
-		<tr>
-		    <td class="left valign">{__($state)}</td>
-		    {$periods|fn_print_r}
-		    {foreach from=$periods item="percentage" key="period"}
-			<td class="center">{$percentage}%</td>
-		    {/foreach}
-		</tr>
-	    {/foreach}
-	    </table>
-	</div>
-    </div>
-    
     <div id="reviews_summary">
 	<h1 class="mainbox-title"><span>{__("most_recent")}</span></h1>
 	{$_tmp = $discussion.posts}
