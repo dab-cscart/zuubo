@@ -34,25 +34,26 @@
 {/foreach}
 </div>
 {/if}
-
-{if $avail_sorting}
-{include file="common/sorting.tpl"}
-{/if}
-
+{* angel *}
 {assign var="pagination" value=$search|fn_generate_pagination}
 
 {if $pagination.total_items}
 {assign var="range_url" value=$curl|fn_query_remove:"items_per_page":"page"}
 {assign var="product_steps" value=$settings.Appearance.columns_in_products_list|fn_get_product_pagination_steps:$settings.Appearance.products_per_page}
-<div class="dropdown-container">
-<span id="sw_elm_pagination_steps" class="sort-dropdown cm-combination"><a>{$pagination.items_per_page} {__("per_page")}<i class="icon-down-micro"></i></a></span>
+<div class="dropdown-container">{$lang.services_per_page}
+<span id="sw_elm_pagination_steps" class="sort-dropdown cm-combination"><a>{$pagination.items_per_page}<i class="icon-down-micro"></i></a></span>
     <ul id="elm_pagination_steps" class="dropdown-content cm-popup-box hidden">
         {foreach from=$product_steps item="step"}
         {if $step != $pagination.items_per_page}
-            <li><a class="{$ajax_class}" href="{"`$range_url`&items_per_page=`$step`"|fn_url}" data-ca-target-id="{$pagination_id}" rel="nofollow">{$step} {__("per_page")}</a></li>
+            <li><a class="{$ajax_class}" href="{"`$range_url`&items_per_page=`$step`"|fn_url}" data-ca-target-id="{$pagination_id}" rel="nofollow">{$step}</a></li>
         {/if}
         {/foreach}
     </ul>
 </div>
 {/if}
+
+{if $avail_sorting}
+{include file="common/sorting.tpl"}
+{/if}
+{* /angel *}
 </div>
