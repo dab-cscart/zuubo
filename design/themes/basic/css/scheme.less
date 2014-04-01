@@ -264,22 +264,6 @@ ul.dropdown-multicolumns li:hover a {
 
 // Sidebox
 @sidebar: #a4a4a4;
-.sidebox-title {
-	.gradient (lighten(@sidebar, 11%), @sidebar);
-}
-.sidebox_header (@sidebar) when (lightness(@sidebar) >= 70%) {
-	span, a:link, a:visited, a:hover {
-	color: darken(@menu, 10%);
-	text-shadow: 0px 1px 0px lighten(@menu, 50%);
-	}
-}
-.sidebox_header (@sidebar) when (lightness(@sidebar) < 70%) {
-	span, a:link, a:visited, a:hover {
-	color: lighten(@menu, 70%);
-	text-shadow: 0px 1px 0px darken(@menu, 15%);
-	}
-}
-.sidebox-title { .sidebox_header(@sidebar) }
 
 @slider: desaturate(@links, 30%);
 .ui-slider .ui-slider-range.ui-widget-header {
@@ -507,9 +491,6 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 .dropdown-box .icon-down-micro, .icon-cancel-circle, .icon-basket.empty, .details-link, .combination-link, .detailed-link, .popup-title, .popup-title.unlogged a i {
     color: lighten(@base, 20%);
 }
-.pagination a.set, .pagination a.prev, .pagination a.next, .sort-pagination a.set, .sort-pagination a.prev, .sort-pagination a.next {
-	border-color: lighten(@base, 20%);
-}
 .step-title span.float-left {
 	background-color: lighten(@base, 20%);
 }
@@ -551,7 +532,7 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 }
 
 // Gray elements with #333333 color 
-.price, .sub-price, .qty-in-stock, .popup-content ul.account-info li a:hover, ul.select-list li:hover, .select-list a.item-link, .dropdown-content li:hover, .tabs ul li a:hover, .tabs ul li:active a:hover, .popup-title a, .minicart-title, .cart-title:hover, .product-quick-view.product-main-info .quick-view-title, .pagination a:hover, .paym-methods li div.radio1 h5, .paym-methods li div.radio1.active h5, .checkout-summary table tbody.total th div, .select-list a, .select-list a:visited, .select-list a:hover, .select-list a:active, .dropdown-content a, .dropdown-content a:visited, .dropdown-content a:hover, .cart-shipping-title, .product-info .price, .sort-pagination a:hover, ul.statistic-list li.total span, ul.statistic-list li.total .price span, ul.statistic-list span, #step_one_body.step-body-active, #step_one_body.step-body-active div, .step-title-active .title, .step-title-active a.title:hover, .step-title-complete a.title, .step-title-complete a.title:hover, .price-curency {
+.price, .sub-price, .qty-in-stock, .popup-content ul.account-info li a:hover, ul.select-list li:hover, .select-list a.item-link, .dropdown-content li:hover, .tabs ul li a:hover, .tabs ul li:active a:hover, .popup-title a, .minicart-title, .cart-title:hover, .product-quick-view.product-main-info .quick-view-title, .paym-methods li div.radio1 h5, .paym-methods li div.radio1.active h5, .checkout-summary table tbody.total th div, .select-list a, .select-list a:visited, .select-list a:hover, .select-list a:active, .dropdown-content a, .dropdown-content a:visited, .dropdown-content a:hover, .cart-shipping-title, .product-info .price, .sort-pagination a:hover, ul.statistic-list li.total span, ul.statistic-list li.total .price span, ul.statistic-list span, #step_one_body.step-body-active, #step_one_body.step-body-active div, .step-title-active .title, .step-title-active a.title:hover, .step-title-complete a.title, .step-title-complete a.title:hover, .price-curency {
     color: darken(@base, 30%);
 }
 
@@ -625,7 +606,7 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 .calendar-but, .dropdown-box .buttons-container, .cart-items p.center, .mainbox-title .date, .password .forgot-password, .remove span {
 	color: lighten(@base, 10%);
 }
-.pagination-selected-page, .sort-pagination span {
+.sort-pagination span {
 	background-color: lighten(@base, 10%);
 }
 .tab-list-title {
@@ -633,7 +614,7 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 }
 
 // Gray elements with #808080 color
-.control-group label em, .other-text h2, .other-text p, .exception p, .sort-pagination a, .sort-pagination a:link, .sort-pagination a:visited, .sort-pagination a:hover, .account-detail p, .account-detail ul li, .account-benefits ul li, .login-info p, .pagination a, .pagination a:visited, .pagination a:hover, .pagination a:active, .pagination-selected-page, .mid-gray {
+.control-group label em, .other-text h2, .other-text p, .exception p, .sort-pagination a, .sort-pagination a:link, .sort-pagination a:visited, .sort-pagination a:hover, .account-detail p, .account-detail ul li, .account-benefits ul li, .login-info p, .mid-gray {
     color: @base;
 }
 .filter-icon, .product-variant-image-selected {
@@ -659,34 +640,15 @@ ul.text-links.text-links-inline li.level-0 > ul, .popup-tools, .popup-title.acti
 }
 
 // Gray elements with #444 color
-.pagination a.set:hover, .pagination a.prev:hover, .pagination a.next:hover, .sort-pagination a.set:hover, .sort-pagination a.prev:hover, .sort-pagination a.next:hover, .increase:hover, .decrease:hover {
-	background-color: darken(@base, 23%);
-}
-.sort-pagination a.set:hover, .sort-pagination a.prev:hover, .sort-pagination a.next:hover, .pagination a.set:hover, .pagination a.prev:hover, .pagination a.next:hover, .increase:hover, .decrease:hover , .product-description {
-	border-color: darken(@base, 23%);
-}
-
 
 
 // Sorting styles
-.sort-dropdown.open, .sort-dropdown:hover {
-	border-color: darken(@secondary_button, 8%);
-}
-.views-icons a:hover {
-	.gradient (lighten(@base, 43%), lighten(@base, 33%));
-	.gradient (lighten(@secondary_button, 10%), lighten(@secondary_button, 3%));
-}
-.views-icons .active, .views-icons .active:hover {
-	.gradient (lighten(@base, 33%), lighten(@base, 45%));
-	.gradient (@secondary_button, lighten(@secondary_button, 10%));
-}
+
 
 .sort-dropdown, .sort-dropdown a, .views-icons .active, .views-icons > a:hover {.button_text (lighten(@secondary_button, 5%))}
 
 // Cascade bug classes
-.pagination-selected-page {
-    color: #fff;
-}
+
 .mainbox-cart-body .table tr {
     background-color: #fff;
 }

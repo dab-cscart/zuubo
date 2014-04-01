@@ -1147,20 +1147,23 @@ ul.text-links.text-links-inline li.level-0:hover > ul {
 
 /* Common sidebox style */
 .sidebox-title {
+    background: #595959 none;
     -webkit-border-radius: 5px 5px 0 0;
     -moz-border-radius: 5px 5px 0 0;
     border-radius: 5px 5px 0 0;
+    padding: 0 20px;
 }
-.sidebox-title span, .sidebox-title a {
-    text-shadow: 0px 1px 0px #757575;
+.sidebox-title span, .sidebox-title a:link, .sidebox-title a:visited, .sidebox-title a:hover {
+    color: #fff;
+    text-transform: capitalize;
+    font: normal 18px/40px 'Roboto Medium', sans-serif;
+    text-shadow: none;
 }
 .sidebox-wrapper .sidebox-body {
-    border-top: none;
-    -webkit-border-radius: 0 0 5px 5px;
-    -moz-border-radius: 0 0 5px 5px;
-    border-radius: 0 0 5px 5px;
+    background-color: #f2f2f2;
+    border: 0 none;
 }
-.sidebox-body .dropdown-multicolumns a:link,  
+/*.sidebox-body .dropdown-multicolumns a:link,  
 .sidebox-body .dropdown-multicolumns a:visited,
 .sidebox-body .dropdown-multicolumns a:active {
     color: #fff;
@@ -1168,7 +1171,7 @@ ul.text-links.text-links-inline li.level-0:hover > ul {
 .sidebox-body .dropdown-multicolumns a:hover,
 .sidebox-body .dropdown-multicolumns li:hover > a {
     color: #161616;
-}
+}*/
 /* /Common sidebox style */
 
 /* Important sidebox style */
@@ -1353,18 +1356,13 @@ td.product-image img{
 }
 
 td.preview-image {
-    margin: 0 25px 10px 0;
+    margin: 0 0 10px 0;
     text-align: center;
     background-color: #fff;
-    border: 1px solid #ebebeb;
 }
 
 td.preview-image img {
     margin: 0;   
-}
-
-td.preview-image a {
-    padding: 20px 0;
 }
 
 .preview-image-wrapper {
@@ -1425,10 +1423,19 @@ td.preview-image a {
 }
 
 .product-cell-wrapper {
-    padding: 10px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    padding: 0;
+    margin-bottom: 49px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.tmpl.template-grid-list .product-cell-wrapper {
+    background-color: #f2f2f2;
+}
+
+.tmpl.template-grid-list .quick-view {
+    position: absolute;
 }
 
 .center-block {
@@ -1558,10 +1565,6 @@ td.preview-image a {
 
 .multicolumns-list td:hover .quick-view {
     visibility: visible;
-}
-
-.multicolumns-list td:hover .product-cell-wrapper {
-    background: #f7f7f7;
 }
 
 .pagination-container .list .buttons-container {
@@ -1730,28 +1733,45 @@ td.preview-image a {
 /* /Also bought */
 
 /* Pagination styles */
+.pagination-bottom {
+    border: 0 none;
+}
+.pagination {
+    padding: 11px 12px 12px 12px;
+    margin: 0 0 50px 0;
+    text-align: center;
+    background-color: #f2f2f2;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
 .pagination a, .pagination a:active, .pagination-selected-page {
     display: inline-block;
-    padding: 1px 3px;
-    min-width: 12px;
-    -webkit-border-radius: 3px;    
-    -moz-border-radius: 3px;
-    border-radius: 3px;
     text-align: center;
-    text-transform: uppercase;
-    font-size: 85%;
 }
 .pagination a, .pagination a:visited, .pagination a:hover, .pagination a:active, .pagination-selected-page {
-    text-decoration: none;    
-}
-.pagination a.set, .pagination a.prev, .pagination a.next {
+    text-decoration: none;
+    color: #595959;
+    font-size: 14px;
     margin: 0 4px;
-    padding: 4px 6px;
-    width: auto;
-    border: 1px solid #b2b2b2;
 }
-.pagination a.set:hover, .pagination a.prev:hover, .pagination a.next:hover {
-    color: #fff;
+.pagination a.prev, .pagination a.next {
+    width: auto;
+    margin: 0;
+}
+.pagination a.prev i, .pagination a.next i {
+    font-size: 18px;
+    vertical-align: -3px;
+}
+.pagination a.prev i {
+    margin-right: 6px;
+}
+.pagination a.next i {
+    margin-left: 6px;
+}
+.pagination-selected-page, .pagination a:hover, .pagination a.set:hover, .pagination a.prev:hover, .pagination a.next:hover {
+    color: #fe6e20;
+    background-color: transparent;
 }
 /* /Pagination styles */
 
@@ -3335,22 +3355,20 @@ a.secondary-link {
     text-decoration: none;
 }
 .views-icons a:hover, .views-icons .active {
-    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2);
     text-decoration: none;
-    text-shadow: 0 1px 0 #fff;
 }
 .views-icons .active, .views-icons .active:hover {
-    box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2);
     text-shadow: none;
 }
 
 .sort-container{
-    margin: 0 0 1px;
+    margin: 0 0 50px;
     border: 0 none;
     background-color: #f2f2f2;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    padding: 10px 5px 9px 13px;
 }
 
 /* /Sorting styles */
@@ -4136,6 +4154,10 @@ ul.dropdown-vertical .menu-popup p.promo-image a.promo-link, ul.dropdown-vertica
     background-color: #f2f2f2;
     padding: 0;
 }
+.tmpl.template-grid-list td {
+    background-color: transparent;
+    padding: 0 0 1px 0;
+}
 .template-grid-list td.product-spacer {
     width: 3.5%;
     background-color: transparent;
@@ -4162,7 +4184,10 @@ ul.dropdown-vertical .menu-popup p.promo-image a.promo-link, ul.dropdown-vertica
     line-height: 16px;
     height: 43px;
 }
-.product-grid-info .rating {
+.product-grid-info .rating p.nowrap.stars {
+    display: none;
+}
+.product-grid-info .rating div {
     font-size: 14px;
     color: #0080ff;
     margin-top: 5px;
@@ -4240,6 +4265,7 @@ ul.dropdown-vertical .menu-popup p.promo-image a.promo-link, ul.dropdown-vertica
 /* /custom styles */
 .category-mainbox-title {
     font-size: 14px;
+    padding: 11px 0 19px 0;
 }
 .category-mainbox-title span {
     font: bold 23px 'Roboto', sans-serif;
@@ -4247,8 +4273,12 @@ ul.dropdown-vertical .menu-popup p.promo-image a.promo-link, ul.dropdown-vertica
 }
 .views-icons a:link, .views-icons a:active {
     float: none;
+    padding: 0;
+    margin: 0 6px;
     display: inline-block;
     vertical-align: middle;
+    width: 25px;
+    height: 25px;
 }
 .views-icons a i {
     display: inline-block;
@@ -4269,4 +4299,7 @@ ul.dropdown-vertical .menu-popup p.promo-image a.promo-link, ul.dropdown-vertica
 }
 .views-icons a.active .icon-products-without-options, .views-icons a:hover .icon-products-without-options {
     background: url(../media/images/pl_list_active.gif) no-repeat 0 0;
+}
+.template-grid-list .thumbs-wrapper .pict {
+    margin: 0;
 }

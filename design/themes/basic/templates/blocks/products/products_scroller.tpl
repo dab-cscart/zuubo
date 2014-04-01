@@ -22,7 +22,7 @@
                 {assign var="obj_id" value="scr_`$block.block_id`000`$product.product_id`"}
                 <div class="product-grid-info">
                     {strip}
-                        {include file="blocks/list_templates/simple_list.tpl" product=$product show_trunc_name=true show_old_price=true show_price=true show_add_to_cart=$_show_add_to_cart but_role="action" hide_price=$_hide_price hide_qty=true prod_scroller=true}
+                        {include file="blocks/list_templates/simple_list.tpl" product=$product show_trunc_name=true show_old_price=true show_price=true show_add_to_cart=$_show_add_to_cart but_role="action" hide_price=$_hide_price hide_qty=true prod_scroller=true show_rating=true}
                     {/strip}
                 </div>
                 <div class="scroll-image">

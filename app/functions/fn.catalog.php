@@ -5168,8 +5168,8 @@ function fn_get_filters_products_count($params = array())
                 if (empty($fields[$field_type])) {
                     continue;
                 }
-
-                if ($structure['table'] !== 'products' && strpos($join, 'JOIN ?:' . $structure['table']) === false) {
+// [dab]
+                if ($structure['table'] !== 'products' && $structure['table'] !== 'product_cities' && strpos($join, 'JOIN ?:' . $structure['table']) === false) {
                     $join .= " LEFT JOIN ?:$structure[table] ON ?:$structure[table].product_id = ?:products.product_id";
                 }
 
@@ -5180,7 +5180,8 @@ function fn_get_filters_products_count($params = array())
                             $where .= db_quote(" AND ?:$structure[table].$structure[db_field] >= ?i AND ?:$structure[table].$structure[db_field] <= ?i", $range_condition['from'], $range_condition['to']);
                         }
                     }
-                } elseif ($structure['condition_type'] == 'F') {
+                } elseif ($structure['condition_type'] == 'F' && $structure['table'] !== 'product_cities') {
+// [dab]
                     $where .= db_quote(" AND ?:$structure[table].$structure[db_field] IN (?a)", $rids);
                 } elseif ($structure['condition_type'] == 'C') {
                     if (count($rids) > 1 ) {

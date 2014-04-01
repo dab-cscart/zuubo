@@ -1,3 +1,4 @@
+{if $runtime.mode != 'add'}
 <div id="content_location" class="hidden">
     <div class="control-group">
 	<label for="elm_category_metro_cities" class="control-label">{__("metro_cities")}</label>
@@ -10,3 +11,4 @@
 	</div>
     </div>
 </div>
+{/if}

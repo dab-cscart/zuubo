@@ -1,3 +1,4 @@
+{if $runtime.mode != 'add'}
 <div id="content_location" class="hidden">
     <div style="display: inline-block;">
     <div class="control-group">
@@ -22,3 +23,4 @@
     </div>
     </div>
 </div>
+{/if}

@@ -26,5 +26,5 @@ $schema['vendor_contact'] = array (
     ),
     'wrappers' => 'blocks/wrappers',
 );
-
+$schema['categories']['cache']['cookie_handlers'] = array('%LOCATION%');
 return $schema;

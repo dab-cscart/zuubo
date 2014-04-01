@@ -13,7 +13,8 @@
         <p class="product-location">12 Service Providers<br />Near San Jose</p>
         
         <div class="clearfix">
-            <div class="float-left rating">78% positive</div>
+            <div class="float-left rating">{assign var="rating" value="rating_$obj_id"}
+                    {$smarty.capture.$rating nofilter}</div>
             <div class="price-wrap float-right right">
         {/if}
         {if !$hide_price}
