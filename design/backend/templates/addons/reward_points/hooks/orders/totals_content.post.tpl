@@ -1,7 +1,7 @@
-{if $order_info.points_info.reward}
+{if $order_info.points_info.total_reward}
     <tr>
         <td>{__("points")}:</td>
-        <td>{$order_info.points_info.reward}&nbsp;{__("points_lower")}</td>
+        <td>{$order_info.points_info.total_reward}&nbsp;{__("points_lower")}</td>
     </tr>
 {/if}
 

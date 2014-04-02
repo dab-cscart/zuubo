@@ -184,14 +184,20 @@ function fn_get_discussion($object_id, $object_type, $get_posts = false, $params
 	    }
 	    $cache[$_cache_key]['detailed_rating'][$metric]['average'] = round($cache[$_cache_key]['detailed_rating'][$metric]['total'] / count($cache[$_cache_key]['posts']), 1);
 	}
-	
+
 	// Reviews summary
-	$neg = $cache[$_cache_key]['posts'];
-	uasort($neg, 'fn_sort_by_neg_votes');
 	$pos = $cache[$_cache_key]['posts'];
 	uasort($pos, 'fn_sort_by_pos_votes');
-	$cache[$_cache_key]['most_positive'] = array_splice($pos, 0, 3);
-	$cache[$_cache_key]['most_negative'] = array_splice($neg, 0, 3);
+	$cache[$_cache_key]['most_positive'] = $cache[$_cache_key]['most_negative'] = array();
+
+	foreach ($pos as $i => $post) {
+	    if ($post['rating_value'] > 3 && count($cache[$_cache_key]['most_positive']) < 3) {
+		$cache[$_cache_key]['most_positive'][] = $post;
+	    }
+	    if ($post['rating_value'] <= 1 && count($cache[$_cache_key]['most_negative']) < 3) {
+		$cache[$_cache_key]['most_negative'][] = $post;
+	    }
+	}
     }
     $saved_post_data = fn_restore_post_data('post_data');
     if (!empty($saved_post_data)) {
@@ -225,14 +231,6 @@ function fn_sort_by_pos_votes($a, $b)
         return 0;
     }
     return ($a['pos_votes'] > $b['pos_votes']) ? -1 : 1;
-}
-
-function fn_sort_by_neg_votes($a, $b)
-{
-    if ($a['neg_votes'] == $b['neg_votes']) {
-        return 0;
-    }
-    return ($a['neg_votes'] > $b['neg_votes']) ? -1 : 1;
 }
 
 function fn_get_discussion_posts($params, $items_per_page = 0)

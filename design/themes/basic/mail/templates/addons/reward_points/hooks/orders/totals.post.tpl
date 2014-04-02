@@ -1,7 +1,7 @@
-{if  $order_info.points_info.reward}
+{if  $order_info.points_info.total_reward}
     <tr>
         <td style="text-align: right; white-space: nowrap; font-size: 12px; font-family: Arial;"><b>{__("reward_points")}:&nbsp;</b></td>
-        <td style="text-align: right; white-space: nowrap; font-size: 12px; font-family: Arial;">{$order_info.points_info.reward}</td>
+        <td style="text-align: right; white-space: nowrap; font-size: 12px; font-family: Arial;">{$order_info.points_info.total_reward}</td>
     </tr>
 {/if}
 

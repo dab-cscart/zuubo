@@ -374,6 +374,12 @@ function fn_reward_points_get_order_info(&$order, &$additional_data)
     if (isset($additional_data[POINTS])) {
 	// [dab]
         $order['points_info']['reward'] = unserialize($additional_data[POINTS]);
+        $order['points_info']['total_reward'] = 0;
+        if (!empty($order['points_info']['reward'])) {
+	    foreach ($order['points_info']['reward'] as $i => $dt) {
+		$order['points_info']['total_reward'] += $dt['reward'];
+	    }
+        }
 	// [dab]
     }
     if (!empty($additional_data[POINTS_IN_USE])) {
