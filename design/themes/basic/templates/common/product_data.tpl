@@ -69,6 +69,15 @@
     {$smarty.capture.$capture_name nofilter}
 {/if}
 
+{capture name="positive_rating_`$obj_id`"}
+    {hook name="products:data_block_positive"}
+    {/hook}
+{/capture}
+{if $no_capture}
+    {assign var="capture_name" value="positive_rating_`$obj_id`"}
+    {$smarty.capture.$capture_name nofilter}
+{/if}
+
 {capture name="add_to_cart_`$obj_id`"}
 {if $show_add_to_cart}
 <div class="cm-reload-{$obj_prefix}{$obj_id} {$add_to_cart_class}" id="add_to_cart_update_{$obj_prefix}{$obj_id}">

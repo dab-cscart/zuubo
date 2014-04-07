@@ -1,4 +1,4 @@
-<div id="star_bar_{$star}"   style="display: inline-block;width: 200px; height: 15px;"></div>
+<div id="star_bar_{$star}"   style="display: inline-block;width: 263px; height: 28px;"></div>
 
 {scripts}
 <script type="text/javascript">

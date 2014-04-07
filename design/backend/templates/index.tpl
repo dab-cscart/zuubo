@@ -17,9 +17,9 @@
 {include file="common/scripts.tpl"}
 </head>
 {include file="buttons/helpers.tpl"}
-<!--[if lte IE 8 ]><body class="ie8"><![endif]-->
-<!--[if lte IE 9 ]><body class="ie9"><![endif]-->
-<!--[if !IE]><!--><body><!--<![endif]-->     
+<!--[if lte IE 8 ]><body class="ie8 {if !$auth.user_id || $view_mode == 'simple'}login-body{/if}"><![endif]-->
+<!--[if lte IE 9 ]><body class="ie9 {if !$auth.user_id || $view_mode == 'simple'}login-body{/if}"><![endif]-->
+<!--[if !IE]><!--><body{if !$auth.user_id || $view_mode == 'simple'} class="login-body"{/if}><!--<![endif]-->     
     {include file="common/loading_box.tpl"}
     {if "THEMES_PANEL"|defined}
         {include file="demo_theme_selector.tpl"}

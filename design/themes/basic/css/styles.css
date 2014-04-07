@@ -329,7 +329,7 @@ button.close {
 .button-big a, .button-submit-big input {
     padding: 10px 15px;
 }
-.buttona, .button-action a, .button-big a, .button-submit input, .button-submit-action input, .button-submit-big input {
+.button a, .button-action a, .button-big a, .button-submit input, .button-submit-action input, .button-submit-big input {
     text-shadow: none !important;
     font: bold 18px 'Roboto', sans-serif !important;
     color: #fff;
@@ -4399,9 +4399,9 @@ p.stars i {
 }
 .product-main-info .rating-wrapper div {
     color: #595959;
-    border-right: 1px solid #595959;
-    padding-right: 12px;
-    margin-right: 11px;
+    border-left: 1px solid #595959;
+    padding-left: 12px;
+    margin-left: 11px;
 }
 .share-buttons {
     padding: 12px 0 11px 0;
@@ -4653,13 +4653,13 @@ p.stars i {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    padding: 10px;
+    padding: 8px;
     position: relative;
 }
 .company-page-info .top-rated {
     position: absolute;
-    right: 5px;
-    top: 2px;
+    right: 0;
+    top: 0;
     width: 86px;
     height: 94px;
 }
@@ -4674,23 +4674,150 @@ p.stars i {
     font-size: 23px;
 }
 .company-page-info > div {
-    margin-right: 17px;
+    margin-right: 0;
+}
+.company-page-info div.company-logo {
+    margin: 2px 17px 0 2px;
+}
+.company-page-info div.company-information {
+    overflow: hidden;
+    position: relative;
 }
 .company-information .company-name {
     font-weight: bold;
     font-size: 22px;
     color: #ff5900;
+    line-height: 22px;
+    margin-bottom: 19px;
 }
 .company-information .company-location {
     font-size: 18px;
+    margin-bottom: 9px;
 }
 .company-information .company-serving {
     font-size: 14px;
+    margin-bottom: 21px;
+}
+.company-page-top-links i {
+    font-style: normal;
+    margin: 0 9px;
+}
+.company-page-top-links .stars {
+    margin-bottom: 15px;
+    vertical-align: -4px;
 }
 .company-page-top-links .stars i {
-    margin-right: 5px;
+    margin: 0 5px 0 0;
 }
 .company-page-top-links p, .company-page-top-links div, .company-page-top-links a {
     float: none;
     display: inline-block;
+    margin: 0;
+}
+.company-page-top-links a, .company-page-top-links a:visited, .company-page-top-links a:hover, .company-page-top-links a:active {
+    color: #0080ff;
+}
+h2.mainbox-title {
+    padding: 42px 0 18px 0;
+}
+#block_company_ratings div div {
+    padding: 6px 0;
+}
+#block_company_ratings .ui-progressbar {
+    background: #f2f2f2 none;
+    border: 0 none;
+    height: 28px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    vertical-align: middle;
+    padding: 0 !important;
+    margin: 0 7px 0 1px;
+}
+#block_company_ratings .ui-progressbar-value {
+    background: #0080ff none;
+    border: 0 none;
+    height: 28px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    padding: 0 !important;
+}
+#block_company_detailed_reviews h3 {
+    font-size: 16px;
+    font-weight: normal;
+}
+.detailed-rating p.stars {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+.detailed-rating {
+    padding: 22px 0 41px 0;
+}
+
+.dr-metric {
+    font-size: 14px;
+    padding: 2px 0;
+}
+.detailed-rating .metric {
+    display: inline-block;
+    min-width: 110px;
+    font-size: 14px;
+}
+.dr-metric .stars i {
+    font-size: 20px;
+    margin: 0 3px 0 2px;
+}
+#merchant_rating_distribution {
+    margin-bottom: 42px;
+}
+.merchant-rating tr {
+    border-bottom: 1px dotted #595959;
+}
+.merchant-rating td {
+    font-size: 14px;
+    width: 20%;
+    padding: 7px 0 4px 0;
+}
+.useful-col1, .useful-col2 {
+    display: inline-block;
+    width: 46%;
+    vertical-align: top;
+}
+.useful-col2 {
+    margin-left: 5%;
+}
+.microsite-buttons {
+    margin: 15px 0;
+    text-align: center;
+}
+.view-all-services, .request-quote {
+    display: inline-block;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #0066cc;
+    margin: 0 13px;
+}
+.request-quote {
+    border: 1px solid #008000;
+}
+.view-all-services a, .request-quote a, .view-all-services a:hover, .request-quote a:hover {
+    display: inline-block;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    height: 48px;
+    min-width: 223px;
+    text-align: center;
+    border: 1px solid #77ade4;
+    background-color: #0066cc;
+    color: #fff;
+    text-decoration: none;
+    font: bold 18px/48px 'Roboto', sans-serif;
+}
+.request-quote a, .request-quote a:hover  {
+    border: 1px solid #7fbf7f;
+    background-color: #008000;
 }

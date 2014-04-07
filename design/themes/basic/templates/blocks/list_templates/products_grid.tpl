@@ -36,8 +36,8 @@
                 
                 <div class="clearfix">
                     <div class="float-left rating">
-                    {assign var="rating" value="rating_$obj_id"}
-                    {$smarty.capture.$rating nofilter}
+                    {assign var="positive_rating" value="positive_rating_$obj_id"}
+                    {$smarty.capture.$positive_rating nofilter}
                     </div>
                     <div class="price-wrap right">
                         {assign var="old_price" value="old_price_`$obj_id`"}

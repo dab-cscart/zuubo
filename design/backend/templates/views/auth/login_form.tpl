@@ -1,3 +1,31 @@
+<div class="modal signin-modal vendor-signin">
+    <div class="center">
+        <img src="{$images_dir}/zuubo_pro.png" width="229" height="61" alt="" />
+        <h1>{__("seller_store_manager_panel")}</h1>
+    </div>
+    <div class="vendor-signin-inside">
+        <div class="vendor-signin-form">
+            <form action="{""|fn_url}" method="post" name="main_login_form" class=" cm-skip-check-items cm-check-changes">
+            <input type="hidden" name="return_url" value="{$smarty.request.return_url|fn_url:"A":"rel"|fn_query_remove:"return_url"}">
+            <div class="modal-body">
+                <div class="control-group e-add">
+                    <label for="username" class="cm-required {if $settings.General.use_email_as_login == "Y"}cm-email{/if}">{if $settings.General.use_email_as_login == "Y"}{__("email_address")}{else}{__("username")}{/if}</label>
+                    <input id="username" type="text" name="user_login" size="20" value="{if $stored_user_login}{$stored_user_login}{else}{$config.demo_username}{/if}" class="cm-focus" tabindex="1">
+                </div>
+                <div class="control-group">
+                    <label for="password" class="cm-required">{__("password")}</label>
+                    <input type="password" id="password" name="password" size="20" value="{$config.demo_password}" tabindex="2" maxlength="32">
+                </div>
+            </div>
+            <div>
+                <span class="but-action">{include file="buttons/sign_in.tpl" but_name="dispatch[auth.login]" but_role="button_main" tabindex="3"}</span>
+                <a href="{"auth.recover_password"|fn_url}" class="pull-right">{__("forgot_password_question")}</a>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+{*
 <div class="modal signin-modal">
     <form action="{""|fn_url}" method="post" name="main_login_form" class=" cm-skip-check-items cm-check-changes">
         <input type="hidden" name="return_url" value="{$smarty.request.return_url|fn_url:"A":"rel"|fn_query_remove:"return_url"}">
@@ -21,3 +49,4 @@
         </div>
     </form>
 </div>
+*}

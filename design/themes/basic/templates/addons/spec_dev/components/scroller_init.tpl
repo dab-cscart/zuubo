@@ -5,10 +5,10 @@
     $.ceEvent('on', 'ce.commoninit', function(context) {
         var elm = context.find('#scroll_list_company_images');
 
-        var item = 6,
+        var item = 4,
             // default setting of carousel
-            itemsDesktop = 6,
-            itemsDesktopSmall = 5;
+            itemsDesktop = 4,
+            itemsDesktopSmall = 4;
             itemsTablet = 4;
 
         if (elm.length) {
