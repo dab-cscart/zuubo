@@ -1,4 +1,5 @@
 {** block-description:discussion_title_product **}
 
 {*include file="addons/discussion/views/discussion/view.tpl" object_id=$product.product_id object_type="P" title=__("discussion_title_product") quicklink="disussion_link" no_box=true*}
+
 {include file="addons/discussion/views/discussion/view.tpl" object_id=$product.company_id object_type="M" title=__("discussion_title_product") quicklink="disussion_link" no_box=true}

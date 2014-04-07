@@ -105,7 +105,7 @@
 
 
 <div id="posts_list">
-    <h1 class="mainbox-title"><span>{__("detailed_reviews")}</span></h1>
+    {* <h1 class="mainbox-title"><span>{__("detailed_reviews")}</span></h1> *}
     {include file="common/pagination.tpl" id="pagination_contents_comments_`$object_id`" extra_url="&selected_section=discussion" search=$discussion.search}
     {include file="addons/spec_dev/components/posts.tpl" posts=$discussion.posts allow_vote=true}
 

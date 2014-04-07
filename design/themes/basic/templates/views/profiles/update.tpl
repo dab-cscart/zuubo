@@ -17,7 +17,7 @@
             {/if}
 
             <div class="buttons-container left">
-                {include file="buttons/register_profile.tpl" but_name="dispatch[profiles.update]"}
+                {include file="buttons/register_profile.tpl" but_name="dispatch[profiles.update]" but_role="action"}
             </div>
         </form>
     </div>

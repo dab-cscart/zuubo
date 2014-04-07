@@ -1,5 +1,5 @@
 
-{assign var="th_size" value="35"} 
+{assign var="th_size" value="67"} 
 
 {if $product.main_pair.icon || $product.main_pair.detailed}
     {assign var="image_pair_var" value=$product.main_pair}
@@ -65,7 +65,7 @@
         </div>
         {/strip}
     {else}
-        <div class="product-thumbnails center cm-image-gallery" id="images_preview_{$preview_id}" style="width: {$image_width}px;">
+        <div class="product-thumbnails center cm-image-gallery" id="images_preview_{$preview_id}">
         {strip}            
             {if $image_pair_var}
             <a data-ca-gallery-large-id="det_img_link_{$preview_id}_{$image_id}" class="cm-thumbnails-mini active thumbnails-item">

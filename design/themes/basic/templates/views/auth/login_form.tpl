@@ -14,7 +14,7 @@
             </div>
 
             <div class="control-group password">
-                <label for="psw_{$id}" class="forgot-password-label cm-required">{__("password")}</label><a href="{"auth.recover_password"|fn_url}" class="forgot-password"  tabindex="5">{__("forgot_password_question")}</a>
+                <label for="psw_{$id}" class="forgot-password-label cm-required">{__("password")}</label>
                 <input type="password" id="psw_{$id}" name="password" size="30" value="{$config.demo_password}" class="input-text" maxlength="32" />
             </div>
 
@@ -29,14 +29,16 @@
         {if $style != "checkout"}
             <div class="{if $style == "popup"}buttons-container{/if}">
         {/if}
-            <div class="body-bc clearfix">
-                <div class="float-right">
-                    {include file="buttons/login.tpl" but_name="dispatch[auth.login]" but_role="submit"}
-                </div>
+            <div class="clearfix login-sets">
+                <a href="{"auth.recover_password"|fn_url}" class="forgot-password"  tabindex="5">{__("forgot_password_question")}</a>
                 <div class="remember-me-chekbox">
-                    <label for="remember_me_{$id}" class="valign"><input class="valign checkbox" type="checkbox" name="remember_me" id="remember_me_{$id}" value="Y" />{__("remember_me")}</label>
+                    <label for="remember_me_{$id}" class="valign"><input class="valign checkbox" type="checkbox" name="remember_me" id="remember_me_{$id}" value="Y" />{__("keep_me_signed_in")}</label>
                 </div>
             </div>
+            
+            <p class="login-button">
+                {include file="buttons/login.tpl" but_name="dispatch[auth.login]" but_role="action" but_text=__("log_in")}
+            </p>
         {if $style != "checkout"}
             </div>
         {/if}
@@ -55,5 +57,5 @@
         {$smarty.capture.login nofilter}
     </div>
 
-    {capture name="mainbox_title"}{__("sign_in")}{/capture}
+    {capture name="mainbox_title"}{__("log_in")}{/capture}
 {/if}

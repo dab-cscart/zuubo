@@ -222,9 +222,9 @@
         <span class="cm-reload-{$obj_prefix}{$obj_id}" id="old_price_update_{$obj_prefix}{$obj_id}">
             {hook name="products:old_price"}
             {if $product.discount}
-                <span class="list-price nowrap" id="line_old_price_{$obj_prefix}{$obj_id}">{if $details_page}{__("old_price")}: {/if}<span class="strike">{include file="common/price.tpl" value=$product.original_price|default:$product.base_price span_id="old_price_`$obj_prefix``$obj_id`" class="list-price nowrap"}</span></span>
+                <span class="list-price nowrap" id="line_old_price_{$obj_prefix}{$obj_id}">{* if $details_page}{__("old_price")}: {/if *}<span class="strike">{include file="common/price.tpl" value=$product.original_price|default:$product.base_price span_id="old_price_`$obj_prefix``$obj_id`" class="list-price nowrap"}</span></span>
             {elseif $product.list_discount}
-                <span class="list-price nowrap" id="line_list_price_{$obj_prefix}{$obj_id}">{if $details_page}<span class="list-price-label">{__("list_price")}:</span> {/if}<span class="strike">{include file="common/price.tpl" value=$product.list_price span_id="list_price_`$obj_prefix``$obj_id`" class="list-price nowrap"}</span></span>
+                <span class="list-price nowrap" id="line_list_price_{$obj_prefix}{$obj_id}">{* if $details_page}<span class="list-price-label">{__("list_price")}:</span> {/if *}<span class="strike">{include file="common/price.tpl" value=$product.list_price span_id="list_price_`$obj_prefix``$obj_id`" class="list-price nowrap"}</span></span>
             {/if}
             {/hook}
         <!--old_price_update_{$obj_prefix}{$obj_id}--></span>
@@ -286,13 +286,24 @@
 {********************** You Save ******************}
 {capture name="list_discount_`$obj_id`"}
     {if $show_price_values && $show_list_discount && $details_page}
-        <span class="cm-reload-{$obj_prefix}{$obj_id}" id="line_discount_update_{$obj_prefix}{$obj_id}">
+        <span class="{if $details_page}di-container {/if}cm-reload-{$obj_prefix}{$obj_id}" id="line_discount_update_{$obj_prefix}{$obj_id}">
             <input type="hidden" name="appearance[show_price_values]" value="{$show_price_values}" />
             <input type="hidden" name="appearance[show_list_discount]" value="{$show_list_discount}" />
-            {if $product.discount}
-                <span class="list-price save-price nowrap" id="line_discount_value_{$obj_prefix}{$obj_id}">{__("you_save")}: {include file="common/price.tpl" value=$product.discount span_id="discount_value_`$obj_prefix``$obj_id`" class="list-price nowrap"}&nbsp;(<span id="prc_discount_value_{$obj_prefix}{$obj_id}" class="list-price nowrap">{$product.discount_prc}</span>%)</span>
-            {elseif $product.list_discount}
-                <span class="list-price save-price nowrap" id="line_discount_value_{$obj_prefix}{$obj_id}"> {__("you_save")}: {include file="common/price.tpl" value=$product.list_discount span_id="discount_value_`$obj_prefix``$obj_id`" class="list-price nowrap"}&nbsp;(<span id="prc_discount_value_{$obj_prefix}{$obj_id}" class="list-price nowrap">{$product.list_discount_prc}</span>%)</span>
+            {if $details_page}
+                {if $product.discount}
+                    <div class="di-prc">{__("discount")}<p><span id="prc_discount_value_{$obj_prefix}{$obj_id}" class="list-price nowrap">{$product.discount_prc}</span>%</p></div>
+                    <div class="di-save">{__("savings")}<p><span class="list-price save-price nowrap" id="line_discount_value_{$obj_prefix}{$obj_id}">{include file="common/price.tpl" value=$product.discount span_id="discount_value_`$obj_prefix``$obj_id`" class="list-price nowrap"}</span></p></div>
+                    
+                {elseif $product.list_discount}
+                    <div class="di-prc">{__("discount")}<p><span id="prc_discount_value_{$obj_prefix}{$obj_id}" class="list-price nowrap">{$product.list_discount_prc}</span>%</p></div>
+                    <div class="di-save">{__("savings")}<p><span class="list-price save-price nowrap" id="line_discount_value_{$obj_prefix}{$obj_id}">{include file="common/price.tpl" value=$product.list_discount span_id="discount_value_`$obj_prefix``$obj_id`" class="list-price nowrap"}</span></p></div>
+                {/if}
+            {else}
+                {if $product.discount}
+                    <span class="list-price save-price nowrap" id="line_discount_value_{$obj_prefix}{$obj_id}">{__("you_save")}:{include file="common/price.tpl" value=$product.discount span_id="discount_value_`$obj_prefix``$obj_id`" class="list-price nowrap"}&nbsp;(<span id="prc_discount_value_{$obj_prefix}{$obj_id}" class="list-price nowrap">{$product.discount_prc}</span>%)</span>
+                {elseif $product.list_discount}
+                    <span class="list-price save-price nowrap" id="line_discount_value_{$obj_prefix}{$obj_id}">{__("you_save")}:{include file="common/price.tpl" value=$product.list_discount span_id="discount_value_`$obj_prefix``$obj_id`" class="list-price nowrap"}&nbsp;(<span id="prc_discount_value_{$obj_prefix}{$obj_id}" class="list-price nowrap">{$product.list_discount_prc}</span>%)</span>
+                {/if}
             {/if}
         <!--line_discount_update_{$obj_prefix}{$obj_id}--></span>
     {/if}

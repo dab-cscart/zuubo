@@ -1,13 +1,9 @@
 /* Discussion */
 .posts {
-    border: 1px solid #ddd;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    position: relative;
     line-height: 19px;
-    margin: 22px 0 50px 0;
-    padding: 15px;
+    margin: 5px 0 10px 0;
+    padding: 15px 0 26px 0;
+    border-bottom: 1px dotted #595959;
 }
 .posts h2 {
     font: bold 100% Tahoma;
@@ -18,30 +14,20 @@
     padding-top: 5px;
 }
 .post-author {
-    position: absolute;
-    top: -25px;
-    left: 37px;
-    font-weight: 700;
+    font-size: 16px;
 }
 .post-date {
-    position: absolute;
-    top: -25px;
-    color: #a6a6a6;
-    right: 0;
+    font-size: 14px;
 }
 .posts em {
     font-size: 85%;
 }
 .post-message {
-    padding: 0;
+    padding: 17px 0 0 0;
+    font-size: 14px;
 }
 .left-column .post-author,.right-column .post-author {
     padding: 3px 0 15px;
-}
-#content_discussion p.stars {
-    text-align: right;
-    margin: 0;
-    padding: 0 0 10px;
 }
 .discussion-block .no-items {
     margin-bottom: 15px;
@@ -55,7 +41,7 @@
 }
 .product-main-info .stars {
     float: left;
-    padding: 0 17px 0 0;
+    padding: 0 2px 0 0;
 }
 .company-page-top-links .stars i {
     font-size: 21px;
@@ -137,5 +123,26 @@
     height: 15px;
 }
 /* /Rate stars */
-
+.certified-buyer {
+    background: url(../../../media/images/certif.png) no-repeat 0 4px;
+    padding-left: 12px;
+    color: #0080ff;
+    margin-left: 22px;
+    font-size: 11px;
+}
+.post-rating p.stars {
+    display: inline-block;
+    vertical-align: middle;
+}
+.post-rating p.stars i {
+    font-size: 20px;
+    margin-right: 5px;
+}
+.post-author-wrp {
+    margin-bottom: 2px;
+}
+.posts .product-name {
+    font-size: 14px;
+    padding-top: 10px;
+}
 /* /Discussion */

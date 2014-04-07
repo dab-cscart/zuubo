@@ -1,5 +1,8 @@
 {if $products}
 
+{assign var="image_width" value=174}
+{assign var="image_height" value=174}
+
 {script src="js/tygh/exceptions.js"}
 
 {if !$no_pagination}
@@ -38,15 +41,12 @@
             {$smarty.capture.$discount_label nofilter}
 
             <input type="hidden" name="image[list_image_update_{$obj_prefix}{$obj_id}][data]" value="{$obj_id_prefix},{$settings.Thumbnails.product_lists_thumbnail_width},{$settings.Thumbnails.product_lists_thumbnail_height},product" />
-            {include file="common/image.tpl" image_width=$settings.Thumbnails.product_lists_thumbnail_width obj_id=$obj_id_prefix images=$product.main_pair image_height=$settings.Thumbnails.product_lists_thumbnail_height}
+            {include file="common/image.tpl" image_width=$image_width obj_id=$obj_id_prefix images=$product.main_pair image_height=$image_height}
             
             {if !$hide_links}
                 </a>
             {/if}
         <!--list_image_update_{$obj_prefix}{$obj_id}--></span>
-        
-        {assign var="rating" value="rating_$obj_id"}
-        {$smarty.capture.$rating nofilter}
     </div>
     <div class="product-info">
         {if $js_product_var}
@@ -55,7 +55,7 @@
         {if $item_number == "Y"}<strong>{$smarty.foreach.products.iteration}.&nbsp;</strong>{/if}
         {assign var="sku" value="sku_$obj_id"}{$smarty.capture.$sku nofilter}
         
-        <div class="float-right right add-product">
+        <div class="float-right center add-product">
             {assign var="add_to_cart" value="add_to_cart_`$obj_id`"}
             {$smarty.capture.$add_to_cart nofilter}
         </div>
@@ -63,19 +63,6 @@
         <div class="prod-info">
             <div class="prices-container clearfix">
             {assign var="name" value="name_$obj_id"}{$smarty.capture.$name nofilter}
-                <div class="float-left product-prices">
-                    {assign var="old_price" value="old_price_`$obj_id`"}
-                    {if $smarty.capture.$old_price|trim}{$smarty.capture.$old_price nofilter}&nbsp;{/if}
-                    
-                    {assign var="price" value="price_`$obj_id`"}
-                    {$smarty.capture.$price nofilter}
-                    
-                    {assign var="clean_price" value="clean_price_`$obj_id`"}
-                    {$smarty.capture.$clean_price nofilter}
-                    
-                    {assign var="list_discount" value="list_discount_`$obj_id`"}
-                    {$smarty.capture.$list_discount nofilter}
-                </div>
 
 
             </div>
@@ -111,15 +98,35 @@
             
             {assign var="product_edp" value="product_edp_`$obj_id`"}
             {$smarty.capture.$product_edp nofilter}
+            
+            <div class="clearfix">
+                <div class="rating-list float-left">
+                    {assign var="rating" value="rating_$obj_id"}
+                    {$smarty.capture.$rating nofilter}
+                </div>
+                <div class="float-right product-prices">
+                    {assign var="old_price" value="old_price_`$obj_id`"}
+                    {if $smarty.capture.$old_price|trim}{$smarty.capture.$old_price nofilter}{/if}
+                    
+                    {assign var="price" value="price_`$obj_id`"}
+                    {$smarty.capture.$price nofilter}
+                    
+                    {assign var="clean_price" value="clean_price_`$obj_id`"}
+                    {$smarty.capture.$clean_price nofilter}
+                    
+                    {* assign var="list_discount" value="list_discount_`$obj_id`"}
+                    {$smarty.capture.$list_discount nofilter *}
+                </div>
+            </div>
         </div>
         
     </div>
     {assign var="form_close" value="form_close_`$obj_id`"}
     {$smarty.capture.$form_close nofilter}
 </div>
-{if !$smarty.foreach.products.last}
+{* if !$smarty.foreach.products.last}
 <hr />
-{/if}
+{/if *}
 {/hook}
 {/foreach}
 

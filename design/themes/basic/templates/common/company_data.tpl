@@ -35,7 +35,7 @@
     {if $show_logo}
         {if !$hide_links}<a href="{"companies.view?company_id=`$company.company_id`"|fn_url}">{/if}
         <span>
-            {include file="common/image.tpl" images=$company.logos.theme.image image_width="120"}
+            {include file="common/image.tpl" images=$company.logos.theme.image image_width="175" image_height="175"}
         </span>            
         {if !$hide_links}</a>{/if}
     {/if}

@@ -41,13 +41,6 @@ html .helper-container *, .notification-container *, .ajax-loading-box, .ui-widg
 }
 
 //Fonts
-.product-main-info .price-num, .product-main-info.product-quick-view .price-num {
-	font-family: @price_font;
-	font-size: @price_font_size;
-    font-weight: @price_font_weight;
-    font-style: @price_font_style;
-    text-decoration: @price_font_decoration;
-}
 body, div, span, li, td, input[type="text"], input[type="password"], textarea, select, .scroll-y, .ui-widget select, .ui-widget textarea, .ui-widget, .ui-dialog .ui-dialog-title, a, a:visited, a:active, .popup-title:hover > a, .popup-title.unlogged a, .popup-title.logged a, .minicart-title, ul.dropdown-multicolumns li a {
 //    font-family: @body_font;
     font-size: @body_font_size;
@@ -61,7 +54,10 @@ a, a:visited, a:active, .tygh-footer a:link, .tygh-footer a:visited, .top-links-
     font-style: @links_font_style;
     text-decoration: @links_font_decoration;
 }
-.product-main-info h1.mainbox-title, .product-quick-view.product-main-info .quick-view-title {
+.tygh-footer a:hover {
+    text-decoration: underline;
+}
+.product-quick-view.product-main-info .quick-view-title {
 //    font-family: @headings_font;
     font-size: @headings_font_size;
     font-weight: @headings_font_weight;
@@ -78,19 +74,12 @@ a, a:visited, a:active, .tygh-footer a:link, .tygh-footer a:visited, .top-links-
 	line-height: 130%;
 }
 //Buttons
-.button-submit-action input, .button-submit input, .button a, .button-action a, .button-big a, .button-submit-action input, .button-submit input, .button-submit-big input {
+.button-submit-action input, .button-submit input, .button a, .button-submit input {
     font-family: @buttons_font;
     font-size: ~"@{buttons_font_size}";
     font-weight: @buttons_font_weight;
     font-style: @buttons_font_style;
     text-decoration: @buttons_font_decoration;
-}
-.button-big-size(@btn_big_size_value) {
-	@btn_big_size_px_value: (@btn_big_size_value * 1.15);
-	font-size: ~"@{btn_big_size_px_value}"; 
-}
-.button-submit-big input, .button-big a {
-   .button-big-size(@buttons_font_size);
 }
 
 //Backgrounds
@@ -165,7 +154,7 @@ body {
 @secondary_button: #d9d9d9;
 @footer: lighten(@base, 45%);
 
-a, .statistic-list .shipping-edit-link span, .ui-widget-content a, .dropdown-box .buttons-container a.account:hover, .orders-actions i, .orders-print i, .sidebox-body a:hover, .sidebox-important-wrapper .text-links a:hover, .cvv2, .sidebox-body .checkout-summary a:link, .sidebox-body .checkout-summary a:visited, .sidebox-wrapper.order-products .sidebox-body a, .select-link > span, .account-cancel, ul.dropdown-vertical ul li:hover > a, ul.dropdown-vertical li.active > a, .sidebox-wrapper .sidebox-body ul li.active > a, ul.dropdown-multicolumns li:hover div .alt-link a, ul.dropdown-multicolumns li:hover div .dropdown-bottom a, ul.dropdown-multicolumns li:hover div a:hover, ul.dropdown-multicolumns li li.active a, ul.dropdown-multicolumns li h3.active a, ul.dropdown-multicolumns li ul li a:hover, .stars .icon-star, .stars .icon-star-empty, .stars .icon-star-half, .icon-flight, .icon-heart, .icon-chart-bar, .icon-download, .popup-tabs i, .link-dashed {
+a, .statistic-list .shipping-edit-link span, .ui-widget-content a, .dropdown-box .buttons-container a.account:hover, .orders-actions i, .orders-print i, .sidebox-body a:hover, .sidebox-important-wrapper .text-links a:hover, .cvv2, .sidebox-body .checkout-summary a:link, .sidebox-body .checkout-summary a:visited, .sidebox-wrapper.order-products .sidebox-body a, .select-link > span, .account-cancel, ul.dropdown-vertical ul li:hover > a, ul.dropdown-vertical li.active > a, .sidebox-wrapper .sidebox-body ul li.active > a, ul.dropdown-multicolumns li:hover div .alt-link a, ul.dropdown-multicolumns li:hover div .dropdown-bottom a, ul.dropdown-multicolumns li:hover div a:hover, ul.dropdown-multicolumns li li.active a, ul.dropdown-multicolumns li h3.active a, ul.dropdown-multicolumns li ul li a:hover, .icon-flight, .icon-heart, .icon-chart-bar, .icon-download, .popup-tabs i, .link-dashed {
 	color: @links;
 }
 .cvv2:hover, .product-description a.cm-dialog-opener, .product-description a.cm-dialog-opener:hover, .shipping-edit-link:hover span, .select-link > span, #sign_io > a, #sign_io > a:visited, #sign_io > a:hover, #sign_io > a:active, .select-link .select-vendor, .link-dashed {
@@ -279,94 +268,9 @@ body, div, p, .tabs ul li.active a, .tabs ul li.active a:visited, .tabs ul li.ac
 .icon-cancel.small {
 	color: lighten(@base, 50%);
 }
-.button-submit-action.button-wrap-left,
-.button-submit.button-wrap-left,
-.button-action.button-wrap-left,
-.button.button-wrap-left, 
-.button-submit-big.button-wrap-left,
-.button-big.button-wrap-left {
-	.border-radius (5px);
-}
 .go-button {
 	.border-radius (0 3px 3px 0);
 }
-.button-submit.button-wrap-left,
-.button.button-wrap-left,
-.go-button {
-	.gradient (lighten(@secondary_button, 15%), lighten(@secondary_button, 3%));
-	.inner-shadow (0, 1px, 0, 0, 0.45);
-	border-color: darken(@secondary_button, 5%);
-}
-.button-submit.button-wrap-left:hover,
-.button.button-wrap-left:hover,
-.go-button:hover  {
-	.gradient (lighten(@secondary_button, 10%), @secondary_button);
-	.inner-shadow (0, 1px, 0, 0, 0.41);
-	border-color: darken(@secondary_button, 8%);
-}
-.button-submit.button-wrap-left:hover:active,
-.button.button-wrap-left:hover:active,
-.go-button:active {
-	.gradient (darken(@secondary_button, 2%), lighten(@secondary_button, 8%));
-	.inner-shadow-dark (0, 1px, 3px, 0, 0.2);
-	border-color: darken(@secondary_button, 8%);
-}
-.button-action.button-wrap-left, 
-.button-submit-action.button-wrap-left,
-.button-submit-big.button-wrap-left,
-.button-big.button-wrap-left {
-	.gradient (lighten(spin(@primary_button, 7), 10%), @primary_button);
-	.inner-shadow (0, 1px, 0, 0, 0.45);
-	border-color: darken(@primary_button, 12%);
-}
-.button-action.button-wrap-left:hover, 
-.button-submit-action.button-wrap-left:hover,
-.button-submit-big.button-wrap-left:hover,
-.button-big.button-wrap-left:hover {
-	.gradient (lighten(spin(@primary_button, 7), 6%), darken(@primary_button, 4%));
-	.inner-shadow (0, 1px, 0, 0, 0.41);
-	border-color: darken(@primary_button, 16%);
-}
-.button-action.button-wrap-left:hover:active, 
-.button-submit-action.button-wrap-left:hover:active,
-.button-submit-big.button-wrap-left:hover:active,
-.button-big.button-wrap-left:hover:active {
-	.gradient (darken(@primary_button, 4%), lighten(spin(@primary_button, 7), 6%));
-	.inner-shadow-dark (0, 1px, 3px, 0, 0.2);
-	border-color: darken(@primary_button, 16%);
-}
-.button_text (@b) when (lightness(@b) >= 30%) {
-	input, a {
-	color: darken(@b, 45%);
-	text-shadow: 0px 1px 0px lighten(@b, 50%);
-	}
-	i {
-	color: darken(@b, 40%);
-	text-shadow: 0px 1px 0px lighten(@b, 50%);
-	}
-}
-.button_text (@b) when (lightness(@b) < 70%) {
-	input, a {
-	color: lighten(@b, 70%);
-	text-shadow: 0px 1px 0px darken(@b, 15%);
-	}
-	i {
-	color: lighten(@b, 80%);
-	text-shadow: 0px 1px 0px darken(@b, 15%);
-	}
-}
-.button-submit.button-wrap-left,
-.button.button-wrap-left,
-.go-button {.button_text (lighten(@secondary_button, 5%))}
-.button-submit-action.button-wrap-left,
-.button-action.button-wrap-left,
-.qv-buttons-container .button-action.button-wrap-left,
-.buttons-container .button-action.button-wrap-left,
-.buttons-container-item .button-action.button-wrap-left,
-.button-submit-big.button-wrap-right,
-.sidebox-body .button-action.button-wrap-left,
-.button-big.button-wrap-left {.button_text (@primary_button)}
-
 // Header
 @top_panel_links: #0088cc;
 @top_panel_text: #444;
@@ -436,9 +340,9 @@ a.bottom-copyright {
 
 // Advanced search body
 .section-body, .section-body-details {
-	box-shadow: inset 0 30px 25px -20px lighten(@base, 44%);
-	-webkit-box-shadow: inset 0 30px 25px -20px lighten(@base, 44%);
-	-moz-box-shadow: inset 0 30px 25px -20px lighten(@base, 44%);
+//	box-shadow: inset 0 30px 25px -20px lighten(@base, 44%);
+//	-webkit-box-shadow: inset 0 30px 25px -20px lighten(@base, 44%);
+//	-moz-box-shadow: inset 0 30px 25px -20px lighten(@base, 44%);
 }
 
 //Banner arrows
@@ -475,15 +379,11 @@ a.bottom-copyright {
 	border-right: none;
 }
 
-.section-title {
-	.gradient (lighten(@base, 46%), lighten(@base, 41%));
-}
-
 // Gray elements with #ccc color
 .no-items, .step-title-complete span.float-left, h2.step-title-complete a.title, h2.step-title-complete a.title:hover, .pb-container .icon-right-thin, .product-filters li a.filter-item.disabled, .product-filters li a.filter-item.checked.disabled, .product-cell-empty p {
 	color: lighten(@base, 30%);
 }
-input[type="text"], input[type="password"], textarea, select, .scroll-y, .account-info .user-name, .arrows-list li.delim, .b-bottom, .delim, .order-information hr, .image-captcha, form .captcha-input-text, .object-image, .button a, .button-action a, .button-big a, .button-submit-action input, .button-submit input, .button-submit-big input, .updates-wrapper, .order-products .order-product-list li, .product-notification-body ul ul, .thumbnails-item, .csse-uploaded-images img, .csse-uploaded-images a.delete-thumb {
+input[type="text"], input[type="password"], textarea, select, .scroll-y, .account-info .user-name, .arrows-list li.delim, .b-bottom, .delim, .order-information hr, .image-captcha, form .captcha-input-text, .button a, .button-submit input, .updates-wrapper, .order-products .order-product-list li, .product-notification-body ul ul, .csse-uploaded-images img, .csse-uploaded-images a.delete-thumb {
 	border-color: lighten(@base, 30%);
 }
 
@@ -514,13 +414,13 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 }
 
 // Gray elements with #d4d4d4 color
-.section-title, .section-body, .section-body-details, .products-2, ul.statistic-list.total, .orders-summary-wrap, .orders-summary-wrap table tbody tr {
+.products-2, ul.statistic-list.total, .orders-summary-wrap, .orders-summary-wrap table tbody tr {
 	border-color: lighten(@base, 33%);
 }
 
 // Gray elements with #4d4d4d color
-.checkout-summary table td, .section-title span, .search-magnifier, html input.search-input:focus, .popup-title.logged a, .sidebox-body .add-buttons-wrap a, .sidebox-body .add-buttons-wrap a:hover, .sidebox-body a:link, .sidebox-body a:visited, .sidebox-body .account-info a span, .sidebox-important-wrapper .text-links a:link, .sidebox-important-wrapper a:visited, .extra-link, a.extra-link:visited, a.extra-link:hover, a.extra-link:active, .sidebox-body ul a.extra-link, .card-info h5, .card-info p, .order-information h4, .order-information ul, .order-products .product-price, .product-filters li a.filter-item, .product-filters li a.filter-item:hover, .filter-title, .select-wrap.currencies a.active-element, .detailed-link.open, .detailed-link:hover, .product-info .sub-price, .details-link:hover, .details-block .open, .control-group label, .product-list-field label, .login-popup .control-group label, .login .control-group label, .step-body-active .control-group label, .qty label, .product-list-field span {
-	color: darken(@font, 10%);
+.checkout-summary table td, .section-title span, .search-magnifier, html input.search-input:focus, .popup-title.logged a, .sidebox-body .add-buttons-wrap a, .sidebox-body .add-buttons-wrap a:hover, .sidebox-body a:link, .sidebox-body a:visited, .sidebox-body .account-info a span, .sidebox-important-wrapper .text-links a:link, .sidebox-important-wrapper a:visited, .extra-link, a.extra-link:visited, a.extra-link:hover, a.extra-link:active, .sidebox-body ul a.extra-link, .card-info h5, .card-info p, .order-information h4, .order-information ul, .order-products .product-price, .filter-title, .select-wrap.currencies a.active-element, .detailed-link.open, .detailed-link:hover, .product-info .sub-price, .details-link:hover, .details-block .open, .control-group label, .product-list-field label, .login-popup .control-group label, .login .control-group label, .step-body-active .control-group label, .qty label, .product-list-field span {
+	color: @font;
 }
 .product-filters a.extra-link, .filter-title, .detailed-link:hover, .detailed-link.open, .details-link:hover, .compare-checkbox {
 	border-color: darken(@base, 20%);
@@ -537,7 +437,7 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 }
 
 // Gray elements with #757575 color
-.list-price, .list-price, .sku, .compact .sku > div span, .tabs ul li a, .tabs ul li a:visited, .tabs ul li a:hover, .popup-title.unlogged a, .empty-cart, .features div, .paym-methods li div.radio1, .product-info .list-price, .product-description, .details-block-field label, .search-result p, .product-coming-soon {
+.list-price, .list-price, .sku, .compact .sku > div span, .tabs ul li a, .tabs ul li a:visited, .tabs ul li a:hover, .popup-title.unlogged a, .empty-cart, .features div, .paym-methods li div.radio1, .product-description, .details-block-field label, .search-result p, .product-coming-soon {
 	color: darken(@base, 4%);
 }
 
@@ -556,7 +456,7 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 .caret-info .caret-outer, .caret-info.alt .caret-outer, .minicart-separator td {
 	border-bottom-color: lighten(@base, 37%);
 }
-.buttons-container, .buttons-container-item, .buttons-container.wrap, .checkout-buttons {
+.buttons-container-item, .buttons-container.wrap, .checkout-buttons {
 	border-top-color: lighten(@base, 37%);
 }
 .caret .caret-outer, .object-container {
@@ -573,7 +473,7 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 }
 
 // Gray elements with #f2f2f2 color
-.buttons-container, .buttons-container-item, .checkout-buttons, .ui-dialog .ui-dialog-content, .product-notification-buttons, .box, .buttons-container.wrap, .login .body-bc, .details-block-box, .entry-page-countries li a:hover, .pagination-helper-container {
+.buttons-container-item, .checkout-buttons, .ui-dialog .ui-dialog-content, .product-notification-buttons, .box, .buttons-container.wrap, .details-block-box, .entry-page-countries li a:hover, .pagination-helper-container {
 	background-color: lighten(@base, 45%);
 }
 .caret-info.alt .caret-inner, .caret-info.light .caret-outer {
@@ -609,15 +509,12 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 .sort-pagination span {
 	background-color: lighten(@base, 10%);
 }
-.tab-list-title {
-    border-color: lighten(@base, 10%);
-}
 
 // Gray elements with #808080 color
-.control-group label em, .other-text h2, .other-text p, .exception p, .sort-pagination a, .sort-pagination a:link, .sort-pagination a:visited, .sort-pagination a:hover, .account-detail p, .account-detail ul li, .account-benefits ul li, .login-info p, .mid-gray {
+.control-group label em, .other-text h2, .other-text p, .exception p, .sort-pagination a, .sort-pagination a:link, .sort-pagination a:visited, .sort-pagination a:hover, .account-detail p, .account-detail ul li, .login-info p, .mid-gray {
     color: @base;
 }
-.filter-icon, .product-variant-image-selected {
+.product-variant-image-selected {
 	border-color: @base;
 }
 
@@ -714,16 +611,6 @@ ul.text-links.text-links-inline li.level-0 > ul, .popup-tools, .popup-title.acti
 .homepage-vendors {
     box-shadow: inset -60px 0 60px -30px lighten(@decorative, 6%);// Gray elements with #f2f2f2 color
 }
-
-.form-wrap, .payment-methods-wrap { //f7f7f7
-	box-shadow: inset 0 70px 70px -30px lighten(@decorative, 8%);
-	-webkit-box-shadow: inset 0 70px 70px -30px lighten(@decorative, 8%);
-	-moz-box-shadow: inset 0 70px 70px -30px lighten(@decorative, 8%);
-}
-.form-wrap, .payment-methods-wrap {//e3e3e3
-	border-color: @decorative;
-}
-
 
 // Search input
 //.helper-container .search-input {

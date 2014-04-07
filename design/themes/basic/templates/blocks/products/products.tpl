@@ -11,7 +11,7 @@
 {else}
     {assign var="_show_product_options" value=true}
 {/if}
-
+{* angel *}
 {include file="blocks/list_templates/products_list.tpl" 
 products=$items 
 no_sorting="Y" 
@@ -27,9 +27,9 @@ show_price=true
 show_clean_price=true 
 show_list_discount=true 
 show_discount_label=true 
-show_product_amount=true 
+show_product_amount=false 
 show_product_options=$_show_product_options 
-show_qty=true 
+show_qty=false 
 show_min_qty=true 
 show_product_edp=true 
 show_add_to_cart=$_show_add_to_cart 
@@ -38,4 +38,6 @@ show_descr=true
 but_role="action" 
 separate_buttons=true 
 item_number=$block.properties.item_number
-show_discount_label=true}
+show_discount_label=true 
+but_text=__("shop_now")}
+{* /angel *}
