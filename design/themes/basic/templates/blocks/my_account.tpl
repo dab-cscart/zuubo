@@ -1,7 +1,7 @@
 {** block-description:my_account **}
 
 {capture name="title"}
-    <i class="icon-user"></i><a href="{"profiles.update"|fn_url}">{$title}</a><i class="icon-down-micro"></i>
+    {*<i class="icon-user"></i>*}<a href="{"profiles.update"|fn_url}">{if $user_info.firstname}{$user_info.firstname}{else}{$title}{/if}</a>{*<i class="icon-down-micro"></i>*}
 {/capture}
 
 <div id="account_info_{$block.snapping_id}">
@@ -9,6 +9,7 @@
     <ul class="account-info">
     {hook name="profiles:my_account_menu"}
         {if $auth.user_id}
+            {*
             {if $user_info.firstname || $user_info.lastname}
                 <li class="user-name">{$user_info.firstname} {$user_info.lastname}</li>
             {else}
@@ -18,8 +19,8 @@
                     <li class="user-name">{$user_info.user_login}</li>
                 {/if}
             {/if}
-            <li><a href="{"profiles.update"|fn_url}" rel="nofollow" class="underlined">{__("profile_details")}</a></li>
-            <li><a href="{"orders.downloads"|fn_url}" rel="nofollow" class="underlined">{__("downloads")}</a></li>
+            *}
+            <li><a href="{"orders.search"|fn_url}" rel="nofollow">{__("order_history")}</a></li>
         {elseif $user_data.firstname || $user_data.lastname}
             <li class="user-name">{$user_data.firstname} {$user_data.lastname}</li>
         {elseif $settings.General.use_email_as_login == 'Y' && $user_data.email}
@@ -27,16 +28,17 @@
         {elseif $settings.General.use_email_as_login != 'Y' && $user_data.user_login}
             <li class="user-name">{$user_data.user_login}</li>
         {/if}
-        <li><a href="{"orders.search"|fn_url}" rel="nofollow" class="underlined">{__("orders")}</a></li>
-        {assign var="compared_products" value=""|fn_get_comparison_products}
-        <li><a href="{"product_features.compare"|fn_url}" rel="nofollow" class="underlined">{__("view_compare_list")}{if $compared_products} ({$compared_products|count}){/if}</a></li>
+        {* {assign var="compared_products" value=""|fn_get_comparison_products}
+        <li><a href="{"product_features.compare"|fn_url}" rel="nofollow">{__("view_compare_list")}{if $compared_products} ({$compared_products|count}){/if}</a></li> *}
     {/hook}
+        <li><a href="{"profiles.update"|fn_url}" rel="nofollow">{__("profile_details")}</a></li>
+        {* <li><a href="{"orders.downloads"|fn_url}" rel="nofollow">{__("downloads")}</a></li> *}
 
     {if "MULTIVENDOR"|fn_allowed_for && $settings.Vendors.apply_for_vendor == "Y" && !$user_info.company_id}
-        <li><a href="{"companies.apply_for_vendor?return_previous_url=`$return_current_url`"|fn_url}" rel="nofollow" class="underlined">{__("apply_for_vendor_account")}</a></li>
+        <li><a href="{"companies.apply_for_vendor?return_previous_url=`$return_current_url`"|fn_url}" rel="nofollow">{__("apply_for_vendor_account")}</a></li>
     {/if}
     </ul>
-
+{*
     {if $settings.Appearance.display_track_orders == 'Y'}
     <div class="updates-wrapper track-orders" id="track_orders_block_{$block.snapping_id}">
 
@@ -71,4 +73,5 @@
             {/if}
         {/if}
     </div>
+*}
 <!--account_info_{$block.snapping_id}--></div>

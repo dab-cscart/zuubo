@@ -51,6 +51,7 @@
     <label for="{$rate_id}" class="cm-required cm-multiple-radios">{__("your_product")}</label>
     {if $smarty.request.product_id}
 	{$smarty.request.product_id|fn_get_product_name}
+	<input type="hidden" name="post_data[product_id]" value="{$smarty.request.product_id}" />
     {else}
 	<select id="elm_{$element.element_id}" name="post_data[product_id]">
 	    {foreach from=$discussion.customer_products item=product_id}

@@ -35,9 +35,13 @@ body, div, span, li, td, input[type="text"], input[type="password"], textarea, s
     font-family: 'Roboto', sans-serif;
 }
 input[type="text"], input[type="password"], textarea, select, .scroll-y {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+input[type="text"], input[type="password"] {
+    height: 40px;
+    padding: 8px;
 }
 input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
     outline: 0;
@@ -49,9 +53,9 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
 select {
     min-width: 4em;
     max-width: 100%;
-    height: 2.2em;
-    line-height: 2.2em;
-    padding: 4px 3px 3px;
+    height: 40px;
+    line-height: 40px;
+    padding: 8px;
 }
 hr {
     border-bottom: 1px solid #ebebeb;
@@ -393,9 +397,6 @@ button.close {
     margin-bottom: -1px;
     padding: 0 0 0 3px;
     border: 1px solid #ddd;
-    -webkit-border-radius: 3px 3px 0 0;
-    -moz-border-radius: 3px 3px 0 0;
-    border-radius: 3px 3px 0 0;
     position: relative;
 }
 .tabs ul li a, .tabs ul li a:visited, .tabs ul li a:hover {
@@ -1166,8 +1167,8 @@ ul.text-links.text-links-inline li.level-0:hover > ul {
     border-radius: 5px 5px 0 0;
     padding: 0 20px;
 }
-.sidebox-title span, .sidebox-title a:link, .sidebox-title a:visited, .sidebox-title a:hover {
-    color: #fff;
+.sidebox-title span, .sidebox-title a, .sidebox-title a:link, .sidebox-title a:visited, .sidebox-title a:hover {
+    color: #fff !important;
     text-transform: capitalize;
     font: normal 18px/40px 'Roboto Medium', sans-serif;
     text-shadow: none;
@@ -1213,9 +1214,24 @@ ul.text-links.text-links-inline li.level-0:hover > ul {
 
 /* Tables */
 /* Common table */
+.table {
+    border-width: 1px 0 0 0;
+    border-color: #e0e0e0;
+}
+.table th, .table td, .table a, .table a:visited, .table a:hover, .table a:active, .table div, .table p {
+    font-size: 14px;
+}
+.table th.center {
+    text-align: center;
+}
+.table th, .table td, .table .table td {
+    border-width: 0 0 1px 0;
+    border-color: #e0e0e0;
+}
+.table th {
+    background-color: #f8f8f8;
+}
 .table th, .table th a, .table th a:visited, .table th a:hover, .table th a:active {
-    color: #404040;
-    text-shadow: 0px 1px 0px white;
     font-weight: bold;
 }
 
@@ -2500,11 +2516,6 @@ ul.statistic-list.total {
 }
 form .captcha-input-text {
     margin-right: 10px;
-    padding: 3px 3px;
-    border: 1px solid #ccc;
-    border-radius: 3px 3px 3px 3px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
-    font-size: 130%;
 }
 /* /Captcha */
 
@@ -3320,6 +3331,9 @@ a.secondary-link {
 .buttons-container, .buttons-container-item, .buttons-container.wrap {
     padding: 17px 0;
 }
+.object-container .buttons-container, .object-container .buttons-container-item, .object-container .buttons-container.wrap {
+    padding: 17px 20px;
+}
 /* /Product details page */
 
 /* Sorting styles*/
@@ -3399,7 +3413,6 @@ a.secondary-link {
 /* Form wrap */
 .form-wrap {
     position: relative;
-    padding: 12px 0 0;
 }
 /* /Form wrap */
 
@@ -3438,9 +3451,17 @@ a.secondary-link {
     cursor: pointer;
     box-shadow: none;
 }
-.account-cancel:hover {
-    background: none;
+.cancel-but input.account-cancel, .cancel-but input.account-cancel:hover {
+    text-transform: none;
+    color: #fff;
+    margin: 0;
+    min-width: 0px;
+    height: auto;
+    padding: 5px 15px;
 }
+/*.account-cancel:hover {
+    background: none;
+}*/
 /* /Account */
 
 /* login */
@@ -3521,8 +3542,8 @@ a.secondary-link {
     font-size: 85%;
     line-height: 15px;
 }
-.orders-customer,.orders-customer div,.subheader {
-    color: #404040;
+.orders-customer, .orders-customer div, .subheader {
+    font-size: 18px;
 }
 .orders-customer h5 {
     font-weight: 700;
@@ -3534,8 +3555,11 @@ a.secondary-link {
 .orders-info th {
     font-weight: 700;
 }
-.orders-product strong {
-    font-weight: 400;
+.orders-product {
+    margin-top: 19px;
+}
+.orders-product .table {
+    margin-top: 30px;
 }
 .orders-product .quantity {
     font-weight: bold;
@@ -3548,19 +3572,19 @@ a.secondary-link {
     line-height: 19px;    
 }
 .orders-summary-wrap {
-    border: 1px solid #ededed;
-    border-bottom-color: #d4d4d4;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    float: right;
+    margin: 0;
+    padding: 0;
 }
 .orders-summary-wrap table tbody tr {
-    border-bottom: 1px dotted #d4d4d4;
+}
+.orders-summary-wrap table tbody tr td {
+    text-align: right;
+    padding: 0 0 5px 0;
 }
 .orders-summary-wrap .total td {
     white-space: nowrap;
-    font: bold 15px sans-serif;
-    line-height: 25px;
+    font: 21px 'Roboto', sans-serif;
 }
 .orders-summary-wrap .taxes {
     border-bottom: none;
@@ -3681,10 +3705,12 @@ a.secondary-link {
 
 /*  Company  */
 .company-info {
-    background: url('../media/images/company_vendor.png') no-repeat bottom center;
+    margin: 0;
+    padding: 0;
 }
 .company-info h4 {
-    font-size: 19px;
+    font-size: 22px;
+    padding-bottom: 9px;
 }
 .company-info p {
     color: gray;
@@ -4037,6 +4063,9 @@ p.bottom-copyright {
 .homepage-banners .owl-theme {
     
 }
+.breadcrumbs-grid.margin .breadcrumbs {
+    margin: 0 0 35px 0;
+}
 .breadcrumbs {
     background-color: #f2f2f2;
     border: 0 none;
@@ -4074,13 +4103,13 @@ ul.dropdown-vertical li {
 ul.dropdown-vertical li:hover {
     background-color: #fff;
 }
-ul.dropdown-vertical li a.f-level {
+ul.dropdown-vertical li a.f-level, ul.account-info li a {
     border-left: 5px solid #595959;
     color: #595959;
     position: relative;
     border-right: 1px solid #f2f2f2;
 }
-ul.dropdown-vertical li a.f-level:hover, ul.dropdown-vertical li:hover a.f-level {
+ul.dropdown-vertical li a.f-level:hover, ul.dropdown-vertical li:hover a.f-level, ul.account-info li a:hover, ul.account-info li:hover a, ul.account-info li.active a {
     border-left: 5px solid #ff5900;
     color: #ff5900;
     border-right: 1px solid #fff;
@@ -4616,6 +4645,27 @@ p.stars i {
 .login .body-bc.login-recovery {
     margin-top: 20px;
 }
+.register-new-customer .mainbox-title {
+    padding: 18px 0 4px 0;
+}
+.register-new-customer .mainbox-title span  {
+    font-size: 22px;
+    font-weight: normal;
+}
+.register-new-customer p.agreements {
+    font-size: 14px;
+    line-height: 26px;
+    padding: 1px 0 34px 0;
+}
+.register-new-customer  p.subhead {
+    font-size: 18px;
+    padding: 0;
+    margin-bottom: 20px;
+}
+.account-benefits {
+    margin-top: 0;
+    padding-top: 18px;
+}
 .account-benefits h4 {
     font-size: 22px;
     font-weight: normal;
@@ -4792,7 +4842,7 @@ h2.mainbox-title {
     margin: 15px 0;
     text-align: center;
 }
-.view-all-services, .request-quote {
+.view-all-services, .request-quote, .cancel-but {
     display: inline-block;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -4803,7 +4853,7 @@ h2.mainbox-title {
 .request-quote {
     border: 1px solid #008000;
 }
-.view-all-services a, .request-quote a, .view-all-services a:hover, .request-quote a:hover {
+.view-all-services a, .request-quote a, .view-all-services a:hover, .request-quote a:hover, .cancel-but input {
     display: inline-block;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -4820,4 +4870,198 @@ h2.mainbox-title {
 .request-quote a, .request-quote a:hover  {
     border: 1px solid #7fbf7f;
     background-color: #008000;
+}
+.benefits-list {
+    border: 1px solid #f2f2f2;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 7px 9px 3px 9px;
+}
+.benefits-list ul {
+    margin: 0;
+}
+.benefits-list ul li {
+    list-style-type: none;
+    margin: 12px 0;
+    position: relative;
+    padding-left: 26px;
+    font-size: 18px;
+}
+.benefits-list ul li i.dec {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background-color: #ff5900;
+    color: #fff;
+    text-align: center;
+    font-size: 11px;
+    line-height: 16px;
+    font-style: normal;
+    position: absolute;
+    left: 0;
+    top: 6px;
+}
+.vendor-page-banner {
+    margin-bottom: 43px;
+}
+.company .mainbox-title {
+    padding-top: 0;
+}
+.company .form-wrap {
+    padding-top: 0;
+}
+.testimonial-grid {
+    margin: 0 0 40px -40px;
+}
+.testimonial-grid h2 {
+    font-size: 22px;
+    margin: 0 0 28px 27px;
+}
+.testimonial-grid .testimonial {
+    display: inline-block;
+    width: 218px;
+    margin: 0 0 0 25px;
+    background-color: #f2f2f2;
+}
+.testimonial-grid .testimonial p.avatar {
+    text-align: center;
+    padding: 8px 0;
+}
+.testimonial-grid .testimonial .post-message {
+    padding: 25px 7px 0 7px;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    min-height: 116px;
+}
+.testimonial-grid .testimonial .post-message a {
+    font-size: 14px;
+}
+.testimonial-grid .testimonial .post-author, .testimonial-grid .testimonial .author-service {
+    font-size: 18px;
+    padding: 0 7px;
+    text-align: right;
+}
+.testimonial-grid .testimonial .author-service {
+    font-size: 16px;
+    line-height: 16px;
+    padding-bottom: 7px;
+}
+.how-it-work .wysiwyg-content {
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    padding: 15px 0;
+}
+.useful-resources .wysiwyg-content table td {
+    border: 0 none;
+    padding: 11px 0;
+}
+.useful-resources .wysiwyg-content a, .useful-resources .wysiwyg-content a:hover {
+    color: #0080ff;
+}
+ul.account-info {
+    padding-top: 1px;
+}
+ul.account-info > li {
+    margin-bottom: 1px;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+ul.account-info > li:hover, ul.account-info > li.active {
+    background-color: #fff;
+}
+ul.account-info li a, ul.account-info li a:hover {
+    display: block;
+    padding: 11px 25px 12px 14px;
+    text-decoration: none;
+}
+.form-label-left .control-group {
+    padding-left: 169px;
+}
+.form-label-left .control-group label {
+    width: 150px;
+    float: left;
+    margin-left: -169px;
+    text-align: right;
+}
+.form-label-left .billing-first-name, .form-label-left .billing-country, .form-label-left .shipping-first-name, .form-label-left .shipping-country, .form-label-left .account .first-name, .form-label-left .billing-last-name, .form-label-left .billing-state, .form-label-left .shipping-last-name, .form-label-left .shipping-state {
+    display: block;
+    float: none;
+    margin-right: 0;
+    width: auto;
+}
+.account .buttons-container.edit-profile {
+    padding: 36px 0 0 0
+}
+.mainbox-container .account  {
+    margin: 0;
+}
+.buttons-container.edit-profile {
+    text-align: center;
+}
+a.color, a.color:visited, a.color:hover, a.color:active {
+    color: #0080ff;
+}
+.table.orders {
+    margin-bottom: 25px;
+}
+.order-savings {
+    text-align: right;
+}
+.order-savings .time-savings, .order-savings .money-savings {
+    width: 220px;
+    margin-left: 43px;
+    display: inline-block;
+    text-align: left;
+}
+.order-savings .time-savings span, .order-savings .money-savings span {
+    display: inline-block;
+    background: url(../media/images/time_savings.png) no-repeat 0 0;
+    padding: 17px 0 5px 48px;
+    font-size: 21px;
+}
+.order-savings .money-savings span {
+    background: url(../media/images/money_savings.png) no-repeat 0 0;
+    padding: 15px 0 7px 51px;
+}
+.order-savings p {
+    font-size: 14px;
+}
+h1.order-title span {
+    font-size: 18px;
+    color: #ff600b;
+    margin-right: 13px;
+}
+h1.order-title {
+    margin-bottom: 16px;
+}
+h1.order-title a {
+    margin-left: 13px;
+}
+h1.order-title, h1.order-title a, h1.order-title a:visited, h1.order-title a:hover, h1.order-title a:active {
+    font-size: 18px;
+}
+.order-head-info td {
+    font-size: 14px;
+}
+.order-head-info td p {
+    font-size: 21px;
+    line-height: 24px;
+    padding: 0;
+}
+.orders h2.subheader {
+    font-size: 21px;
+    font-weight: normal;
+}
+.orders h3.subhead {
+    font-size: 14px;
+    font-weight: normal;
+}
+.order-sum-info {
+    float: left;
 }

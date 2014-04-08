@@ -1,6 +1,7 @@
 {include file="views/profiles/components/profiles_scripts.tpl"}
 
 {if $runtime.mode == "add" && $settings.General.quick_registration == "Y"}
+    <p class="subhead">{__("register_as_new_user")}</p>
     <div class="account form-wrap">
     
         <form name="profiles_register_form" action="{""|fn_url}" method="post">
@@ -15,6 +16,8 @@
                 {$image_verification nofilter}
             </div>
             {/if}
+            
+            <p class="agreements">{__("profile_registration_agreements")}</p>
 
             <div class="buttons-container left">
                 {include file="buttons/register_profile.tpl" but_name="dispatch[profiles.update]" but_role="action"}
@@ -25,7 +28,7 @@
 {else}
 
     {capture name="tabsbox"}
-        <div class="account form-wrap" id="content_general">
+        <div class="account form-wrap form-label-left" id="content_general">
             <form name="profile_form" action="{""|fn_url}" method="post">
                 <input id="selected_section" type="hidden" value="general" name="selected_section"/>
                 <input id="default_card_id" type="hidden" value="" name="default_cc"/>
@@ -66,12 +69,12 @@
                 {/capture}
                 {$smarty.capture.group nofilter}
 
-                <div class="buttons-container left">
+                <div class="buttons-container{if $runtime.mode == "add"} left{else} edit-profile{/if}">
                     {if $runtime.mode == "add"}
                         {include file="buttons/register_profile.tpl" but_name="dispatch[profiles.update]" but_id="save_profile_but"}
                     {else}
                         {include file="buttons/save.tpl" but_name="dispatch[profiles.update]" but_id="save_profile_but"}
-                        <input class="account-cancel" type="reset" name="reset" value="{__("revert")}" id="shipping_address_reset"/>
+                        <span class="cancel-but"><input class="account-cancel" type="reset" name="reset" value="{__("cancel")}" id="shipping_address_reset"/></span>
 
                         <script type="text/javascript">
                             var address_switch = $('input:radio:checked', '.address-switch');
@@ -158,5 +161,5 @@
         {$smarty.capture.tabsbox nofilter}
     {/if}
 
-    {capture name="mainbox_title"}{__("profile_details")}{/capture}
+    {capture name="mainbox_title"}{__("my_profile")}{/capture}
 {/if}

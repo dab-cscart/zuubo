@@ -1,9 +1,11 @@
 <div class="orders">
 
-{if $order_info}
+<h1 class="order-title"><span>{__("order_details")}</span> | <a href="{"orders.search"|fn_url}">{__("go_back_orders_summary")}</a></h1>
 
+{if $order_info}
+{*
 {capture name="order_actions"}
-{if $view_only != "Y"}    
+    {if $view_only != "Y"}    
         <div class="orders-print">
             {hook name="orders:details_tools"}
             {assign var="print_order" value=__("print_invoice")}
@@ -29,30 +31,29 @@
         </div>
     {/if}
 {/capture}
-
-{capture name="tabsbox"}
+*}
+{* capture name="tabsbox" *}
     
 <div id="content_general" class="{if $selected_section && $selected_section != "general"}hidden{/if}">
 
-    {if $without_customer != "Y"}
-    {* Customer info *}
-        <div class="orders-customer">
-        {include file="views/profiles/components/profiles_info.tpl" user_data=$order_info location="I"}
-        </div>
-    {* /Customer info *}
-    {/if}
-
+<table class="table-width order-head-info">
+<tr>
+    <td width="25%">{__("order")} #<p>{$order_info.order_id}</p></td>
+    <td width="50%">{__("order_date")}<p>{$order_info.timestamp|date_format:"`$settings.Appearance.date_format`, `$settings.Appearance.time_format`"}</p></td>
+    <td width="25%">{__("order_status")}<p>{include file="common/status.tpl" status=$order_info.status display="view" name="update_order[status]"}</p></td>
+</tr>
+</table>
 
 {capture name="group"}
 
-{include file="common/subheader.tpl" title=__("products_information")}
+<h3 class="subhead">{__("service_information")}</h3>
 
 <table class="table table-width">
 {hook name="orders:items_list_header"}
 <thead>
 <tr>
     <th class="product">{__("product")}</th>
-    <th class="price" class="align-right">{__("price")}</th>
+    <th class="price">{__("amount")}</th>
     <th class="quantity">{__("quantity")}</th>
     {if $order_info.use_discount}
         <th>{__("discount")}</th>
@@ -108,39 +109,25 @@
 
 </table>
 
-{*Customer notes*}
-    {if $order_info.notes}
-    <div class="orders-notes">
-        {include file="common/subheader.tpl" title=__("customer_notes")}
-        <div class="orders-notes-body">
-            <span class="caret"> <span class="caret-outer"></span> <span class="caret-inner"></span></span>
-            {$order_info.notes}
-        </div>
-    </div>
-    {/if}
-{*/Customer notes*}
-
 <div class="orders-summary">
+{*
 {include file="common/subheader.tpl" title=__("summary")}
 
 <div class="float-right">
     {hook name="orders:info"}{/hook}
 </div>
-
-<div class="orders-summary-wrap">
-<table>
-{hook name="orders:totals"}
+*}
+<div class="order-sum-info">
     {if $order_info.payment_id}
-    <tr>
-        <td>{__("payment_method")}:&nbsp;</td>
-        <td style="width: 57%" data-ct-orders-summary="summary-payment">{$order_info.payment_method.payment}&nbsp;{if $order_info.payment_method.description}({$order_info.payment_method.description}){/if}</td>
-    </tr>
+    <div>
+        <strong>{__("payment_method")} :</strong>
+        <div data-ct-orders-summary="summary-payment">{$order_info.payment_method.payment}&nbsp;{if $order_info.payment_method.description}({$order_info.payment_method.description}){/if}</div>
+    </div>
     {/if}
-
     {if $order_info.shipping}
-        <tr>
-            <td>{__("shipping_method")}:</td>
-            <td data-ct-orders-summary="summary-ship">
+        <div>
+            <strong>{__("shipping_method")}:</strong>
+            <div data-ct-orders-summary="summary-ship">
             {if $use_shipments}
                 <ul>
                     {foreach from=$order_info.shipping item="shipping_method"}
@@ -159,10 +146,24 @@
                     {if !$smarty.foreach.f_shipp.last}<br>{/if}
                 {/foreach}
             {/if}
-            </td>
-        </tr>
+            </div>
+        </div>
     {/if}
-
+{*Customer notes*}
+    {if $order_info.notes}
+    <div>
+        <strong>{__("customer_notes")}</strong>
+        <div class="orders-notes-body">
+            <span class="caret"> <span class="caret-outer"></span> <span class="caret-inner"></span></span>
+            {$order_info.notes}
+        </div>
+    </div>
+    {/if}
+{*/Customer notes*}
+</div>
+<div class="orders-summary-wrap">
+<table>
+{hook name="orders:totals"}
     <tr>
         <td>{__("subtotal")}:&nbsp;</td>
         <td data-ct-orders-summary="summary-subtotal">{include file="common/price.tpl" value=$order_info.display_subtotal}</td>
@@ -236,6 +237,14 @@
 
 {if $order_info.promotions}
     {include file="views/orders/components/promotions.tpl" promotions=$order_info.promotions}
+{/if}
+
+{if $without_customer != "Y"}
+{* Customer info *}
+    <div class="orders-customer">
+    {include file="views/profiles/components/profiles_info.tpl" user_data=$order_info location="I"}
+    </div>
+{* /Customer info *}
 {/if}
 
 {if $view_only != "Y"}
@@ -317,8 +326,8 @@
 {hook name="orders:tabs"}
 {/hook}    
 
-{/capture}
-{include file="common/tabsbox.tpl" top_order_actions=$smarty.capture.order_actions content=$smarty.capture.tabsbox active_tab=$smarty.request.selected_section}
+{* /capture *}
+{* include file="common/tabsbox.tpl" top_order_actions=$smarty.capture.order_actions content=$smarty.capture.tabsbox active_tab=$smarty.request.selected_section *}
 
 {/if}
 </div>

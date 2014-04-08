@@ -138,6 +138,7 @@ if ($mode == 'choose_location') {
     Registry::get('view')->assign('orders', $orders);
     Registry::get('view')->assign('search', $search);
     Registry::get('view')->assign('totals', $totals);
+    
 } elseif ($mode == 'feedbacks') {
 
     fn_add_breadcrumb(__('feedbacks_and_ratings'));
@@ -167,7 +168,7 @@ if ($mode == 'choose_location') {
 
     }
 
-    list($posts, $search) = fn_get_discussions($_REQUEST, Registry::get('settings.Appearance.admin_elements_per_page'));
+    list($posts, $search) = fn_get_discussions($_REQUEST, Registry::get('settings.Appearance.elements_per_page'));
 
     if (!empty($posts)) {
         foreach ($posts as $k => $v) {
@@ -179,6 +180,11 @@ if ($mode == 'choose_location') {
     Registry::get('view')->assign('search', $search);
     Registry::get('view')->assign('discussion_object_type', $_REQUEST['object_type']);
     Registry::get('view')->assign('discussion_object_types', $discussion_object_types);
+    
+} elseif ($mode == 'payment_details') {
+    fn_add_breadcrumb(__('payment_details'));
+} elseif ($mode == 'dashboard') {
+    fn_add_breadcrumb(__('my_dashboard'));
 }
 
 function fn_get_discussions($params, $items_per_page)

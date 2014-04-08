@@ -1,0 +1,1 @@
+{capture name="mainbox_title"}{__("payment_details")}{/capture}

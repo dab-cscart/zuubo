@@ -17,12 +17,13 @@
     
     {if $post.type == "C" || $post.type == "B"}<p class="post-message">{$post.message|escape|nl2br nofilter}</p>{/if}
 
+    {if $post.product_id}<a href="{"products.view?product_id=`$post.product_id`"|fn_url}">{$post.product_id|fn_get_product_name}</a>{/if}{if $post.object_data} {__("by")} <a href="{"`$post.object_data.url`"|fn_url}">{$post.object_data.description}</a>{/if}
 {/hook}
 </div>
 {/foreach}
 
 
-{include file="common/pagination.tpl" id="pagination_contents_comments_`$object_id`" extra_url="&selected_section=discussion" search=$discussion.search}
+{include file="common/pagination.tpl" id="pagination_contents_comments_`$object_id`" search=$search}
 {else}
 <p class="no-items">{__("no_posts_found")}</p>
 {/if}

@@ -239,10 +239,6 @@ ul.dropdown-multicolumns li:hover a {
 }
 
 // Tables
-.table th, .orders-summary-wrap {
-	.gradient (lighten(@base, 49%), lighten(@base, 43%));
-	.inner-shadow (0, 1px, 0, 0, 0.5);
-}
 
 // Sidebox
 @sidebar: #a4a4a4;
@@ -389,7 +385,7 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 }
 
 // Gray elements with #ebebeb color
-.table, table.qty-discounts, .checkout-sidebox-title, .checkout-totals, .table-filters .delim td, hr, .section-body .buttons-container, .mainbox-cart-body .table, .ui-dialog .buttons-container.picker, .compare-table td, .sitemap-section h2, .product-main-info .add-buttons-wrap, .success-registration-list li {
+.checkout-sidebox-title, .checkout-totals, .table-filters .delim td, hr, .section-body .buttons-container, .mainbox-cart-body .table, .ui-dialog .buttons-container.picker, .compare-table td, .sitemap-section h2, .product-main-info .add-buttons-wrap, .success-registration-list li {
 	border-color: lighten(@base, 42%);
 }
 .select-wrap.languages a.active-element, .select-wrap.currencies a.active-element {
@@ -402,7 +398,7 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 }
 
 // Gray elements with #e3e3e3 color
-.table th, .table td, .table .table td, .dark-hr, .border, .table, .table .table-footer td, .buttons-container-picker, .notification-body-extended, .product-notification-buttons {
+.dark-hr, .border, .buttons-container-picker, .notification-body-extended, .product-notification-buttons {
 	border-color: lighten(@base, 39%);
 }
 
@@ -435,8 +431,11 @@ input[type="text"], input[type="password"], textarea, select, .scroll-y, .accoun
 }
 
 // Gray elements with #fcfcfc color
-.no-items, .product-cell-empty div, .statistic-list-wrap, .table tr:nth-child(2n), .table .table-footer td, .mainbox-cart-body .product-options, .discount-info, .info-block, .checkout-sidebox-title {
+.no-items, .product-cell-empty div, .statistic-list-wrap, .table .table-footer td, .mainbox-cart-body .product-options, .discount-info, .info-block, .checkout-sidebox-title {
 	background-color: lighten(@base, 48%);
+}
+.table tr:nth-child(2n) {
+    background-color: #f8f8f8;
 }
 .caret-info .caret-inner {
 	border-bottom-color: lighten(@base, 48%);
