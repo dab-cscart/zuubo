@@ -185,6 +185,8 @@ if ($mode == 'choose_location') {
     fn_add_breadcrumb(__('payment_details'));
 } elseif ($mode == 'dashboard') {
     fn_add_breadcrumb(__('my_dashboard'));
+} elseif ($mode == 'update_card') {
+    fn_add_breadcrumb(__('add_edit'));
 }
 
 function fn_get_discussions($params, $items_per_page)

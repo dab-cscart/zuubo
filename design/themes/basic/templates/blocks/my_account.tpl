@@ -20,7 +20,7 @@
                 {/if}
             {/if}
             *}
-            <li><a href="{"orders.search"|fn_url}" rel="nofollow">{__("order_history")}</a></li>
+            <li {if $runtime.controller == 'orders' && $runtime.mode == 'search'}class="active"{/if}><a href="{"orders.search"|fn_url}" rel="nofollow">{__("order_history")}</a></li>
         {elseif $user_data.firstname || $user_data.lastname}
             <li class="user-name">{$user_data.firstname} {$user_data.lastname}</li>
         {elseif $settings.General.use_email_as_login == 'Y' && $user_data.email}
@@ -29,13 +29,13 @@
             <li class="user-name">{$user_data.user_login}</li>
         {/if}
         {* {assign var="compared_products" value=""|fn_get_comparison_products}
-        <li><a href="{"product_features.compare"|fn_url}" rel="nofollow">{__("view_compare_list")}{if $compared_products} ({$compared_products|count}){/if}</a></li> *}
+        <li {if $runtime.controller == 'product_features' && $runtime.mode == 'compare'}class="active"{/if}><a href="{"product_features.compare"|fn_url}" rel="nofollow">{__("view_compare_list")}{if $compared_products} ({$compared_products|count}){/if}</a></li> *}
     {/hook}
-        <li><a href="{"profiles.update"|fn_url}" rel="nofollow">{__("profile_details")}</a></li>
+        <li {if $runtime.controller == 'profiles' && $runtime.mode == 'update'}class="active"{/if}><a href="{"profiles.update"|fn_url}" rel="nofollow">{__("profile_details")}</a></li>
         {* <li><a href="{"orders.downloads"|fn_url}" rel="nofollow">{__("downloads")}</a></li> *}
 
     {if "MULTIVENDOR"|fn_allowed_for && $settings.Vendors.apply_for_vendor == "Y" && !$user_info.company_id}
-        <li><a href="{"companies.apply_for_vendor?return_previous_url=`$return_current_url`"|fn_url}" rel="nofollow">{__("apply_for_vendor_account")}</a></li>
+        <li {if $runtime.controller == 'companies' && $runtime.mode == 'apply_for_vendor'}class="active"{/if}><a href="{"companies.apply_for_vendor?return_previous_url=`$return_current_url`"|fn_url}" rel="nofollow">{__("apply_for_vendor_account")}</a></li>
     {/if}
     </ul>
 {*

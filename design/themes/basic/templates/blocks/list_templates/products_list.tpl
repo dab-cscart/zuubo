@@ -26,12 +26,8 @@
     {if $bulk_addition}
         <input class="cm-item float-right" type="checkbox" id="bulk_addition_{$obj_prefix}{$product.product_id}" name="product_data[{$product.product_id}][amount]" value="{if $js_product_var}{$product.product_id}{else}1{/if}" {if ($product.zero_price_action == "R" && $product.price == 0)}disabled="disabled"{/if} />   
     {/if}
-    
     <div class="float-left product-item-image center">
         <span class="cm-reload-{$obj_prefix}{$obj_id} image-reload" id="list_image_update_{$obj_prefix}{$obj_id} image-wrapper">
-
-            
-
             {if !$hide_links}
                 <a href="{"products.view?product_id=`$product.product_id`"|fn_url}">
                 <input type="hidden" name="image[list_image_update_{$obj_prefix}{$obj_id}][link]" value="{"products.view?product_id=`$product.product_id`"|fn_url}" />
@@ -56,8 +52,10 @@
         {assign var="sku" value="sku_$obj_id"}{$smarty.capture.$sku nofilter}
         
         <div class="float-right center add-product">
-            {assign var="add_to_cart" value="add_to_cart_`$obj_id`"}
-            {$smarty.capture.$add_to_cart nofilter}
+            {hook name="products:product_grid_list"}
+                {assign var="add_to_cart" value="add_to_cart_`$obj_id`"}
+                {$smarty.capture.$add_to_cart nofilter}
+            {/hook}
         </div>
         
         <div class="prod-info">
@@ -103,6 +101,13 @@
                 <div class="rating-list float-left">
                     {assign var="rating" value="rating_$obj_id"}
                     {$smarty.capture.$rating nofilter}
+                    
+                    {assign var="positive_rating" value="positive_rating_$obj_id"}
+                    {$smarty.capture.$positive_rating nofilter}
+                    
+                     {if $product.discussion.posts}
+        <a class="cm-external-click" data-ca-scroll="content_discussion" data-ca-external-click-id="discussion">{$product.discussion.posts|count} {__("reviews", [$product.discussion.posts|count])}</a>
+        {/if}
                 </div>
                 <div class="float-right product-prices">
                     {assign var="old_price" value="old_price_`$obj_id`"}

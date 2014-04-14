@@ -6,7 +6,7 @@
 
 {foreach from=$discussion.posts item=post}
 <div class="testimonial">
-<p class="avatar"><img src="{$images_dir}/avatar.png" /></p>
+<p class="avatar"><img src="{$images_dir}/avatar.jpg" /></p>
 {if $discussion.type == "C" || $discussion.type == "B"}
     <p class="post-message"><a href="{"discussion.view?thread_id=`$discussion.thread_id`&post_id=`$post.post_id`"|fn_url}#post_{$post.post_id}">"{$post.message|truncate:100|nl2br}"</a></p>
 {/if}

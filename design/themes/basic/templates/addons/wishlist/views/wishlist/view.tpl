@@ -7,19 +7,30 @@
     {assign var="location" value="cart"}
 {/if}
 {if $products}
-    {include file="blocks/list_templates/grid_list.tpl" 
-        columns=$columns
-        show_empty=true
-        show_trunc_name=true 
+    <div class="wishlist-container">
+    {include file="blocks/list_templates/products_list.tpl" 
+        show_name=true 
+        show_sku=false 
+        show_rating=true 
+        show_features=true 
+        show_prod_descr=true 
         show_old_price=true 
         show_price=true 
         show_clean_price=true 
-        show_list_discount=true
-        no_pagination=true
-        no_sorting=true
-        show_add_to_cart=false
-        is_wishlist=true}
+        show_list_discount=true  
+        show_product_amount=false 
+        show_qty=false
+        show_product_edp=true 
+        show_add_to_cart=true  
+        show_descr=true 
+        but_role="action"
+        but_text=__("buy_now")
+        is_wishlist=true 
+        no_sorting=true 
+        show_sep_hr=true}
+    </div>
 {else}
+{*
 {math equation="100 / x" x=$columns|default:"2" assign="cell_width"}
 <table class="fixed-layout multicolumns-list table-width {if $wishlist_is_empty}wish-list-empty{/if}">
     <tr class="row-border">
@@ -43,16 +54,18 @@
 
     </tr>
 </table>
+*}
+<>
 {/if}
 {if !$wishlist_is_empty}
     <div class="buttons-container wish-list-btn">
-        {include file="buttons/button.tpl" but_text=__("clear_wishlist") but_href="wishlist.clear"}
-        {include file="buttons/continue_shopping.tpl" but_href=$continue_url|fn_url but_role="text"}
+        {include file="buttons/continue_shopping.tpl" but_href=$continue_url|fn_url but_role="submit" but_extra_class="submit"}
+        {include file="buttons/button.tpl" but_text=__("clear_wishlist") but_href="wishlist.clear" but_extra_class="clear-but"}
     </div>
 {else}
     <div class="buttons-container wish-list-btn wish-list-continue">
-        {include file="buttons/continue_shopping.tpl" but_href=$continue_url|fn_url but_role="text"}
+        {include file="buttons/continue_shopping.tpl" but_href=$continue_url|fn_url but_role="submit" but_extra_class="submit"}
     </div>
 {/if}
 
-{capture name="mainbox_title"}{__("wishlist_content")}{/capture}
+{capture name="mainbox_title"}{__("my_wishlist")}{/capture}

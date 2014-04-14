@@ -10,7 +10,6 @@ show_old_price=true
 show_price=true 
 show_clean_price=true 
 show_list_discount=true 
-show_discount_label=true 
 show_product_amount=false 
 show_qty=false
 show_product_edp=true 

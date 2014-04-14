@@ -16,8 +16,8 @@
     {else}
         {assign var="search_title" value=__("search_products")}
     {/if}
-    <input type="text" name="q" value="{$search.q}" id="search_input{if $smarty.capture.search_input_id}_{$smarty.capture.search_input_id}{/if}" title="{$search_title}" class="search-input cm-hint"/>
-    <input type="text" name="q" value="{$search.q}" id="search_input{if $smarty.capture.search_input_id}_{$smarty.capture.search_input_id}{/if}" title="{$search_title}" class="search-input cm-hint"/>
+    <input type="text" name="q" value="{$search.q}" id="search_input{if $smarty.capture.search_input_id}_{$smarty.capture.search_input_id}{/if}" title="{$search_title}" class="search-input search-q cm-hint"/>
+    <input type="text" name="q" value="{$search.q}" id="search_input{if $smarty.capture.search_input_id}_{$smarty.capture.search_input_id}{/if}" title="{$search_title}" class="search-input search-map cm-hint"/>
     {if $settings.General.search_objects}
         {include file="buttons/magnifier.tpl" but_name="search.results" alt=__("search") text=true but_class="search-but"}
     {else}

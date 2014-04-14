@@ -119,13 +119,13 @@
 *}
 <div class="order-sum-info">
     {if $order_info.payment_id}
-    <div>
+    <div class="info-line">
         <strong>{__("payment_method")} :</strong>
         <div data-ct-orders-summary="summary-payment">{$order_info.payment_method.payment}&nbsp;{if $order_info.payment_method.description}({$order_info.payment_method.description}){/if}</div>
     </div>
     {/if}
     {if $order_info.shipping}
-        <div>
+        <div class="info-line">
             <strong>{__("shipping_method")}:</strong>
             <div data-ct-orders-summary="summary-ship">
             {if $use_shipments}
@@ -242,7 +242,7 @@
 {if $without_customer != "Y"}
 {* Customer info *}
     <div class="orders-customer">
-    {include file="views/profiles/components/profiles_info.tpl" user_data=$order_info location="I"}
+    {include file="views/profiles/components/profiles_info.tpl" user_data=$order_info location="I" display_contact_info=true}
     </div>
 {* /Customer info *}
 {/if}

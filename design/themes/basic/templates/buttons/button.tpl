@@ -17,7 +17,7 @@
 {/if}
 
 {if $but_name && $but_role != "text" && $but_role != "act" && $but_role != "delete"} {* SUBMIT BUTTON *}
-    <span {$but_extra} {if $but_id}id="wrap_{$but_id}"{/if} {if $but_css}style="{$but_css}"{/if} class="button-submit{$suffix} button-wrap-left"><span {if $but_css}style="{$but_css}"{/if} class="button-submit{$suffix} button-wrap-right"><input {if $but_id}id="{$but_id}"{/if} {if $but_meta}class="{$but_meta}"{/if} type="submit" name="{$but_name}" {if $but_onclick}onclick="{$but_onclick}"{/if} value="{$but_text}" /></span></span>
+    <span {$but_extra} {if $but_id}id="wrap_{$but_id}"{/if} {if $but_css}style="{$but_css}"{/if} class="button-submit{$suffix} button-wrap-left {$but_extra_class}"><span {if $but_css}style="{$but_css}"{/if} class="button-submit{$suffix} button-wrap-right"><input {if $but_id}id="{$but_id}"{/if} {if $but_meta}class="{$but_meta}"{/if} type="submit" name="{$but_name}" {if $but_onclick}onclick="{$but_onclick}"{/if} value="{$but_text}" /></span></span>
 
 {elseif $but_role == "text" || $but_role == "act" || $but_role == "edit"} {* TEXT STYLE *}
     <a {$but_extra} class="{if $but_meta}{$but_meta} {/if}{if $but_name}cm-submit {/if}text-button{$suffix}"{if $but_id} id="{$but_id}"{/if}{if $but_name} data-ca-dispatch="{$but_name}"{/if}{if $but_href} href="{$but_href|fn_url}"{/if}{if $but_onclick} onclick="{$but_onclick} return false;"{/if}{if $but_target} target="{$but_target}"{/if}{if $but_rel} rel="{$but_rel}"{/if}{if $but_external_click_id} data-ca-external-click-id="{$but_external_click_id}"{/if}{if $but_target_form} data-ca-target-form="{$but_target_form}"{/if}{if $but_target_id} data-ca-target-id="{$but_target_id}"{/if}>{$but_text}</a>

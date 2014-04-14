@@ -28,9 +28,9 @@
         {* if $pagination.prev_range}
             <a data-ca-scroll=".cm-pagination-container" href="{"`$c_url`&page=`$pagination.prev_range``$extra_url`"|fn_url}" data-ca-page="{$pagination.prev_range}" class="cm-history prev {$ajax_class}" data-ca-target-id="{$id}">{$pagination.prev_range_from} - {$pagination.prev_range_to}</a>
         {/if *}
-        <a data-ca-scroll=".cm-pagination-container" class="prev float-left {if $pagination.prev_page}cm-history {$ajax_class}{/if}" {if $pagination.prev_page}href="{"`$c_url`&page=`$pagination.prev_page`"|fn_url}" data-ca-page="{$pagination.prev_page}" data-ca-target-id="{$id}"{/if}><i class="icon-left-dir"></i>&nbsp;{__("prev_page")}</a>
+        <a data-ca-scroll=".cm-pagination-container" class="prev float-left {if $pagination.prev_page}cm-history {$ajax_class}{/if}" {if $pagination.prev_page}href="{"`$c_url`&page=`$pagination.prev_page`"|fn_url}" data-ca-page="{$pagination.prev_page}" data-ca-target-id="{$id}"{/if}><i class="icon-left-dir"></i>&nbsp;{__("previous_page")}</a>
         
-        <a data-ca-scroll=".cm-pagination-container" class="next float-right {if $pagination.next_page}cm-history {$ajax_class}{/if}" {if $pagination.next_page}href="{"`$c_url`&page=`$pagination.next_page``$extra_url`"|fn_url}" data-ca-page="{$pagination.next_page}" data-ca-target-id="{$id}"{/if}>{__("next")}&nbsp;<i class="icon-right-dir"></i></a>
+        <a data-ca-scroll=".cm-pagination-container" class="next float-right {if $pagination.next_page}cm-history {$ajax_class}{/if}" {if $pagination.next_page}href="{"`$c_url`&page=`$pagination.next_page``$extra_url`"|fn_url}" data-ca-page="{$pagination.next_page}" data-ca-target-id="{$id}"{/if}>{__("next_page")}&nbsp;<i class="icon-right-dir"></i></a>
 
         {foreach from=$pagination.navi_pages item="pg"}
             {if $pg != $pagination.current_page}

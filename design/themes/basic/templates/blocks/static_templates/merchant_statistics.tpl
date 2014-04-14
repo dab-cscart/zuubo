@@ -39,17 +39,17 @@
         <h2>Best Rated Reviews</h2>
         <div class="posts">
             <div class="post-author-wrp"><span class="post-author">Person Name</span><span class="certified-buyer">{__("certified_buyer")}</span></div>
-            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">04/02/2014, 16:52</span></div>
+            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">31 Jan 2014, 11:00 AM</span></div>
             <p class="post-message">One of the most courteous vendors in the bay area.</p>
         </div>
         <div class="posts">
             <div class="post-author-wrp"><span class="post-author">Person Name</span><span class="certified-buyer">{__("certified_buyer")}</span></div>
-            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">04/02/2014, 16:52</span></div>
+            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">31 Jan 2014, 11:00 AM</span></div>
             <p class="post-message">One of the most courteous vendors in the bay area.</p>
         </div>
         <div class="posts">
             <div class="post-author-wrp"><span class="post-author">Person Name</span><span class="certified-buyer">{__("certified_buyer")}</span></div>
-            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">04/02/2014, 16:52</span></div>
+            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">31 Jan 2014, 11:00 AM</span></div>
             <p class="post-message">One of the most courteous vendors in the bay area.</p>
         </div>
     </div>
@@ -57,17 +57,17 @@
         <h2>Most Useful Reviews</h2>
         <div class="posts">
             <div class="post-author-wrp"><span class="post-author">Person Name</span><span class="certified-buyer">{__("certified_buyer")}</span></div>
-            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">04/02/2014, 16:52</span></div>
+            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">31 Jan 2014, 11:00 AM</span></div>
             <p class="post-message">One of the most courteous vendors in the bay area.</p>
         </div>
         <div class="posts">
             <div class="post-author-wrp"><span class="post-author">Person Name</span><span class="certified-buyer">{__("certified_buyer")}</span></div>
-            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">04/02/2014, 16:52</span></div>
+            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">31 Jan 2014, 11:00 AM</span></div>
             <p class="post-message">One of the most courteous vendors in the bay area.</p>
         </div>
         <div class="posts">
             <div class="post-author-wrp"><span class="post-author">Person Name</span><span class="certified-buyer">{__("certified_buyer")}</span></div>
-            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">04/02/2014, 16:52</span></div>
+            <div class="post-rating"><p class="nowrap stars"><a><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i></a></p><span class="post-date">31 Jan 2014, 11:00 AM</span></div>
             <p class="post-message">One of the most courteous vendors in the bay area.</p>
         </div>
     </div>

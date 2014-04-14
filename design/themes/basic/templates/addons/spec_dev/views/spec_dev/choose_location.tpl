@@ -9,7 +9,7 @@
         <div>
             {if $metro_city}
 		{if $metro_city.cities}
-		    <a id="sw_subcities_{$metro_city.metro_city_id}" class="cm-combination detailed-link">{include file="common/subheader.tpl" title=$metro_city.metro_city}</a>
+		    <h2 class="subheader"><a id="sw_subcities_{$metro_city.metro_city_id}" class="cm-combination">{$metro_city.metro_city}</a></h2>
 		    <div id="subcities_{$metro_city.metro_city_id}" class="product-options hidden">
 			<ul>
 			    {foreach from=$metro_city.cities item="city"}
@@ -18,7 +18,7 @@
 			</ul>
 		    </div>
 		{else}
-		    <a href="{"spec_dev.set_location?mc_id=`$metro_city.metro_city_id`&return_url=`$r_url`"|fn_url}">{include file="common/subheader.tpl" title=$metro_city.metro_city}</a>
+		    <h2 class="subheader"><a href="{"spec_dev.set_location?mc_id=`$metro_city.metro_city_id`&return_url=`$r_url`"|fn_url}">{$metro_city.metro_city}</a></h2>
 		{/if}
             {else}&nbsp;{/if}
         </div>

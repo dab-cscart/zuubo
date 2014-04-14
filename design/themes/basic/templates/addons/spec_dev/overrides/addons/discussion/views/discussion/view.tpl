@@ -18,8 +18,8 @@
 {if $discussion.posts}
 {if $detailed}
     <h2 class="mainbox-title"><span>{__("ratings")}</span></h2>
-
     <div id="merchant_rating_distribution">
+    <div class="column-head">{__("overall_ratings")}</div>
 	<h3>{__("merchant_rating_distribution")}</h3>
 	{*assign var="average_rating" value=$object_id|fn_get_average_rating:$object_type}
 
@@ -39,7 +39,7 @@
     </div>
     
     <div id="detailed_rating">
-        <h3>{__("detailed_rating")}</h3>
+        <h3>{__("detailed_merchant_rating")}</h3>
         <div class="detailed-rating" id="block_company_detailed_rating">
             {foreach from=$discussion.detailed_rating item="r_data" key="metric"}
             <div class="dr-metric"><span class="metric">{__($metric)} : </span>{include file="addons/discussion/views/discussion/components/stars.tpl" stars=$r_data.average|fn_get_discussion_rating} {$r_data.average}</div>
@@ -74,7 +74,7 @@
     <div id="most_recent">
 	<h3>{__("most_recent")}</h3>
 	{$_tmp = $discussion.posts}
-	<div id="block_company_reviews_summary" style="margin-top: 30px;">
+	<div id="block_company_reviews_summary">
 	    {$most_recent = $_tmp|array_splice:0:3}
 	    {include file="addons/spec_dev/components/posts.tpl" posts=$most_recent}
 	</div>
@@ -126,10 +126,12 @@
 {include file="addons/discussion/views/discussion/components/new_post.tpl" new_post_title=$new_post_title}
 {/if}
 
+{if !$product}
 <div class="microsite-buttons">
     <span class="view-all-services"><a href="">{__("view_all_services")}</a></span>
     <span class="request-quote"><a href="">{__("request_quote")}</a></span>
 </div>
+{/if}
 
 {if $wrap == true}
     {/capture}

@@ -30,10 +30,16 @@
             <div class="{if $style == "popup"}buttons-container{/if}">
         {/if}
             <div class="clearfix login-sets">
-                <a href="{"auth.recover_password"|fn_url}" class="forgot-password"  tabindex="5">{__("forgot_password_question")}</a>
-                <div class="remember-me-chekbox">
-                    <label for="remember_me_{$id}" class="valign"><input class="valign checkbox" type="checkbox" name="remember_me" id="remember_me_{$id}" value="Y" />{__("keep_me_signed_in")}</label>
-                </div>
+                <table class="table-width">
+                <tr>
+                    <td width="60%">
+                        <div class="remember-me-chekbox">
+                            <label for="remember_me_{$id}" class="valign"><input class="valign checkbox" type="checkbox" name="remember_me" id="remember_me_{$id}" value="Y" />{__("keep_me_signed_in")}</label>
+                        </div>
+                    </td>
+                    <td width="40%" class="right"><a href="{"auth.recover_password"|fn_url}" class="forgot-password"  tabindex="5">{__("forgot_password_question")}</a></td>
+                </tr>
+                </table>
             </div>
             
             <p class="login-button">

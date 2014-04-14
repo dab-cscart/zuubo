@@ -21,7 +21,7 @@
             <div class="company-page-top-links clearfix">
                 {hook name="companies:top_links"}
                 <div id="company_products">
-                    <a href="{"products.search?company_id=`$company_data.company_id`&search_performed=Y"|fn_url}">{__("view_all_services")}</a>
+                    <a href="{"companies.storefront?company_id=`$company_data.company_id`"|fn_url}">{__("view_all_services")}</a>
                 </div>
                 {/hook}
             </div>

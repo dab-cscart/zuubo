@@ -1,1 +1,1 @@
-<li><a href="{"wishlist.view"|fn_url}" rel="nofollow">{__("wishlist")}{if $wishlist_count > 0} ({$wishlist_count}){/if}</a></li>
+<li {if $runtime.controller == 'wishlist' && $runtime.mode == 'view'}class="active"{/if}><a href="{"wishlist.view"|fn_url}" rel="nofollow">{__("wishlist")}{if $wishlist_count > 0} ({$wishlist_count}){/if}</a></li>

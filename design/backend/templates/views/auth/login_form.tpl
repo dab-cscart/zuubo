@@ -1,3 +1,4 @@
+{if $smarty.const.ACCOUNT_TYPE == 'vendor'}
 <div class="modal signin-modal vendor-signin">
     <div class="center">
         <img src="{$images_dir}/zuubo_pro.png" width="229" height="61" alt="" />
@@ -25,7 +26,7 @@
         </div>
     </div>
 </div>
-{*
+{else}
 <div class="modal signin-modal">
     <form action="{""|fn_url}" method="post" name="main_login_form" class=" cm-skip-check-items cm-check-changes">
         <input type="hidden" name="return_url" value="{$smarty.request.return_url|fn_url:"A":"rel"|fn_query_remove:"return_url"}">
@@ -49,4 +50,4 @@
         </div>
     </form>
 </div>
-*}
+{/if}

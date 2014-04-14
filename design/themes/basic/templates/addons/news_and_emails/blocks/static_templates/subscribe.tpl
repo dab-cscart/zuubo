@@ -9,7 +9,7 @@
 <p class="subscribe-notice">{__("stay_connected_notice")}</p> *}
 <div class="control-group input-append subscribe">
 <label class="cm-required cm-email hidden" for="subscr_email{$block.block_id}">{__("email")}</label>
-<input type="text" name="subscribe_email" id="subscr_email{$block.block_id}" size="20" value="{__("enter_email")}" class="cm-hint subscribe-email input-text input-text-menu" />
+<input type="text" name="subscribe_email" id="subscr_email{$block.block_id}" size="20" value="{__("your_email_address")}" class="cm-hint subscribe-email input-text input-text-menu" />
 {include file="buttons/go.tpl" but_name="newsletters.add_subscriber" alt=__("go") text=true but_text=__("sign_me_up")}
 {* /angel *}
 </div>

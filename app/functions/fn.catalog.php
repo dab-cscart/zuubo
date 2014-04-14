@@ -4986,7 +4986,8 @@ function fn_get_filters_products_count($params = array())
                 'index.index',
                 'products.search',
                 'categories.view',
-                'product_features.view'
+                'product_features.view',
+                'companies.storefront'
             );
 
             if (!in_array($params['dispatch'], $valid_locations)) {

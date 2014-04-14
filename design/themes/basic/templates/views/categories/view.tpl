@@ -7,7 +7,7 @@
 {if $category_data.description && $category_data.description != ""}
     <div class="compact wysiwyg-content margin-bottom">{$category_data.description nofilter}</div>
 {/if}
-
+{*
 <div class="clearfix">
     {if $subcategories}
     <div class="subcategories">
@@ -37,6 +37,7 @@
     </div>
     {/if}
 </div>
+*}
 {/if}
 
 {if $smarty.request.advanced_filter}
