@@ -415,26 +415,28 @@ function fn_spec_dev_get_category_data_post($category_id, $field_list, $get_main
 
 function fn_spec_dev_update_company($company_data, $company_id, $lang_code, $action)
 {
-    $badge_ids = fn_get_vendor_badges($company_id);
-    $to_delete = array_diff($badge_ids, $company_data['badge_ids']);
-    if (!empty($to_delete)) {
-	    db_query("DELETE FROM ?:vendor_badges WHERE badge_id IN (?n) AND vendor_id = ?i", $to_delete, $company_id);
+    if (AREA == 'A') {
+	$badge_ids = fn_get_vendor_badges($company_id);
+	$to_delete = array_diff($badge_ids, $company_data['badge_ids']);
+	if (!empty($to_delete)) {
+		db_query("DELETE FROM ?:vendor_badges WHERE badge_id IN (?n) AND vendor_id = ?i", $to_delete, $company_id);
+	}
+	$to_add = array_diff($company_data['badge_ids'], $badge_ids);
+	if (!empty($to_add)) {
+		foreach ($to_add as $b_id) {
+			$_data = array(
+				'vendor_id' => $company_id,
+				'badge_id' => $b_id
+			);
+			db_query("REPLACE INTO ?:vendor_badges ?e", $_data);
+		}
+	}
+	
+	// Update additional images
+	fn_attach_image_pairs('company_additional', 'company', $company_id, $lang_code);
+	// Adding new additional images
+	fn_attach_image_pairs('company_add_additional', 'company', $company_id, $lang_code);
     }
-    $to_add = array_diff($company_data['badge_ids'], $badge_ids);
-    if (!empty($to_add)) {
-	    foreach ($to_add as $b_id) {
-		    $_data = array(
-			    'vendor_id' => $company_id,
-			    'badge_id' => $b_id
-		    );
-		    db_query("REPLACE INTO ?:vendor_badges ?e", $_data);
-	    }
-    }
-    
-    // Update additional images
-    fn_attach_image_pairs('company_additional', 'company', $company_id, $lang_code);
-    // Adding new additional images
-    fn_attach_image_pairs('company_add_additional', 'company', $company_id, $lang_code);
 }
 
 function fn_get_vendor_badges($company_id)

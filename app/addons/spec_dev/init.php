@@ -16,6 +16,7 @@ if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
 define('DEVELOPMENT', true);
 define('TOP_RATED_BADGE_ID', 1);
+define('TOP_LINK_ID', 175);
 
 fn_register_hooks(
 	'get_company_data_post',
