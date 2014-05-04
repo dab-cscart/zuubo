@@ -8,7 +8,7 @@
 	<position>0</position>
 	<status>active</status>
 	<compatibility>
-	    <dependencies>reward_points,seo</dependencies>
+	    <dependencies>reward_points,seo,discussion</dependencies>
 	</compatibility>
 	<auto_install>MULTIVENDOR,ULTIMATE</auto_install>
 	<queries>
@@ -98,6 +98,9 @@
 		</item>
 		<item>
 		    ALTER TABLE `cscart_products` ADD `points_expiration_period` MEDIUMINT( 8 ) UNSIGNED NOT NULL ;
+		</item>
+		<item>
+		    ALTER TABLE `cscart_reward_point_changes` CHANGE `expiration_date` `expiration_date` INT( 11 ) UNSIGNED NULL ;
 		</item>
 		<item>
 		    ALTER TABLE `cscart_reward_point_changes` ADD `is_spent` CHAR( 1 ) NOT NULL DEFAULT 'N' ;

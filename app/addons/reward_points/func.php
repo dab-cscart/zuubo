@@ -414,7 +414,12 @@ function fn_reward_points_change_order_status(&$status_to, &$status_from, &$orde
 		// decrease earned points
 		if (is_array($points_info['reward'])) {
 		    foreach ($points_info['reward'] as $_key => $r_data) {
-			$reason['product_id'] = $order_info['products'][$_key]['product_id'];
+			if (!empty($order_info['products'][$_key]['product_id'])) {
+			    $reason['product_id'] = $order_info['products'][$_key]['product_id'];
+			} elseif ($r_data['expired']) {
+			    $reason['product_id'] = '';
+			    $reason['text'] = 'expired';
+			}
 			$log_id = fn_change_user_points( - $r_data['reward'], $order_info['user_id'], serialize($reason), $action);
 		    }
 		} else {
@@ -440,7 +445,12 @@ function fn_reward_points_change_order_status(&$status_to, &$status_from, &$orde
 	    // increase  rewarded points
 	    if (is_array($points_info['reward'])) {
 		foreach ($points_info['reward'] as $_key => $r_data) {
-		    $reason['product_id'] = $order_info['products'][$_key]['product_id'];
+		    if (!empty($order_info['products'][$_key]['product_id'])) {
+			$reason['product_id'] = $order_info['products'][$_key]['product_id'];
+		    } elseif ($r_data['expired']) {
+			$reason['product_id'] = '';
+			$reason['text'] = 'expired';
+		    }
 		    $log_id = fn_change_user_points($r_data['reward'], $order_info['user_id'], serialize($reason), $action, $r_data['expire']);
 		}
 	    } else {

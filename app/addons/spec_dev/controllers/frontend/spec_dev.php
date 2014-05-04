@@ -57,7 +57,6 @@ if ($mode == 'choose_location') {
 
     if (!empty($gain_log)) {
 	foreach ($gain_log as $u_id => $u_points) {
-	    $org_userpoints = $user_points = fn_get_user_additional_data(POINTS, $u_id);
 	    $spends = db_get_hash_multi_array("SELECT timestamp, amount, amount - allocated as points_left, change_id FROM ?:reward_point_changes WHERE amount < 0 AND user_id = ?i AND is_spent = 'N' AND amount - allocated < 0 ORDER BY timestamp asc", array('timestamp'), $u_id);
 
 	    foreach ($u_points as $i => $log) {
@@ -69,21 +68,23 @@ if ($mode == 'choose_location') {
 				$_tmp = $amount;
 				$amount = ($amount + $s_point['points_left'] > 0) ? $amount + $s_point['points_left'] : 0;
 				$spends[$timestamp][$i]['points_left'] = ($spends[$timestamp][$i]['points_left'] + $_tmp < 0) ? $spends[$timestamp][$i]['points_left'] + $_tmp : 0;
-// 				if ($spends[$timestamp][$i]['amount'] == 0) {
-// 				    unset($spends[$timestamp][$i]);
-// 				    db_query("UPDATE ?:reward_point_changes SET is_spent = 'Y' WHERE change_id = ?i", $s_point['change_id']);
-// 				}
 			    }
 			}
 		    }
 		}
 		if ($amount > 0) {
-		    $user_points -= $amount;
+		    $reason = unserialize($log['reason']);
+		    if (!empty($reason['order_id'])) {
+			$_data = unserialize(db_get_field("SELECT data FROM ?:order_data WHERE order_id = ?i AND type = ?s", $reason['order_id'], POINTS));
+			$row = array();
+			$row['reward'] = -$amount;
+			$row['expired'] = true;
+			$_data[] = $row;
+			db_query("UPDATE ?:order_data SET data = ?s WHERE order_id = ?i AND type = ?s", serialize($_data), $reason['order_id'], POINTS);
+		    }
+		    fn_change_user_points( - $amount, $u_id, __('expired'), CHANGE_DUE_EXPIRATION);
 		}
 		db_query("UPDATE ?:reward_point_changes SET is_spent = 'Y' WHERE change_id = ?i", $log['change_id']);
-	    }
-	    if ($org_userpoints != $user_points) {
-		fn_change_user_points($user_points - $org_userpoints, $u_id, __('expired'), CHANGE_DUE_EXPIRATION);
 	    }
 	    if (!empty($spends)) {
 		foreach ($spends as $timestamp => $s_points) {
