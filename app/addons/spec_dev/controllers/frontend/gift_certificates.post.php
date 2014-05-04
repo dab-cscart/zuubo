@@ -12,27 +12,15 @@
 * "copyright.txt" FILE PROVIDED WITH THIS DISTRIBUTION PACKAGE.            *
 ****************************************************************************/
 
+use Tygh\Registry;
+
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
-define('DEVELOPMENT', true);
 
-fn_register_hooks(
-	'get_company_data_post',
-	'update_company',
-	'get_category_data_post',
-	'update_category_post',
-	'get_product_data_post',
-	'update_product_post',
-	'get_seo_vars',
-	'seo_empty_object_name',
-	'get_rewrite_rules',
-	'get_categories',
-	'get_products',
-	'get_product_data',
-	'get_category_data',
-	'get_product_filter_fields',
-	'get_products_before_select',
-	'get_filters_products_count_query_params',
-	'get_discussion',
-	'get_orders'
-);
+if ($mode == 'list') {
+
+    fn_add_breadcrumb(__('gift_certificates'));
+    $gift_certificates = db_get_array("SELECT * FROM ?:gift_certificates");
+    Registry::get('view')->assign('gift_certificates', $gift_certificates);
+    
+}

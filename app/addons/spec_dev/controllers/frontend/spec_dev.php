@@ -113,4 +113,28 @@ if ($mode == 'choose_location') {
     Registry::get('view')->assign('post_id', $_REQUEST['post_id']);
     Registry::get('view')->display('addons/spec_dev/components/post_vote.tpl');
     exit;
+} elseif ($mode == 'savings') {
+
+    fn_add_breadcrumb(__('savings'));
+    $params = $_REQUEST;
+    if (!empty($auth['user_id'])) {
+        $params['user_id'] = $auth['user_id'];
+
+    } elseif (!empty($auth['order_ids'])) {
+        if (empty($params['order_id'])) {
+            $params['order_id'] = $auth['order_ids'];
+        } else {
+            $ord_ids = is_array($params['order_id']) ? $params['order_id'] : explode(',', $params['order_id']);
+            $params['order_id'] = array_intersect($ord_ids, $auth['order_ids']);
+        }
+
+    } else {
+        return array(CONTROLLER_STATUS_REDIRECT, "auth.login_form?return_url=" . urlencode(Registry::get('config.current_url')));
+    }
+
+    list($orders, $search, $totals) = fn_get_orders($params, Registry::get('settings.Appearance.orders_per_page'), true);
+
+    Registry::get('view')->assign('orders', $orders);
+    Registry::get('view')->assign('search', $search);
+    Registry::get('view')->assign('totals', $totals);
 }

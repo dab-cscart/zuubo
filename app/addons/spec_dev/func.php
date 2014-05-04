@@ -16,6 +16,11 @@ use Tygh\Registry;
 
 if (!defined('BOOTSTRAP')) { die('Access denied'); }
 
+function fn_spec_dev_get_orders($params, &$fields, $sortings, $condition, $join, $group)
+{
+    $fields[] = '?:orders.discount + ?:orders.subtotal_discount AS savings';
+}
+
 function fn_spec_dev_get_discussion($object_id, $object_type, &$cache)
 {
     if (!empty($cache) && AREA == 'C' && $object_type == 'M' && Registry::ifGet('addons.discussion.company_only_buyers', 'Y') == 'Y') {

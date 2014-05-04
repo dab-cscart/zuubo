@@ -5160,6 +5160,9 @@ function fn_get_orders($params, $items_per_page = 0, $get_totals = false, $lang_
         $totals = array (
             'gross_total' => db_get_field("SELECT sum(t.total) FROM ( SELECT total FROM ?:orders $join WHERE 1 $condition $group) as t"),
             'totally_paid' => db_get_field("SELECT sum(t.total) FROM ( SELECT total FROM ?:orders $join WHERE ?:orders.status IN (?a) $condition $group) as t", $paid_statuses),
+            // [dab]
+            'savings' => db_get_field("SELECT sum(t.discount + t.subtotal_discount) FROM ( SELECT discount, subtotal_discount FROM ?:orders $join WHERE ?:orders.status IN (?a) $condition $group) as t", $paid_statuses),
+            // [dab]
         );
 
         $params['paid_statuses'] = $paid_statuses;
