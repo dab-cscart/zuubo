@@ -34,9 +34,9 @@
         <li {if $runtime.controller == 'profiles' && $runtime.mode == 'update'}class="active"{/if}><a href="{"profiles.update"|fn_url}" rel="nofollow">{__("profile_details")}</a></li>
         {* <li><a href="{"orders.downloads"|fn_url}" rel="nofollow">{__("downloads")}</a></li> *}
 
-    {if "MULTIVENDOR"|fn_allowed_for && $settings.Vendors.apply_for_vendor == "Y" && !$user_info.company_id}
+    {*if "MULTIVENDOR"|fn_allowed_for && $settings.Vendors.apply_for_vendor == "Y" && !$user_info.company_id}
         <li {if $runtime.controller == 'companies' && $runtime.mode == 'apply_for_vendor'}class="active"{/if}><a href="{"companies.apply_for_vendor?return_previous_url=`$return_current_url`"|fn_url}" rel="nofollow">{__("apply_for_vendor_account")}</a></li>
-    {/if}
+    {/if*}
     </ul>
 {*
     {if $settings.Appearance.display_track_orders == 'Y'}
