@@ -162,7 +162,7 @@ ul.dropdown-vertical > li {
     margin-bottom: 1px;
 }
 ul.dropdown-vertical > li.b-border {
-    border-bottom: 1px dotted #ccc;
+    /*border-bottom: 1px dotted #ccc;*/
 }
 ul.dropdown-vertical ul .b-border {
     border: none;

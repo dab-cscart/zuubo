@@ -4538,11 +4538,11 @@ p.stars i {
 }
 .pd-vendor-info p.stars i {
     font-size: 20px;
-    margin: 0 2px;
+    margin: 0 1px 0 0;
 }
 .pd-vendor-info .vendor-rating a, .pd-vendor-info .vendor-rating a:visited, .pd-vendor-info .vendor-rating a:hover, .pd-vendor-info .vendor-rating a:active {
     color: #0080ff;
-    font-size: 14px;
+    font-size: 13px;
 }
 .pd-vendor-info .rated-block.top-rated {
     background: url(../media/images/top_rated.png) no-repeat 100% 50%;
