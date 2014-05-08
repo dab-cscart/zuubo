@@ -115,7 +115,7 @@ function fn_get_discussion($object_id, $object_type, $get_posts = false, $params
 	}
 	foreach ($history as $state => $periods) {
 	    foreach ($periods as $period => $count) {
-		$cache[$_cache_key]['history'][$state][$period] = round($count / $total_count[$period] * 100, 1);
+		$cache[$_cache_key]['history'][$state][$period] = ($total_count[$period] > 0) ? round($count / $total_count[$period] * 100, 1) : 0;
 	    }
 	}
 	$cache[$_cache_key]['history']['total_count'] = $total_count;
